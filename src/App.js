@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { routes } from './routes/indexRoutes.js'
+import { routes } from './routes/indexRoutes'
 import DefaultComponent from './components/DefaultComponent/DefaultComponent'
 
 function App() {

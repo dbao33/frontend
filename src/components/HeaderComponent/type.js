@@ -23,5 +23,5 @@ export const WrapperHeaderAccout = styled.div`
     color: #fff;
     gap: 10px
     font-size: 16px;
-    
+    white-space: nowrap;
 `

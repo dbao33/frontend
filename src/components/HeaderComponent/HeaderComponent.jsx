@@ -1,7 +1,8 @@
 import React from 'react'
 import { Col, Avatar } from 'antd'
 import {
-  WrapperHeader, WrapperTextHeader, WrapperHeaderAccout
+  WrapperHeader, WrapperTextHeader, WrapperHeaderAccout,
+  WrapperTextHeaderSmall
 } from './type'
 import {
   UserOutlined, CaretDownOutlined, ShoppingCartOutlined
@@ -10,7 +11,7 @@ import ButtonInputSearch from '../ButtonInputSearch/ButtonInputSearch'
 const HeaderComponent = () => {
   return (
     <div>
-      <WrapperHeader gutter ={4}>
+      <WrapperHeader >
         <Col span={5}>
           <WrapperTextHeader>ABC_Shop</WrapperTextHeader>
         </Col>
@@ -24,7 +25,7 @@ const HeaderComponent = () => {
         </Col>
         <Col span={6} style={{ display: 'flex',justifyContent: 'center', gap:' 20px', alignItems: 'center' }}>
           <WrapperHeaderAccout>
-            <ShoppingCartOutlined style={{ fontSize: '40px' }}/>
+            <ShoppingCartOutlined style={{ fontSize: '40px' }} />
             <span >Giỏ hàng</span>
           </WrapperHeaderAccout>
           
