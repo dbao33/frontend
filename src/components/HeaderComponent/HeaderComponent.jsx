@@ -32,7 +32,7 @@ const HeaderComponent = () => {
             <WrapperHeaderAccout>
                 <Avatar size={40} style={{ backgroundColor: '#fff' }} icon={<UserOutlined style={{ color: '#000' }} />} />
              
-              <span >Tài khoản</span>
+              <span style={{ marginLeft: '5px'}}>Tài khoản</span>
               <CaretDownOutlined />
             </WrapperHeaderAccout>
               

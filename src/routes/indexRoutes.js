@@ -2,6 +2,7 @@ import HomePage from '../pages/HomePage/HomePage'
 import OrderPage from '../pages/OrderPage/OrderPage'
 import ProductsPage from '../pages/ProductsPage/ProductsPage'
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage'
+import TypeProductPage from '../pages/TypeProductPage/TypeProductPage'
 
 
 
@@ -12,16 +13,20 @@ export const routes = [
         isShowHeader: true
     },
     {
-        path: '/Order',
+        path: '/order',
         page: OrderPage,
         isShowHeader: true
     },
     {
-        path: '/Products',
+        path: '/products',
         page: ProductsPage,
         isShowHeader: true
     },
-
+    {
+        path: '/:type',
+        page: TypeProductPage,
+        isShowHeader: true
+    },
     {
         path: '*',
         page: NotFoundPage

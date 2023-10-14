@@ -29,7 +29,7 @@ const NavBarComponent = () => {
             case 'star':
                 return options.map((option) => {
                     return (
-                        <div style={{  display: 'flex',display:'inline-block'}}>
+                        <div style={{display:'inline-block'}}>
                             <Rate style={{ fontSize: '12px' }} disabled defaultValue={option} />
                             <span style={{ marginLeft: '5px'}}> từ {option} sao</span>
                         </div>
@@ -51,7 +51,7 @@ const NavBarComponent = () => {
         <div>
             <WrapperLabelText>Label</WrapperLabelText>
             <WrapperContent>
-                {renderContent('text', ['ASSUS', 'HP', 'DELL'])}
+                {renderContent('text', ['ASSUS', 'HP', 'DELL','Lenovo'])}
                 {renderContent('checkbox', [
                     { value: 'a', label: 'a' },
                     { value: 'b', label: 'b' }
