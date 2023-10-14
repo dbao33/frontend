@@ -23,9 +23,9 @@ const HomePage = () => {
             </div>
             <div id="container" style={{ backgroundColor: '#efefef', padding: '0 120px', height: '274px' }}>
                 <SliderComponent arrImages={[slider_1, slider_2, slider_4, slider_5]}/>
-            </div>
-            <div style={{marginTop: '20px',display: 'flex', alignItems: 'center', gap:'20px'}}>
-                <CardComponent />
+                <div style={{marginTop: '20px',display: 'flex', alignItems: 'center', gap:'20px'}}>
+                    <CardComponent />
+                </div>
             </div>
             
         </>
