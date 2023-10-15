@@ -2,9 +2,9 @@ import React from 'react'
 
 const TypeProduct = ({name}) => {
     return (
-        <div>
-           {name}
-            
+        <div
+            style={{ padding: '0 10px' }}>{name}
+
         </div>
     )
 }

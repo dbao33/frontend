@@ -5,7 +5,7 @@ import NotFoundPage from '../pages/NotFoundPage/NotFoundPage'
 import TypeProductPage from '../pages/TypeProductPage/TypeProductPage'
 import ProductDetailsPage from '../pages/ProductDetailsPage/ProductDetailsPage'
 import SignInPage from '../pages/SignInPage/SignInPage'
-
+import SignUpPage from '../pages/SignUpPage/SignUpPage'
 
 export const routes = [
     {
@@ -16,6 +16,11 @@ export const routes = [
     {
         path: '/sign-in',
         page: SignInPage,
+        isShowHeader: false
+    },
+    {
+        path: '/sign-up',
+        page: SignUpPage,
         isShowHeader: false
     },
     {

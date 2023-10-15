@@ -20,4 +20,5 @@ export const WrapperNavbar = styled(Col)`
 export const WrapperTextLight = styled.span`
     color: rgb(0, 113, 227);
     font-size: 16px;
+    cursor: pointer;
 `
