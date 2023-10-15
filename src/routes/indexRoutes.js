@@ -4,7 +4,7 @@ import ProductsPage from '../pages/ProductsPage/ProductsPage'
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage'
 import TypeProductPage from '../pages/TypeProductPage/TypeProductPage'
 import ProductDetailsPage from '../pages/ProductDetailsPage/ProductDetailsPage'
-
+import SignInPage from '../pages/SignInPage/SignInPage'
 
 
 export const routes = [
@@ -12,6 +12,11 @@ export const routes = [
         path: '/',
         page: HomePage,
         isShowHeader: true
+    },
+    {
+        path: '/sign-in',
+        page: SignInPage,
+        isShowHeader: false
     },
     {
         path: '/order',
