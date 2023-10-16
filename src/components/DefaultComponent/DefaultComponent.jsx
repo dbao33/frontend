@@ -1,7 +1,7 @@
-import React  from 'react'
+import React from 'react'
 import HeaderComponent from '../HeaderComponent/HeaderComponent'
 
-const DefaultComponent = ({children}) => {
+const DefaultComponent = ({ children }) => {
   return (
     <div>
       <HeaderComponent />

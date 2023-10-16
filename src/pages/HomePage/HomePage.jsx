@@ -7,7 +7,7 @@ import slider_1 from '../../assets/images/slider_1.png'
 import slider_4 from '../../assets/images/slider_4.jpg'
 import slider_5 from '../../assets/images/slider_5.jpg'
 import CardComponent from '../../components/CardComponent/CardComponent'
-import { Col, Row } from 'antd'
+import { Col } from 'antd'
 const HomePage = () => {
     const arr = ['ASUS', 'HP', 'DELL']
     return (

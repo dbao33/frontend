@@ -4,17 +4,17 @@ import InputComponent from '../InputComponent/InputComponent'
 import ButtonComponent from '../ButtonComponent/ButtonComponent'
 
 const ButtonInputSearch = (props) => {
-  const { 
+  const {
     size, placeholder, textButton,
     bordered, backgroundColorInput = '#fff',
     backgroundColorButton = '#fff',
     colorButton = '#000'
   } = props
-  
+
   return (
     <div style={{ display: 'flex', }}>
       <InputComponent
-        size={size} 
+        size={size}
         placeholder={placeholder}
         bordered={bordered}
         style={{
@@ -23,21 +23,21 @@ const ButtonInputSearch = (props) => {
           backgroundColor: backgroundColorInput
         }}
       />
-      
+
       <ButtonComponent
-        size={size}  
-        style={{ 
+        size={size}
+        style={{
           background: backgroundColorButton,
           border: !bordered && 'none',
-          borderTopLeftRadius: '0', 
-          borderBottomLeftRadius: '0' 
-        }}  
+          borderTopLeftRadius: '0',
+          borderBottomLeftRadius: '0'
+        }}
         icon={<SearchOutlined />}
         textButton={textButton}
         styleButton={{ color: colorButton }}
       />
     </div>
-    
+
   )
 }
 
