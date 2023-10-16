@@ -14,6 +14,9 @@ const HeaderComponent = () => {
   const handleNavigateHome = () => {
     navige('/')
   }
+  const handleNavigateLogin = () => {
+    navige('/sign-in')
+  }
   return (
     <div>
       <WrapperHeader >
@@ -23,7 +26,6 @@ const HeaderComponent = () => {
         <Col span={13} >
           <ButtonInputSearch
             size='large'
-            bordered={false}
             textButton='Tìm kiếm'
             placeholder='Nhập nội dung muốn tìm kiếm!'
           //onSearch={onSearch}
@@ -35,7 +37,7 @@ const HeaderComponent = () => {
             <span >Giỏ hàng</span>
           </WrapperHeaderAccout>
 
-          <WrapperHeaderAccout>
+          <WrapperHeaderAccout onClick={handleNavigateLogin} style={{ cursor: 'pointer' }}>
             <Avatar size={40} style={{ backgroundColor: '#fff' }} icon={<UserOutlined style={{ color: '#000', fontSize: '30px' }} />} />
 
             <span style={{ marginLeft: '5px' }}>Tài khoản</span>

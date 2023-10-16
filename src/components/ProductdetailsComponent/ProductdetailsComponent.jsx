@@ -88,7 +88,6 @@ const ProductdetailsComponent = () => {
 
                 <div style={{ display: 'flex', alignContent: 'center', gap: '12px' }}>
                     <ButtonComponent
-                        bordered={false}
                         size={40}
                         styleButton={{
                             background: 'rgb(5, 5, 7)',
@@ -101,7 +100,6 @@ const ProductdetailsComponent = () => {
                         styleTextButton={{ color: '#fff', fontSize: '15px', fontWeight: '700' }}
                     ></ButtonComponent>
                     <ButtonComponent
-                        bordered={false}
                         size={40}
                         styleButton={{
                             background: '#fff',
