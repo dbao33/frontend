@@ -7,6 +7,9 @@ import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
 import { WrapperTextLight } from '../TypeProductPage/style'
 import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
+import * as UserService from '../../services/UserService'
+import useMutationHooks from '../../hooks/UseMutationHook'
+import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
 const SignInPage = () => {
     const navige = useNavigate()
     const handleNavigateLogin = () => {
@@ -26,7 +29,15 @@ const SignInPage = () => {
     const handleOnChangeConfirmPassword = (value) => {
         setConfirmPassword(value)
     }
+
+    const mutation = useMutationHooks(data => UserService.UserSignUp(data))
+    const { data, isLoading } = mutation
     const showresult = () => {
+        mutation.mutate({
+            email,
+            password,
+            confirmPassword,
+        })
         console.log('value: ', email, password, confirmPassword)
     }
 
@@ -92,25 +103,28 @@ const SignInPage = () => {
                             onChange={handleOnChangeConfirmPassword}
                         />
                     </div>
+                    {data?.status === 'ERR' && (
+                        <span style={{ color: 'red' }}>{data?.message}</span>
+                    )}
 
-
-                    <ButtonComponent
-                        disabled={!email.length || !password.length || !confirmPassword.length}
-                        onClick={showresult}
-                        size={40}
-                        styleButton={{
-                            background: 'rgb(5, 5, 7)',
-                            height: '48px',
-                            width: '100%',
-                            borderRadius: '4px',
-                            border: 'none',
-                            margin: '26px 0 10px'
-                        }}
-                        textButton={'Đăng ký'}
-                        styleTextButton={{ color: '#fff', fontSize: '15px', fontWeight: '700' }}
-                    >
-                    </ButtonComponent>
-
+                    <LoadingComponent isLoading={isLoading}>
+                        <ButtonComponent
+                            disabled={!email.length || !password.length || !confirmPassword.length}
+                            onClick={showresult}
+                            size={40}
+                            styleButton={{
+                                background: 'rgb(5, 5, 7)',
+                                height: '48px',
+                                width: '100%',
+                                borderRadius: '4px',
+                                border: 'none',
+                                margin: '26px 0 10px'
+                            }}
+                            textButton={'Đăng ký'}
+                            styleTextButton={{ color: '#fff', fontSize: '15px', fontWeight: '700' }}
+                        >
+                        </ButtonComponent>
+                    </LoadingComponent>
                     <p style={{ fontSize: '16px' }}>
                         Bạn đã có tài khoản?<WrapperTextLight onClick={handleNavigateLogin} > Đăng nhập</WrapperTextLight></p>
 

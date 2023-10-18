@@ -10,7 +10,7 @@ function App() {
   //   fetchApi()
   // }, [])
 
-  console.log('env', process.env.REACT_API_URL_BE)
+  
   const fetchApi = async () => {
     const respone = await axios.get(`http://localhost:5000/v1/api/product/get-all-products`)
     // const respone = await axios.get(`${process.env.REACT_API_URL_BE}/product/get-all-products`)
