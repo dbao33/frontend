@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { WrapperContainerLeft, WrapperContainerRight } from '../SignInPage/style'
 import { Image } from 'antd'
 import imageLogo from '../../assets/images/sign-in.png'
@@ -10,6 +10,8 @@ import { useNavigate } from 'react-router-dom'
 import * as UserService from '../../services/UserService'
 import useMutationHooks from '../../hooks/UseMutationHook'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
+import * as Message from '../../components/Message/Message'
+
 const SignInPage = () => {
     const navige = useNavigate()
     const handleNavigateLogin = () => {
@@ -31,7 +33,16 @@ const SignInPage = () => {
     }
 
     const mutation = useMutationHooks(data => UserService.UserSignUp(data))
-    const { data, isLoading } = mutation
+    const { data, isLoading, isError, isSuccess } = mutation
+    useEffect(() => {
+        if (isSuccess) {
+            Message.success()
+            handleNavigateLogin()
+        } else if (isError) {
+            Message.error()
+        }
+    }, [isError, isSuccess])
+
     const showresult = () => {
         mutation.mutate({
             email,
@@ -62,12 +73,12 @@ const SignInPage = () => {
                     />
 
                     {/* <InputForm placeholder='password' /> */}
-                    <div style={{ fontSize: '18px', position: "relative" }}>
+                    <div style={{ fontSize: '18px', position: 'relative' }}>
                         <span
                             onClick={() => setIsShowPassword(!isShowPassword)}
                             style={{
                                 zIndex: 10,
-                                position: "absolute",
+                                position: 'absolute',
                                 top: '12px',
                                 right: '4px'
                             }}
@@ -75,20 +86,20 @@ const SignInPage = () => {
                             {isShowPassword ? <EyeFilled /> : <EyeInvisibleFilled />}
                         </span>
                         <InputForm
-                            style={{ marginBottom: "15px" }}
-                            placeholder="password"
-                            type={isShowPassword ? "text" : "password"}
+                            style={{ marginBottom: '15px' }}
+                            placeholder='password'
+                            type={isShowPassword ? 'text' : 'password'}
                             value={password}
                             onChange={handleOnChangePassword}
                         />
                     </div>
                     {/* <InputForm style={{ marginBottom: '10px' }} placeholder='comfirm password' /> */}
-                    <div style={{ fontSize: '18px', position: "relative" }}>
+                    <div style={{ fontSize: '18px', position: 'relative' }}>
                         <span
                             onClick={() => setIsShowConfirmPassword(!isShowConfirmPassword)}
                             style={{
                                 zIndex: 10,
-                                position: "absolute",
+                                position: 'absolute',
                                 top: '12px',
                                 right: '4px'
                             }}
@@ -96,9 +107,9 @@ const SignInPage = () => {
                             {isShowConfirmPassword ? <EyeFilled /> : <EyeInvisibleFilled />}
                         </span>
                         <InputForm
-                            style={{ marginBottom: "15px" }}
-                            placeholder="confirm password"
-                            type={isShowConfirmPassword ? "text" : "password"}
+                            style={{ marginBottom: '15px' }}
+                            placeholder='confirm password'
+                            type={isShowConfirmPassword ? 'text' : 'password'}
                             value={confirmPassword}
                             onChange={handleOnChangeConfirmPassword}
                         />

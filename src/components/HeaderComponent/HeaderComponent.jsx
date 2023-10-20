@@ -9,6 +9,8 @@ import {
 } from '@ant-design/icons'
 import ButtonInputSearch from '../ButtonInputSearch/ButtonInputSearch'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+
 const HeaderComponent = () => {
   const navige = useNavigate()
   const handleNavigateHome = () => {
@@ -17,11 +19,12 @@ const HeaderComponent = () => {
   const handleNavigateLogin = () => {
     navige('/sign-in')
   }
+  const user = useSelector((state) => state.user)
   return (
     <div>
       <WrapperHeader >
         <Col span={5}>
-          <WrapperTextHeader onClick={handleNavigateHome}>ABC_Shop</WrapperTextHeader>
+          <WrapperTextHeader onClick={handleNavigateHome}>SRyu Shop</WrapperTextHeader>
         </Col>
         <Col span={13} >
           <ButtonInputSearch
@@ -39,9 +42,17 @@ const HeaderComponent = () => {
 
           <WrapperHeaderAccout onClick={handleNavigateLogin} style={{ cursor: 'pointer' }}>
             <Avatar size={40} style={{ backgroundColor: '#fff' }} icon={<UserOutlined style={{ color: '#000', fontSize: '30px' }} />} />
+            {/* ten dang nhap */}
+            {user?.name ? (
+              <span style={{ marginLeft: '5px' }}>{user?.name}</span>
+            ) : (
+              <>
+                <span style={{ marginLeft: '5px' }}>Tài khoản</span>
+                <CaretDownOutlined />
+              </>
+            )}
 
-            <span style={{ marginLeft: '5px' }}>Tài khoản</span>
-            <CaretDownOutlined />
+
           </WrapperHeaderAccout>
 
         </Col>

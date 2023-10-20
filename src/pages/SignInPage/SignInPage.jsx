@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { WrapperContainerLeft, WrapperContainerRight } from './style'
 import { Image } from 'antd'
 import imageLogo from '../../assets/images/sign-in.png'
@@ -10,6 +10,10 @@ import { useNavigate } from 'react-router-dom'
 import * as UserService from '../../services/UserService'
 import useMutationHooks from '../../hooks/UseMutationHook'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
+import jwt_decode from 'jwt-decode'
+import { updateUser } from '../../redux/slides/userSlide'
+import { useDispatch } from 'react-redux'
+
 const SignInPage = () => {
     const navige = useNavigate()
     const handleNavigateSignUp = () => {
@@ -29,7 +33,30 @@ const SignInPage = () => {
 
     const mutation = useMutationHooks(data => UserService.UserLogin(data))
     // console.log('mutation', mutation)
-    const { data, isLoading } = mutation
+    const { data, isLoading, isSuccess } = mutation
+
+    const dispatch = useDispatch()
+    const handleGetDetailsUser = async (id, token) => {
+        // lay duoc du lieu tu backend
+        const response = await UserService.getDetailsUser(id, token)
+        console.log('response:', response)
+        dispatch(updateUser({ ...response?.data, access_token: token }))
+    }
+    
+    useEffect(() => {
+        if (isSuccess) {
+            navige('/')
+            localStorage.setItem('acess_token', data?.access_token)
+            if (data?.access_token) {
+                const decoded = jwt_decode(data?.access_token)
+                console.log('decoded:', decoded)
+                if (decoded?.id) {
+                    handleGetDetailsUser(decoded?.id, data?.access_token)
+                }
+            }
+        }
+    }, [isSuccess])
+
     const showresult = () => {
         mutation.mutate({
             email,
@@ -71,8 +98,8 @@ const SignInPage = () => {
                             {isShowPassword ? <EyeFilled /> : <EyeInvisibleFilled />}
                         </span>
                         <InputForm style={{ marginBottom: '15px' }}
-                            placeholder="password"
-                            type={isShowPassword ? "text" : "password"}
+                            placeholder='password'
+                            type={isShowPassword ? 'text' : 'password'}
                             value={password}
                             onChange={handleOnChangePassword}
                         />
@@ -99,7 +126,7 @@ const SignInPage = () => {
                         >
                         </ButtonComponent>
                     </LoadingComponent>
-                    
+
                     <p style={{ fontSize: '16px' }}>
                         <WrapperTextLight>Quên mật khẩu</WrapperTextLight></p>
 
