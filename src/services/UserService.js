@@ -1,17 +1,29 @@
 import axios from 'axios'
 
+export const axiosJWT = axios.create()
+
 export const UserLogin = async (data) => {
-    const response = await axios.post(`http://localhost:5000/v1/api/user/sign-in`, data)
+    const response = await axios.post(`http://localhost:3000/v1/api/user/sign-in`, data)
     return response.data
 }
 export const UserSignUp = async (data) => {
-    const response = await axios.post(`http://localhost:5000/v1/api/user/sign-up`, data)
+    const response = await axios.post(`http://localhost:3000/v1/api/user/sign-up`, data)
     return response.data
 }
 export const getDetailsUser = async (id, access_token) => {
-    const response = await axios.get(`http://localhost:5000/v1/api/user/get-details-user/${id}`, {
+    const response = await
+        axiosJWT.get(`http://localhost:3000/v1/api/user/get-details-user/${id}`, {
+            headers: {
+                token: `Bearer ${access_token}`,
+            }
+        })
+    return response.data
+}
+
+export const refreshToken = async () => {
+    const response = await axios.post(`http://localhost:3000/v1/api/user/refresh-token`, {
         headers: {
-            token: `Bearer ${access_token}`,
+            withCredentials: true
         }
     })
     return response.data

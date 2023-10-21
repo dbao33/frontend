@@ -39,17 +39,15 @@ const SignInPage = () => {
     const handleGetDetailsUser = async (id, token) => {
         // lay duoc du lieu tu backend
         const response = await UserService.getDetailsUser(id, token)
-        console.log('response:', response)
         dispatch(updateUser({ ...response?.data, access_token: token }))
     }
-    
+
     useEffect(() => {
         if (isSuccess) {
             navige('/')
-            localStorage.setItem('acess_token', data?.access_token)
+            localStorage.setItem('access_token', JSON.stringify(data?.access_token))
             if (data?.access_token) {
                 const decoded = jwt_decode(data?.access_token)
-                console.log('decoded:', decoded)
                 if (decoded?.id) {
                     handleGetDetailsUser(decoded?.id, data?.access_token)
                 }
