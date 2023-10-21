@@ -37,12 +37,12 @@ const TypeProductPage = () => {
                 <Col
                     span={4}
                     style={{
-                        background: "#fff",
-                        borderRadius: "4px 0 0 4px",
-                        width: "200px",
-                        height: "fit-content",
-                        paddingTop: "10px",
-                        paddingBottom: "10px",
+                        background: '#fff',
+                        borderRadius: '4px 0 0 4px',
+                        width: '200px',
+                        height: 'fit-content',
+                        paddingTop: '10px',
+                        paddingBottom: '10px',
                     }}
                 >
                     <NavBarComponent />
@@ -50,44 +50,44 @@ const TypeProductPage = () => {
                 <Col span={20}>
                     <div
                         style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "20px",
-                            marginTop: "20px",
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '20px',
+                            marginTop: '20px',
                         }}
                     >
                         <Row gutter={[10, 10]}>
-                            <Col className="gutter-row" span={2 / 4}>
+                            <Col className='gutter-row' span={2 / 4}>
                                 <div>
                                     <CardComponent />
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={2 / 4}>
+                            <Col className='gutter-row' span={2 / 4}>
                                 <div>
                                     <CardComponent />
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={2 / 4}>
+                            <Col className='gutter-row' span={2 / 4}>
                                 <div>
                                     <CardComponent />
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={2 / 4}>
+                            <Col className='gutter-row' span={2 / 4}>
                                 <div>
                                     <CardComponent />
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={2 / 4}>
+                            <Col className='gutter-row' span={2 / 4}>
                                 <div>
                                     <CardComponent />
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={2 / 4}>
+                            <Col className='gutter-row' span={2 / 4}>
                                 <div>
                                     <CardComponent />
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={2 / 4}>
+                            <Col className='gutter-row' span={2 / 4}>
                                 <div>
                                     <CardComponent />
                                 </div>
@@ -100,7 +100,7 @@ const TypeProductPage = () => {
                                 defaultCurrent={2}
                                 total={100}
                                 onChange={onChange}
-                                style={{ textAlign: "center", marginTop: "10px" }}
+                                style={{ textAlign: 'center', marginTop: '10px' }}
                             />
                         </Col>
                     </Row>

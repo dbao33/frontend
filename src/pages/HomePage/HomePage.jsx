@@ -41,37 +41,37 @@ const HomePage = () => {
                                 lg: 8,
                             }} style={{ justifyContent: 'center' }}
                         >
-                            <Col className="gutter-row" span={2 / 4} >
+                            <Col className='gutter-row' span={2 / 4} >
                                 <div>
                                     <CardComponent />
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={2 / 4}>
+                            <Col className='gutter-row' span={2 / 4}>
                                 <div>
                                     <CardComponent />
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={2 / 4}>
+                            <Col className='gutter-row' span={2 / 4}>
                                 <div>
                                     <CardComponent />
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={2 / 4}>
+                            <Col className='gutter-row' span={2 / 4}>
                                 <div>
                                     <CardComponent />
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={2 / 4}>
+                            <Col className='gutter-row' span={2 / 4}>
                                 <div>
                                     <CardComponent />
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={2 / 4}>
+                            <Col className='gutter-row' span={2 / 4}>
                                 <div>
                                     <CardComponent />
                                 </div>
                             </Col>
-                            <Col className="gutter-row" span={2 / 4}>
+                            <Col className='gutter-row' span={2 / 4}>
                                 <div>
                                     <CardComponent />
                                 </div>

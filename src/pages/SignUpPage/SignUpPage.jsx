@@ -49,7 +49,7 @@ const SignInPage = () => {
             password,
             confirmPassword,
         })
-        console.log('value: ', email, password, confirmPassword)
+        // console.log('value: ', email, password, confirmPassword)
     }
 
     return (

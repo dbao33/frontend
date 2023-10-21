@@ -22,7 +22,7 @@ function App() {
       storageData = JSON.parse(storageData)
       decoded = jwt_decode(storageData)
     }
-    console.log('response.data,a[pp', storageData)
+    // console.log('response.data,a[pp', storageData)
     return { storageData, decoded }
 
   }
