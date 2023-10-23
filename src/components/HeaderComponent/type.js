@@ -26,3 +26,11 @@ export const WrapperHeaderAccout = styled.div`
     font-size: 16px;
     white-space: nowrap;
 `
+export const WrapperContentPopup = styled.p`
+    cursor: pointer;
+    &:hover {
+        background: #050507;;
+        color: #fff;
+        white-space: nowrap;
+    }
+`

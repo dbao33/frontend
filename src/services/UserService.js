@@ -28,3 +28,12 @@ export const refreshToken = async () => {
     })
     return response.data
 }
+
+export const logOutUser = async () => {
+    const response = await axios.post(`http://localhost:3000/v1/api/user/log-out`, {
+        headers: {
+            withCredentials: true
+        }
+    })
+    return response.data
+}
