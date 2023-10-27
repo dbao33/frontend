@@ -71,7 +71,7 @@ function App() {
             return (
 
               <Route key={route.path}
-                path={isCheckAuth && typeof route.path === 'string' ? route.path : null}
+                path={isCheckAuth && route.path}
                 element={
                   <Layout>
                     <Page />
