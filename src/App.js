@@ -7,7 +7,6 @@ import { isJsonString } from './untils'
 import { updateUser } from './redux/slides/userSlide'
 import { useDispatch, useSelector } from 'react-redux'
 import * as UserService from './services/UserService'
-import LoadingComponent from './components/LoadingComponent/LoadingComponent'
 
 function App() {
 
@@ -66,7 +65,7 @@ function App() {
           {routes.map((route) => {
             const Page = route.page
             const Layout = route.isShowHeader ? DefaultComponent : Fragment
-            const isCheckAuth = !route.isPrivate || user.isAdmin
+            const isCheckAuth = !route.isPrivate || user.isAdmin || ''
 
             return (
 
