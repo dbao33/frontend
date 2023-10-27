@@ -45,14 +45,11 @@ function App() {
     // lay duoc du lieu tu backend
     const response = await UserService.getDetailsUser(id, token)
     dispatch(updateUser({ ...response?.data, access_token: token }))
-    setIsLoading(false)
   }
 
   const user = useSelector((state) => state.user)
-  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    setIsLoading(true)
     const { storageData, decoded } = handleDecoded()
 
     if (decoded?.id) {
@@ -64,28 +61,27 @@ function App() {
   return (
 
     < div >
-      <LoadingComponent isLoading={isLoading}>
-        <Router>
-          <Routes>
-            {routes.map((route) => {
-              const Page = route.page
-              const Layout = route.isShowHeader ? DefaultComponent : Fragment
-              const isCheckAuth = !route.isPrivate || user.isAdmin
+      <Router>
+        <Routes>
+          {routes.map((route) => {
+            const Page = route.page
+            const Layout = route.isShowHeader ? DefaultComponent : Fragment
+            const isCheckAuth = !route.isPrivate || user.isAdmin
 
-              return (
+            return (
 
-                <Route key={route.path}
-                  path={route.path} element={
-                    <Layout>
-                      <Page />
-                    </Layout>
-                  } />
-              )
+              <Route key={route.path}
+                path={isCheckAuth && typeof route.path === 'string' ? route.path : null}
+                element={
+                  <Layout>
+                    <Page />
+                  </Layout>
+                } />
+            )
 
-            })}
-          </Routes>
-        </Router>
-      </LoadingComponent>
+          })}
+        </Routes>
+      </Router>
 
     </div >
   )
