@@ -2,13 +2,12 @@ import React, { Fragment, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { routes } from './routes/indexRoutes'
 import DefaultComponent from './components/DefaultComponent/DefaultComponent'
-import axios from 'axios'
-import { useQuery } from '@tanstack/react-query'
 import jwt_decode from 'jwt-decode'
 import { isJsonString } from './untils'
 import { updateUser } from './redux/slides/userSlide'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as UserService from './services/UserService'
+import LoadingComponent from './components/LoadingComponent/LoadingComponent'
 
 function App() {
 
@@ -46,9 +45,14 @@ function App() {
     // lay duoc du lieu tu backend
     const response = await UserService.getDetailsUser(id, token)
     dispatch(updateUser({ ...response?.data, access_token: token }))
+    setIsLoading(false)
   }
 
+  const user = useSelector((state) => state.user)
+  const [isLoading, setIsLoading] = useState(false)
+
   useEffect(() => {
+    setIsLoading(true)
     const { storageData, decoded } = handleDecoded()
 
     if (decoded?.id) {
@@ -57,32 +61,32 @@ function App() {
 
   }, [])
 
-  const fetchApi = async () => {
-    const respone = await axios.get(`http://localhost:5000/v1/api/product/get-all-products`)
-    // const respone = await axios.get(`${process.env.REACT_API_URL_BE}/product/get-all-products`)
-
-    return respone.data
-  }
-  const query = useQuery({ queryKey: ['todos'], queryFn: fetchApi })
-  // console.log('query', query)
   return (
 
     < div >
-      <Router>
-        <Routes>
-          {routes.map((route) => {
-            const Page = route.page
-            const Layout = route.isShowHeader ? DefaultComponent : Fragment
-            return (
-              <Route key={route.path} path={route.path} element={
-                <Layout>
-                  <Page />
-                </Layout>
-              } />
-            )
-          })}
-        </Routes>
-      </Router>
+      <LoadingComponent isLoading={isLoading}>
+        <Router>
+          <Routes>
+            {routes.map((route) => {
+              const Page = route.page
+              const Layout = route.isShowHeader ? DefaultComponent : Fragment
+              const isCheckAuth = !route.isPrivate || user.isAdmin
+
+              return (
+
+                <Route key={route.path}
+                  path={route.path} element={
+                    <Layout>
+                      <Page />
+                    </Layout>
+                  } />
+              )
+
+            })}
+          </Routes>
+        </Router>
+      </LoadingComponent>
+
     </div >
   )
 }

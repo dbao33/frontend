@@ -1,5 +1,4 @@
 import React from 'react'
-import { Card } from 'antd'
 import {
     StyleNameProduct, WrapperReportText, WrapperStyleTextSell,
     WrapperPriceText, WrapperPriceDiscountText, WrapperCardStyle
@@ -7,8 +6,9 @@ import {
 import { StarFilled } from '@ant-design/icons'
 import logo from '../../assets/images/logo.png'
 
-const CardComponent = () => {
-    const { Meta } = Card
+const CardComponent = (props) => {
+    const { countInStock, description, image,
+        name, price, rating, type, discount, selled, id } = props
     return (
         <WrapperCardStyle
             hoverable
@@ -30,16 +30,16 @@ const CardComponent = () => {
                     width: '68px'
                 }}
             />
-            <StyleNameProduct>Lenovo</StyleNameProduct>
+            <StyleNameProduct>{name}</StyleNameProduct>
             <WrapperReportText>
                 <span style={{ marginRight: '4px' }}>
-                    <span>4.5</span> <StarFilled style={{ fontSize: '12px', color: 'rgb(253, 216, 54)' }} />
+                    <span>{rating}</span> <StarFilled style={{ fontSize: '15px', color: 'rgb(253, 216, 54)' }} />
                 </span>
-                <WrapperStyleTextSell>  |  Da ban 1000+ </WrapperStyleTextSell>
+                <WrapperStyleTextSell> |  Đã bán {selled || 1000}+ </WrapperStyleTextSell>
             </WrapperReportText>
-            <WrapperPriceText>19.000.000d
+            <WrapperPriceText>{price}
                 <WrapperPriceDiscountText style={{ marginLeft: '6px' }}>
-                    -15%
+                    {discount || 5}%
                 </WrapperPriceDiscountText>
             </WrapperPriceText>
         </WrapperCardStyle>
