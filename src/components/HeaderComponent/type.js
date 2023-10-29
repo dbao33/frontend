@@ -29,8 +29,10 @@ export const WrapperHeaderAccout = styled.div`
 export const WrapperContentPopup = styled.p`
     cursor: pointer;
     &:hover {
-        background: #050507;;
-        color: #fff;
+        color: rgb(1, 82, 215);
         white-space: nowrap;
     }
+`
+export const HeaderProfile = styled(Row)`
+  
 `
