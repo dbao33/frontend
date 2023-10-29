@@ -8,8 +8,25 @@ import slider_4 from '../../assets/images/slider_4.jpg'
 import slider_5 from '../../assets/images/slider_5.jpg'
 import CardComponent from '../../components/CardComponent/CardComponent'
 import { Col } from 'antd'
+import * as ProductService from '../../services/ProductService'
+import { useQuery } from '@tanstack/react-query'
+
 const HomePage = () => {
     const arr = ['ASUS', 'HP', 'DELL']
+
+    const fetchProductAll = async () => {
+        const response = await ProductService.getAllProducts()
+        return response
+    }
+    const { data: products } = useQuery(
+        ["products"],
+        fetchProductAll,
+        {
+            retry: 3,
+            retryDelay: 1000,
+        }
+    )
+    // console.log("products: ", products)
     return (
         <>
             <div style={{ padding: '0 120px', margin: '0 auto' }}>
@@ -33,6 +50,7 @@ const HomePage = () => {
                         <CardComponent />
                         <CardComponent />
                         <CardComponent /> */}
+
                         <WrapperProducts
                             gutter={{
                                 xs: 8,
@@ -41,41 +59,27 @@ const HomePage = () => {
                                 lg: 8,
                             }} style={{ justifyContent: 'center' }}
                         >
-                            <Col className='gutter-row' span={2 / 4} >
-                                <div>
-                                    <CardComponent />
-                                </div>
-                            </Col>
-                            <Col className='gutter-row' span={2 / 4}>
-                                <div>
-                                    <CardComponent />
-                                </div>
-                            </Col>
-                            <Col className='gutter-row' span={2 / 4}>
-                                <div>
-                                    <CardComponent />
-                                </div>
-                            </Col>
-                            <Col className='gutter-row' span={2 / 4}>
-                                <div>
-                                    <CardComponent />
-                                </div>
-                            </Col>
-                            <Col className='gutter-row' span={2 / 4}>
-                                <div>
-                                    <CardComponent />
-                                </div>
-                            </Col>
-                            <Col className='gutter-row' span={2 / 4}>
-                                <div>
-                                    <CardComponent />
-                                </div>
-                            </Col>
-                            <Col className='gutter-row' span={2 / 4}>
-                                <div>
-                                    <CardComponent />
-                                </div>
-                            </Col>
+                            {products?.data?.map((product) => {
+                                return (
+                                    <Col className='gutter-row' span={2 / 4} >
+                                        <div>
+                                            <CardComponent
+                                                key={product._id}
+                                                countInStock={product.countInStock}
+                                                description={product.description}
+                                                image={product.image}
+                                                name={product.name}
+                                                price={product.price}
+                                                rating={product.rating}
+                                                type={product.type}
+                                                selled={product.selled}
+                                                discount={product.discount}
+                                                id={product._id}
+                                            />
+                                        </div>
+                                    </Col>
+                                )
+                            })}
                         </WrapperProducts>
                     </WrapperProducts>
                     <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '10px' }}>

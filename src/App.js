@@ -2,12 +2,10 @@ import React, { Fragment, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { routes } from './routes/indexRoutes'
 import DefaultComponent from './components/DefaultComponent/DefaultComponent'
-import axios from 'axios'
-import { useQuery } from '@tanstack/react-query'
 import jwt_decode from 'jwt-decode'
 import { isJsonString } from './untils'
 import { updateUser } from './redux/slides/userSlide'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as UserService from './services/UserService'
 
 function App() {
@@ -48,6 +46,8 @@ function App() {
     dispatch(updateUser({ ...response?.data, access_token: token }))
   }
 
+  const user = useSelector((state) => state.user)
+
   useEffect(() => {
     const { storageData, decoded } = handleDecoded()
 
@@ -57,14 +57,6 @@ function App() {
 
   }, [])
 
-  const fetchApi = async () => {
-    const respone = await axios.get(`http://localhost:5000/v1/api/product/get-all-products`)
-    // const respone = await axios.get(`${process.env.REACT_API_URL_BE}/product/get-all-products`)
-
-    return respone.data
-  }
-  const query = useQuery({ queryKey: ['todos'], queryFn: fetchApi })
-  // console.log('query', query)
   return (
 
     < div >
@@ -73,16 +65,23 @@ function App() {
           {routes.map((route) => {
             const Page = route.page
             const Layout = route.isShowHeader ? DefaultComponent : Fragment
+            const isCheckAuth = !route.isPrivate || user.isAdmin || ''
+
             return (
-              <Route key={route.path} path={route.path} element={
-                <Layout>
-                  <Page />
-                </Layout>
-              } />
+
+              <Route key={route.path}
+                path={isCheckAuth && route.path}
+                element={
+                  <Layout>
+                    <Page />
+                  </Layout>
+                } />
             )
+
           })}
         </Routes>
       </Router>
+
     </div >
   )
 }
