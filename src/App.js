@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { routes } from './routes/indexRoutes'
 import DefaultComponent from './components/DefaultComponent/DefaultComponent'
@@ -7,8 +7,11 @@ import { isJsonString } from './untils'
 import { updateUser } from './redux/slides/userSlide'
 import { useDispatch, useSelector } from 'react-redux'
 import * as UserService from './services/UserService'
+import LoadingComponent from './components/LoadingComponent/LoadingComponent'
 
 function App() {
+
+  const [isLoading, setLoading] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -49,38 +52,44 @@ function App() {
   const user = useSelector((state) => state.user)
 
   useEffect(() => {
+    setLoading(true)
     const { storageData, decoded } = handleDecoded()
 
     if (decoded?.id) {
       handleGetDetailsUser(decoded?.id, storageData);
     }
 
+    setLoading(false)
+
   }, [])
 
   return (
 
     < div >
-      <Router>
-        <Routes>
-          {routes.map((route) => {
-            const Page = route.page
-            const Layout = route.isShowHeader ? DefaultComponent : Fragment
-            const isCheckAuth = !route.isPrivate || user.isAdmin || ''
+      <LoadingComponent isLoading={isLoading}>
+        <Router>
+          <Routes>
+            {routes.map((route) => {
+              const Page = route.page
+              const Layout = route.isShowHeader ? DefaultComponent : Fragment
+              const isCheckAuth = !route.isPrivate || user.isAdmin || ''
 
-            return (
+              return (
 
-              <Route key={route.path}
-                path={isCheckAuth && route.path}
-                element={
-                  <Layout>
-                    <Page />
-                  </Layout>
-                } />
-            )
+                <Route key={route.path}
+                  path={isCheckAuth && route.path}
+                  element={
+                    <Layout>
+                      <Page />
+                    </Layout>
+                  } />
+              )
 
-          })}
-        </Routes>
-      </Router>
+            })}
+          </Routes>
+        </Router>
+      </LoadingComponent>
+
 
     </div >
   )
