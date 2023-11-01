@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { PlusOutlined } from '@ant-design/icons'
+import { PlusOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import TableComponent from '../TableComponent/TableComponent'
 import { Button, Form, Modal } from 'antd'
 import { WrapperHeader, WrapperUploadFile } from '../AdminUser/style'
@@ -10,6 +10,7 @@ import * as ProductService from '../../services/ProductService'
 import * as Message from '../../components/Message/Message'
 import { getBase64 } from '../../untils'
 import LoadingComponent from '../LoadingComponent/LoadingComponent'
+import { useQuery } from '@tanstack/react-query'
 
 const AdminProduct = () => {
 
@@ -23,6 +24,9 @@ const AdminProduct = () => {
         type: '',
         countInStock: '',
     })
+
+    const [form] = Form.useForm();
+
     const mutation = useMutationHooks((data) => {
         const {
             name,
@@ -45,7 +49,53 @@ const AdminProduct = () => {
         })
         return response
     })
+
+    const getAllProducts = async () => {
+        const response = await ProductService.getAllProduct()
+        return response;
+    }
     const { data, isLoading, isError, isSuccess } = mutation
+
+    const {isLoading : isLoadingProducts, data : products} = useQuery({
+        queryKey:['products'], 
+        queryFn: getAllProducts
+    })
+
+    const renderAction = () => {
+        <div>
+            <DeleteOutlined style={{ color: 'red', fontSize: '30px', cursor: 'pointer' }} />
+            <EditOutlined style={{ color: 'red', fontSize: '30px', cursor: 'pointer' }}/>
+        </div>
+    }
+
+    const columns = [
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            render: (text) => <a>{text}</a>,
+        },
+        {
+            title: 'Price',
+            dataIndex: 'price',
+        },
+        {
+            title: 'Rating',
+            dataIndex: 'rating',
+        },
+        {
+            title: 'Type',
+            dataIndex: 'type',
+        },
+        {
+            title: 'Action',
+            dataIndex: 'action',
+            render: renderAction,
+
+        },
+    ]
+    const dataTable = products?.data?.length && products?.data?.map((product) => {
+        return  {...product, key: product._id}
+    })
 
     const onFinish = () => {
         mutation.mutate(product)
@@ -62,6 +112,7 @@ const AdminProduct = () => {
             type: '',
             countInStock: '',
         })
+    form.resetFields();
     }
     // khi tao 1 san moi thanh cong thi
     useEffect(() => {
@@ -104,7 +155,7 @@ const AdminProduct = () => {
                     <PlusOutlined style={{ fontSize: '60px' }} />
                 </Button>
             </div>
-            <TableComponent />
+            <TableComponent columns={columns} isLoading={isLoadingProducts} data = {dataTable} />
             <Modal
                 title='Tạo sản phẩm'
                 open={isModalOpen}
@@ -125,6 +176,7 @@ const AdminProduct = () => {
                         }}
                         onFinish={onFinish}
                         autoComplete='off'
+                        form={form}
                     >
                         <Form.Item
                             label='Name'
