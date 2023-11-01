@@ -12,50 +12,35 @@ import * as ProductService from '../../services/ProductService'
 import { useQuery } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
-import { useDebounce } from '../../hooks/useDebounce'
+import { useDebounce } from '../../hooks/valueDebounce'
 
 const HomePage = () => {
 
     // fillter
     const SearchProduct = useSelector((state) => state?.product?.search)
-    const refSearch = useRef()
-    const [stateProduct, setStateProduct] = useState([])
     const [isLoadingSearch, setIsLoadingSearch] = useState(false)
     const searchDebounce = useDebounce(SearchProduct, 1000)
-    const arr = ['LENOVO','ASUS', 'HP', 'DELL']
+    const arr = ['LENOVO', 'ASUS', 'HP', 'DELL']
 
-    const fetchProductAll = async (search) => {
-        const response = await ProductService.getAllProducts(search)
-        if (search?.length > 0 || refSearch.current) {
-            setStateProduct(response?.data)
-        } else {
-            return response
-        }
+    const [limit, setLimit] = useState(5)
+    const fetchProductAll = async (context) => {
+        const limit = context?.queryKey && context?.queryKey[1]
+        const search = context?.queryKey && context?.queryKey[2]
+        const response = await ProductService.getAllProducts(search, limit)
+        return response
     }
 
-    const { isLoading, data: products } = useQuery(
-        ['products'],
+    const { isLoading, data: products, isPreviousData } = useQuery(
+        ['products', limit, searchDebounce],
         fetchProductAll,
         {
             retry: 3,
             retryDelay: 1000,
+            keepPreviousData: true,
         }
     )
+    console.log('products', products)
 
-    useEffect(() => {
-        if (refSearch.current) {
-            setIsLoadingSearch(true)
-            fetchProductAll(searchDebounce)
-        }
-        refSearch.current = true
-        setIsLoadingSearch(false)
-    }, [searchDebounce])
-
-    useEffect(() => {
-        if (products?.data?.length > 0) {
-            setStateProduct(products?.data)
-        }
-    }, [products])
     return (
         <>
             <LoadingComponent isLoading={isLoading || isLoadingSearch}>
@@ -74,12 +59,6 @@ const HomePage = () => {
                     <div id='container' style={{ height: '1000px', width: '100%', margin: '0 auto' }}>
                         <SliderComponent arrImages={[slider_1, slider_2, slider_4, slider_5]} />
                         <WrapperProducts>
-                            {/* <CardComponent />
-                        <CardComponent />
-                        <CardComponent />
-                        <CardComponent />
-                        <CardComponent />
-                        <CardComponent /> */}
 
                             <WrapperProducts
                                 gutter={{
@@ -89,7 +68,7 @@ const HomePage = () => {
                                     lg: 8,
                                 }} style={{ justifyContent: 'center' }}
                             >
-                                {stateProduct?.map((product) => {
+                                {products?.data?.map((product) => {
                                     return (
                                         <Col className='gutter-row' span={2 / 4} >
                                             <div>
@@ -113,12 +92,24 @@ const HomePage = () => {
                             </WrapperProducts>
                         </WrapperProducts>
                         <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
-                            <WrapperButtonMore textButton='Xem Thêm' type='outline' styleButton={{
-                                border: '1px solid rgb(5, 5, 7)',
-                                color: 'rgb(5, 5, 7)', width: '240px',
-                                height: '38px', borderRadius: '4px'
-                            }}
-                                styleTextButton={{ fontWeight: 500 }} />
+                            <WrapperButtonMore
+                                textButton={isPreviousData ? 'Xem Thêm' : 'Xem Thêm'}
+                                type='outline'
+                                styleButton={{
+                                    border: '1px solid rgb(5, 5, 7)',
+                                    width: '240px',
+                                    height: '38px', borderRadius: '4px',
+                                    color: `${products?.total === products?.data?.length
+                                        ? '#ccc'
+                                        : 'rgb(5, 5, 7)'
+                                        }`,
+                                }}
+                                styleTextButton={{
+                                    fontWeight: 500, color: products?.total === products?.data?.length && '#fff'
+                                }}
+                                disabled={products?.total === products?.data?.length || products?.totalPages === 1}
+                                onClick={() => setLimit((prev) => prev + 5)}
+                            />
                         </div>
                     </div>
                 </div>

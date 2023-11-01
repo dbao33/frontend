@@ -5,22 +5,28 @@ import {
 } from './style'
 import { StarFilled } from '@ant-design/icons'
 import logo from '../../assets/images/logo.png'
+import { useNavigate } from 'react-router-dom'
 
 const CardComponent = (props) => {
     const { countInStock, description, image,
         name, price, rating, type, discount, selled, id } = props
+    const navigate = useNavigate()
+    const handleDetailProduct = (id) => {
+        navigate(`/product-details-page/${id}`)
+    }
     return (
         <WrapperCardStyle
             hoverable
+            onClick={() => handleDetailProduct(id)}
             style={{ width: 200 }}
             headStyle={{ width: '200px', height: '200px' }}
             bodyStyle={{ padding: '10px' }}
-            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+            cover={<img alt='example' src={image} />}
 
         >
             <img
                 src={logo}
-                alt="logo"
+                alt='logo'
                 style={{
                     top: -1,
                     left: -1,
@@ -37,9 +43,9 @@ const CardComponent = (props) => {
                 </span>
                 <WrapperStyleTextSell> |  Đã bán {selled || 1000}+ </WrapperStyleTextSell>
             </WrapperReportText>
-            <WrapperPriceText>{price}
+            <WrapperPriceText>{price.toLocaleString()}
                 <WrapperPriceDiscountText style={{ marginLeft: '6px' }}>
-                    {discount || 5}%
+                    - {discount || 5}%
                 </WrapperPriceDiscountText>
             </WrapperPriceText>
         </WrapperCardStyle>
