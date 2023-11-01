@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import * as UserService from '../../services/UserService'
 import { resetUser } from '../../redux/slides/userSlide'
 import LoadingComponent from '../LoadingComponent/LoadingComponent'
+import { searchProduct } from '../../redux/slides/ProductSlice'
 
 const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
   const navige = useNavigate()
@@ -60,6 +61,11 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
     </div>
   )
 
+  const [search, setSearch] = useState('')
+  const onSearch = (e) => {
+    setSearch(e.target.value)
+    dispatch(searchProduct(e.target.value))
+  }
 
   return (
     <div>
@@ -76,7 +82,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
               size='large'
               textButton='Tìm kiếm'
               placeholder='Nhập nội dung muốn tìm kiếm!'
-            //onSearch={onSearch}
+              onChange={onSearch}
             />
           </Col>
         )}

@@ -22,6 +22,7 @@ const ButtonInputSearch = (props) => {
           borderBottomRightRadius: '0',
           backgroundColor: backgroundColorInput
         }}
+        {...props}
       />
 
       <ButtonComponent
