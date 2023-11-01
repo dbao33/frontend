@@ -26,7 +26,7 @@ const HomePage = () => {
     const fetchProductAll = async (context) => {
         const limit = context?.queryKey && context?.queryKey[1]
         const search = context?.queryKey && context?.queryKey[2]
-        const response = await ProductService.getAllProducts(search, limit)
+        const response = await ProductService.getAllProduct(search, limit)
         return response
     }
 
