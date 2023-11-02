@@ -36,7 +36,7 @@ const AdminPage = () => {
         setKeySelected(key)
     }
 
-    console.log('setKeySelected', keySelected)
+    // console.log('setKeySelected', keySelected)
     return (
         <>
             <HeaderComponent isHiddenSearch isHiddenCart />

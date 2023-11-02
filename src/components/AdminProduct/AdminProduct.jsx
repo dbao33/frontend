@@ -65,12 +65,12 @@ const AdminProduct = () => {
     const renderAction = () => {
 
         return (
-          <div>
-            <DeleteOutlined style={{ color: 'red', fontSize: '30px', cursor: 'pointer' }}  />
-            <EditOutlined style={{ color: 'orange', fontSize: '30px', cursor: 'pointer' }}  />
-          </div>
+            <div>
+                <DeleteOutlined style={{ color: 'red', fontSize: '30px', cursor: 'pointer' }} />
+                <EditOutlined style={{ color: 'orange', fontSize: '30px', cursor: 'pointer' }} />
+            </div>
         )
-      }
+    }
 
     const columns = [
         {
