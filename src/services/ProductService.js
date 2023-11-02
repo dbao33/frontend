@@ -18,3 +18,9 @@ export const getAllProduct = async (search, limit) => {
     }
     return response.data
 }
+
+export const getDetailsProduct = async (id) => {
+    const response = await
+        axios.get(`http://localhost:3000/v1/api/product/get-details-product/${id}`)
+    return response.data
+}
