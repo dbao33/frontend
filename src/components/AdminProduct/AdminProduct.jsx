@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { PlusOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import TableComponent from '../TableComponent/TableComponent'
-import { Button, Form, Modal } from 'antd'
+import { Button, Form, Modal, Select } from 'antd'
 import { WrapperHeader, WrapperUploadFile } from '../AdminUser/style'
 import InputComponent from '../InputComponent/InputComponent'
 import { UploadOutlined } from '@ant-design/icons'
 import useMutationHooks from '../../hooks/UseMutationHook'
 import * as ProductService from '../../services/ProductService'
 import * as Message from '../../components/Message/Message'
-import { getBase64 } from '../../untils'
+import { getBase64, renderOptions } from '../../untils'
 import LoadingComponent from '../LoadingComponent/LoadingComponent'
 import { useQuery } from '@tanstack/react-query'
 
@@ -23,9 +23,10 @@ const AdminProduct = () => {
         rating: '',
         type: '',
         countInStock: '',
+        newType: '',
     })
 
-    const [form] = Form.useForm();
+    const [form] = Form.useForm()
 
     const mutation = useMutationHooks((data) => {
         const {
@@ -56,15 +57,15 @@ const AdminProduct = () => {
     }
     const { data, isLoading, isError, isSuccess } = mutation
 
-    const {isLoading : isLoadingProducts, data : products} = useQuery({
-        queryKey:['products'], 
+    const { isLoading: isLoadingProducts, data: products } = useQuery({
+        queryKey: ['products'],
         queryFn: getAllProducts
     })
 
     const renderAction = () => {
         <div>
             <DeleteOutlined style={{ color: 'red', fontSize: '30px', cursor: 'pointer' }} />
-            <EditOutlined style={{ color: 'red', fontSize: '30px', cursor: 'pointer' }}/>
+            <EditOutlined style={{ color: 'red', fontSize: '30px', cursor: 'pointer' }} />
         </div>
     }
 
@@ -94,11 +95,21 @@ const AdminProduct = () => {
         },
     ]
     const dataTable = products?.data?.length && products?.data?.map((product) => {
-        return  {...product, key: product._id}
+        return { ...product, key: product._id }
     })
 
     const onFinish = () => {
-        mutation.mutate(product)
+        const params = {
+            name: product.name,
+            price: product.price,
+            description: product.description,
+            rating: product.rating,
+            image: product.image,
+            type: product.type === 'add type' ? product.newType : product.type,
+            countInStock: product.countInStock,
+            discount: product.discount
+        }
+        mutation.mutate(params, product)
     }
 
     const handleCancel = () => {
@@ -112,7 +123,7 @@ const AdminProduct = () => {
             type: '',
             countInStock: '',
         })
-    form.resetFields();
+        form.resetFields();
     }
     // khi tao 1 san moi thanh cong thi
     useEffect(() => {
@@ -139,6 +150,26 @@ const AdminProduct = () => {
             image: file.preview,
         })
     }
+    // type product
+    const [typeProduct, setTypeProduct] = useState([])
+    const [typeSelect, setTypeSelect] = useState('')
+    // select
+    const handleChangeSelect = (value) => {
+        setProduct({
+            ...product,
+            type: value,
+        })
+    }
+    const fetchTypeProduct = async () => {
+        const response = await ProductService.getAllTypeProducts()
+        return response
+    }
+    const TypeProduct = useQuery({
+        queryKey: ['type-product'],
+        queryFn: fetchTypeProduct,
+    })
+
+
     return (
         <>
             <WrapperHeader>Quản lí sản phẩm</WrapperHeader>
@@ -155,7 +186,7 @@ const AdminProduct = () => {
                     <PlusOutlined style={{ fontSize: '60px' }} />
                 </Button>
             </div>
-            <TableComponent columns={columns} isLoading={isLoadingProducts} data = {dataTable} />
+            <TableComponent columns={columns} isLoading={isLoadingProducts} data={dataTable} />
             <Modal
                 title='Tạo sản phẩm'
                 open={isModalOpen}
@@ -205,11 +236,34 @@ const AdminProduct = () => {
                                 },
                             ]}
                         >
-                            <InputComponent
-                                value={product.type}
-                                onChange={handleOnchange}
+
+                            <Select
                                 name='type'
+                                style={{
+                                    maxWidth: 600,
+                                }}
+                                value={product.type}
+                                onChange={handleChangeSelect}
+                                options={renderOptions(TypeProduct?.data?.data)}
                             />
+                            {product.type === 'add type' && (
+                                <Form.Item
+                                    label='New type'
+                                    name='newType'
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Please input your type!',
+                                        },
+                                    ]}
+                                >
+                                    <InputComponent
+                                        value={product.newType}
+                                        onChange={handleOnchange}
+                                        name='newType'
+                                    />
+                                </Form.Item>
+                            )}
                         </Form.Item>
                         <Form.Item
                             label='Count InStock'

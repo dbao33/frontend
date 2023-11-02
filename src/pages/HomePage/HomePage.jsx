@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TypeProduct from '../../components/TypeProduct/TypeProduct'
 import { WrapperButtonMore, WrapperProducts, WrapperTypeProduct } from './style'
 import SliderComponent from '../../components/SliderComponent/SliderComponent.jsx'
@@ -20,8 +20,8 @@ const HomePage = () => {
     const SearchProduct = useSelector((state) => state?.product?.search)
     const [isLoadingSearch, setIsLoadingSearch] = useState(false)
     const searchDebounce = useDebounce(SearchProduct, 1000)
-    const arr = ['LENOVO', 'ASUS', 'HP', 'DELL']
-
+    // const arr = ['LENOVO', 'ASUS', 'HP', 'DELL']
+    
     const [limit, setLimit] = useState(5)
     const fetchProductAll = async (context) => {
         const limit = context?.queryKey && context?.queryKey[1]
@@ -39,14 +39,25 @@ const HomePage = () => {
             keepPreviousData: true,
         }
     )
-    console.log('products', products)
+    const [typeProduct, setTypeProduct] = useState([])
+    // get type product
+    const fetchTypeProduct = async () => {
+        const response = await ProductService.getAllTypeProducts()
+        if (response?.status === 'OK') {
+            setTypeProduct(response?.data)
+        }
+    }
+    // get type product
+    useEffect(() => {
+        fetchTypeProduct()
+    }, [])
 
     return (
         <>
             <LoadingComponent isLoading={isLoading || isLoadingSearch}>
                 <div style={{ padding: '0 120px', margin: '0 auto' }}>
                     <WrapperTypeProduct >
-                        {arr.map((item) => {
+                        {typeProduct.map((item) => {
                             return (
                                 <TypeProduct name={item} key={item} />
                             )
@@ -105,9 +116,11 @@ const HomePage = () => {
                                         }`,
                                 }}
                                 styleTextButton={{
-                                    fontWeight: 500, color: products?.total === products?.data?.length && '#fff'
+                                    fontWeight: 500,
+                                    color: products?.total === products?.data?.length && '#fff'
                                 }}
-                                disabled={products?.total === products?.data?.length || products?.totalPages === 1}
+                                disabled={
+                                    products?.total === products?.data?.length || products?.totalPages === 1}
                                 onClick={() => setLimit((prev) => prev + 5)}
                             />
                         </div>

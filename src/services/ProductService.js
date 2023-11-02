@@ -24,3 +24,10 @@ export const getDetailsProduct = async (id) => {
         axios.get(`http://localhost:3000/v1/api/product/get-details-product/${id}`)
     return response.data
 }
+
+
+export const getAllTypeProducts = async () => {
+    const response = await
+        axios.get(`http://localhost:3000/v1/api/product/get-all-types`)
+    return response.data
+}
