@@ -27,3 +27,19 @@ export const getBase64 = (file) =>
         reader.onerror = (error) => reject(error)
     })
 
+export const renderOptions = (arr) => {
+    let results = []
+    if (arr) {
+        results = arr?.map((opt) => {
+            return {
+                value: opt,
+                label: opt
+            }
+        })
+    }
+    results.push({
+        value: 'add type',
+        label: 'Thêm type'
+    })
+    return results
+}

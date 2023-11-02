@@ -92,7 +92,10 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
           {!isHiddenCart && (
             <loading isLoading={loading}>
 
-              <WrapperHeaderAccout style={{ marginLeft: '30px' }}>
+              <WrapperHeaderAccout
+                style={{ marginLeft: '30px', cursor: 'pointer' }}
+                onClick={() => navige('/order')}
+              >
                 <ShoppingCartOutlined style={{ fontSize: '40px' }} />
                 <span >Giỏ hàng</span>
               </WrapperHeaderAccout>

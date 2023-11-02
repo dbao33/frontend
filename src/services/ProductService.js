@@ -31,3 +31,11 @@ export const getAllTypeProducts = async () => {
         axios.get(`http://localhost:3000/v1/api/product/get-all-types`)
     return response.data
 }
+
+export const getProductAllTypes = async (type) => {
+    if (type) {
+        const response = await
+            axios.get(`http://localhost:3000/v1/api/product/get-all-products?filter=type&filter=${type}`)
+        return response.data
+    }
+}
