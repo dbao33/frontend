@@ -63,11 +63,14 @@ const AdminProduct = () => {
     })
 
     const renderAction = () => {
-        <div>
-            <DeleteOutlined style={{ color: 'red', fontSize: '30px', cursor: 'pointer' }} />
-            <EditOutlined style={{ color: 'red', fontSize: '30px', cursor: 'pointer' }} />
-        </div>
-    }
+
+        return (
+          <div>
+            <DeleteOutlined style={{ color: 'red', fontSize: '30px', cursor: 'pointer' }}  />
+            <EditOutlined style={{ color: 'orange', fontSize: '30px', cursor: 'pointer' }}  />
+          </div>
+        )
+      }
 
     const columns = [
         {
@@ -90,7 +93,7 @@ const AdminProduct = () => {
         {
             title: 'Action',
             dataIndex: 'action',
-            render: renderAction,
+            render: renderAction
 
         },
     ]
