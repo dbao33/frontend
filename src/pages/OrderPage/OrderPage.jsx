@@ -8,7 +8,10 @@ import { DeleteOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
 import { useDispatch, useSelector } from 'react-redux'
 import { WrapperInputNumber } from '../../components/ProductdetailsComponent/style'
-import { decreaseAmount, increaseAmount, removeAllOrderProduct, removeOrderProduct } from '../../redux/slides/orderSlice'
+import {
+    decreaseAmount, increaseAmount,
+    removeAllOrderProduct, removeOrderProduct
+} from '../../redux/slides/orderSlice'
 
 
 const OrderPage = () => {
