@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Col, Avatar, Button, Popover } from 'antd'
+import { Col, Avatar, Popover, Badge } from 'antd'
 import {
   WrapperHeader, WrapperTextHeader, WrapperHeaderAccout, WrapperContentPopup
 } from './type'
@@ -30,7 +30,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
   const [userAvatar, setUserAvatar] = useState('')
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
-
+  const order = useSelector((state) => state.order)
   const handleLogout = async () => {
     setLoading(true)
     await UserService.logOutUser()
@@ -90,16 +90,18 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
         <Col span={6} style={{ display: 'flex', justifyContent: 'center', gap: ' 30px', alignItems: 'center' }}>
 
           {!isHiddenCart && (
-            <loading isLoading={loading}>
-
-              <WrapperHeaderAccout
-                style={{ marginLeft: '30px', cursor: 'pointer' }}
-                onClick={() => navige('/order')}
+            <LoadingComponent isLoading={loading}>
+              <Badge style={{ fontSize: '15px' }} count={order?.orderItems?.length}
               >
-                <ShoppingCartOutlined style={{ fontSize: '40px' }} />
-                <span >Giỏ hàng</span>
-              </WrapperHeaderAccout>
-            </loading>
+                <WrapperHeaderAccout
+                  style={{ marginLeft: '30px', cursor: 'pointer' }}
+                  onClick={() => navige('/order')}
+                >
+                  <ShoppingCartOutlined style={{ fontSize: '40px' }} />
+                  <span >Giỏ hàng</span>
+                </WrapperHeaderAccout>
+              </Badge>
+            </LoadingComponent>
           )}
 
           <LoadingComponent isLoading={loading}>

@@ -83,7 +83,13 @@ const OrderPage = () => {
                                                 value={order?.product}
                                                 checked={listChecked.includes(order?.product)}
                                             ></Checkbox>
-                                            {/* <img src={order?.image} style={{width: '77px', height: '79px', objectFit: 'cover'}}/> */}
+                                            <img src={order?.image}
+                                                style={{
+                                                    width: '77px',
+                                                    height: '79px',
+                                                    objectFit: 'cover'
+                                                }}
+                                            />
                                             <div style={{
                                                 width: 260,
                                                 overflow: 'hidden',
