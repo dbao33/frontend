@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { WrapperInputNumber } from '../../components/ProductdetailsComponent/style'
 import { decreaseAmount, increaseAmount, removeAllOrderProduct, removeOrderProduct } from '../../redux/slides/orderSlice'
 
+
 const OrderPage = () => {
     const order = useSelector((state) => state.order)
     const [listChecked, setListChecked] = useState([])
@@ -67,18 +68,34 @@ const OrderPage = () => {
                                 ></Checkbox>
                                 <span> Tất cả ({order?.orderItems?.length} sản phẩm)</span>
                             </span>
-                            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+
+                            <div
+                                style={{
+                                    flex: 1,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between'
+                                }}>
                                 <span>Đơn giá</span>
                                 <span>Số lượng</span>
                                 <span>Thành tiền</span>
-                                <DeleteOutlined style={{ cursor: 'pointer' }} onClick={handleRemoveAllOrder} />
+                                <DeleteOutlined
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={handleRemoveAllOrder}
+                                />
                             </div>
                         </WrapperStyleHeader>
                         <WrapperListOrder>
                             {order?.orderItems?.map((order) => {
                                 return (
                                     <WrapperItemOrder>
-                                        <div style={{ width: '390px', display: 'flex', alignItems: 'center', gap: 4 }}>
+                                        <div
+                                            style={{
+                                                width: '390px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: 4
+                                            }}>
                                             <Checkbox
                                                 onChange={onChange}
                                                 value={order?.product}
@@ -98,27 +115,63 @@ const OrderPage = () => {
                                                 whiteSpace: 'nowrap'
                                             }}>{order?.name}</div>
                                         </div>
-                                        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                        <div
+                                            style={{
+                                                flex: 1,
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'space-between'
+                                            }}>
                                             <span>
-                                                <span style={{ fontSize: '13px', color: '#242424' }}>{order?.price}</span>
+                                                <span
+                                                    style={{
+                                                        fontSize: '13px',
+                                                        color: '#242424'
+                                                    }}>{order?.price}
+                                                </span>
                                             </span>
                                             <WrapperCountOrder>
                                                 <button
-                                                    style={{ border: 'none', background: 'transparent', cursor: 'pointer' }}
+                                                    style={{
+                                                        border: 'none',
+                                                        background: 'transparent',
+                                                        cursor: 'pointer'
+                                                    }}
                                                     onClick={() => handleChangeCount('decrease', order?.product)}
                                                 >
-                                                    <MinusOutlined style={{ color: '#000', fontSize: '10px' }} />
+                                                    <MinusOutlined
+                                                        style={{ color: '#000', fontSize: '10px' }} />
                                                 </button>
-                                                <WrapperInputNumber defaultValue={order?.amount} value={order?.amount} size='small' />
+                                                <WrapperInputNumber
+                                                    defaultValue={order?.amount}
+                                                    value={order?.amount}
+                                                    size='small'
+                                                />
+
                                                 <button
-                                                    style={{ border: 'none', background: 'transparent', cursor: 'pointer' }}
+                                                    style={{
+                                                        border: 'none',
+                                                        background: 'transparent',
+                                                        cursor: 'pointer'
+                                                    }}
                                                     onClick={() => handleChangeCount('increase', order?.product)}
                                                 >
-                                                    <PlusOutlined style={{ color: '#000', fontSize: '10px' }} />
+                                                    <PlusOutlined
+                                                        style={{ color: '#000', fontSize: '10px' }} />
                                                 </button>
                                             </WrapperCountOrder>
-                                            <span style={{ color: 'rgb(255, 66, 78)', fontSize: '13px', fontWeight: 500 }}>{order?.price * order?.amount}</span>
-                                            <DeleteOutlined style={{ cursor: 'pointer' }} onClick={() => handleDeleteOrder(order?.product)} />
+                                            <span
+                                                style={{
+                                                    color: 'rgb(255, 66, 78)',
+                                                    fontSize: '13px',
+                                                    fontWeight: 500
+                                                }}>{order?.price * order?.amount}
+                                            </span>
+
+                                            <DeleteOutlined
+                                                style={{ cursor: 'pointer' }}
+                                                onClick={() => handleDeleteOrder(order?.product)}
+                                            />
                                         </div>
                                     </WrapperItemOrder>
                                 )
@@ -128,32 +181,91 @@ const OrderPage = () => {
                     <WrapperRight>
                         <div style={{ width: '100%' }}>
                             <WrapperInfo>
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between'
+                                    }}>
                                     <span>Tạm tính</span>
-                                    <span style={{ color: '#000', fontSize: '14px', fontWeight: 'bold' }}>0</span>
+                                    <span
+                                        style={{
+                                            color: '#000',
+                                            fontSize: '14px',
+                                            fontWeight: 'bold'
+                                        }}>{order?.price * order?.amount}
+                                    </span>
                                 </div>
 
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between'
+                                    }}>
                                     <span>Giảm giá</span>
-                                    <span style={{ color: '#000', fontSize: '14px', fontWeight: 'bold' }}>0</span>
+                                    <span
+                                        style={{
+                                            color: '#000',
+                                            fontSize: '14px',
+                                            fontWeight: 'bold'
+                                        }}>0
+                                    </span>
                                 </div>
 
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between'
+                                    }}>
                                     <span>Thuế</span>
-                                    <span style={{ color: '#000', fontSize: '14px', fontWeight: 'bold' }}>0</span>
+                                    <span
+                                        style={{
+                                            color: '#000',
+                                            fontSize: '14px',
+                                            fontWeight: 'bold'
+                                        }}>0
+                                    </span>
                                 </div>
 
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between'
+                                    }}>
                                     <span>Phí giao hàng</span>
-                                    <span style={{ color: '#000', fontSize: '14px', fontWeight: 'bold' }}>0</span>
+                                    <span
+                                        style={{
+                                            color: '#000',
+                                            fontSize: '14px',
+                                            fontWeight: 'bold'
+                                        }}>0
+                                    </span>
                                 </div>
                             </WrapperInfo>
 
                             <WrapperTotal>
                                 <span>Tổng tiền</span>
-                                <span style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <span style={{ color: 'rgb(254, 56, 52)', fontSize: '24px', fontWeight: 'bold' }}>0213</span>
-                                    <span style={{ color: '#000', fontSize: '11px' }}>(Đã bao gồm VAT nếu có)</span>
+                                <span
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column'
+                                    }}>
+                                    <span
+                                        style={{
+                                            color: 'rgb(254, 56, 52)',
+                                            fontSize: '24px',
+                                            fontWeight: 'bold'
+                                        }}>0213
+                                    </span>
+                                    <span
+                                        style={{
+                                            color: '#000',
+                                            fontSize: '11px'
+                                        }}>(Đã bao gồm VAT nếu có)
+                                    </span>
                                 </span>
                             </WrapperTotal>
                         </div>
@@ -170,7 +282,11 @@ const OrderPage = () => {
                                 margin: '26px 0 10px'
                             }}
                             textButton={'Mua hàng'}
-                            styleTextButton={{ color: '#fff', fontSize: '15px', fontWeight: '700' }}
+                            styleTextButton={{
+                                color: '#fff',
+                                fontSize: '15px',
+                                fontWeight: '700'
+                            }}
                         ></ButtonComponent>
                     </WrapperRight>
                 </div>
