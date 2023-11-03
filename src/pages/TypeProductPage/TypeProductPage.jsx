@@ -6,24 +6,44 @@ import { useLocation } from 'react-router-dom'
 import * as ProductService from '../../services/ProductService'
 import { WrapperProducts } from '../HomePage/style'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
+import { useSelector } from 'react-redux'
+import { useDebounce } from '../../hooks/valueDebounce'
+
 const TypeProductPage = () => {
 
-    const onChange = () => { }
     const { state } = useLocation()
     const [isLoading, setIsLoading] = useState(false)
     const [product, setProduct] = useState([])
-    const fetchProductType = async (type) => {
-        const response = await ProductService.getProductAllTypes(type)
+
+
+    // state search
+    const SearchProduct = useSelector((state) => state?.product?.search)
+    // thời gian chờ
+    const searchDebounce = useDebounce(SearchProduct, 500)
+    // phân trang
+    const [panigate, setPanigate] = useState({
+        page: 0,
+        limit: 5,
+        total: 1,
+    })
+    const onChange = (current, pageSize) => {
+        setPanigate({ ...panigate, page: current - 1, limit: pageSize })
+    }
+    const fetchProductType = async (type, page, limit) => {
+        const response = await ProductService.getProductAllTypes(type, page, limit)
         if (response?.status == 'OK') {
+            setIsLoading(false)
             setProduct(response?.data)
+            setPanigate({ ...panigate, total: response?.totalPages })
         } else {
             setIsLoading(true)
         }
     }
     useEffect(() => {
-        fetchProductType(state)
-        setIsLoading(false)
-    }, [state])
+        if (state) {
+            fetchProductType(state, panigate.page, panigate.limit)
+        }
+    }, [state, panigate.page, panigate.limit])
     return (
         <LoadingComponent isLoading={isLoading}>
 
@@ -66,7 +86,13 @@ const TypeProductPage = () => {
                             }}
                         >
                             <WrapperProducts gutter={[10, 10]}>
-                                {product?.map((data) => {
+                                {product?.filter((pro) => {
+                                    if (searchDebounce === '') {
+                                        return pro
+                                    } else if (pro?.name?.toLowerCase()?.includes(searchDebounce?.toLowerCase())) {
+                                        return pro
+                                    }
+                                }).map((data) => {
                                     return (
                                         <Col className='gutter-row' span={2 / 4}>
                                             <div>
@@ -93,8 +119,8 @@ const TypeProductPage = () => {
                         <Row>
                             <Col span={20}>
                                 <Pagination
-                                    defaultCurrent={2}
-                                    total={100}
+                                    defaultCurrent={panigate?.page + 1}
+                                    total={panigate?.total}
                                     onChange={onChange}
                                     style={{ textAlign: 'center', marginTop: '10px' }}
                                 />
