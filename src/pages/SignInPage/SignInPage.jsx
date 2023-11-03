@@ -6,7 +6,7 @@ import InputForm from '../../components/InputForm/InputForm'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
 import { WrapperTextLight } from '../TypeProductPage/style'
 import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import * as UserService from '../../services/UserService'
 import useMutationHooks from '../../hooks/UseMutationHook'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
@@ -29,7 +29,7 @@ const SignInPage = () => {
     const handleOnChangePassword = (value) => {
         setPassword(value)
     }
-
+    const location = useLocation()
 
     const mutation = useMutationHooks(data => UserService.UserLogin(data))
     // console.log('mutation', mutation)
@@ -44,7 +44,11 @@ const SignInPage = () => {
 
     useEffect(() => {
         if (isSuccess) {
-            navige('/')
+            if (location?.state) {
+                navige(location?.state)
+            } else {
+                navige('/')
+            }
             localStorage.setItem('access_token', JSON.stringify(data?.access_token))
             if (data?.access_token) {
                 const decoded = jwt_decode(data?.access_token)

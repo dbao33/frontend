@@ -12,12 +12,21 @@ import * as ProductService from '../../services/ProductService'
 import { useQuery } from '@tanstack/react-query'
 import LoadingComponent from '../LoadingComponent/LoadingComponent'
 import { useSelector } from 'react-redux'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const ProductdetailsComponent = ({ idProduct }) => {
 
     const user = useSelector((state) => state.user)
     const [quantity, setQuantity] = useState(1)
-
+    const navigate = useNavigate()
+    // dùng để lưu địa chỉ khi đăng nhập không mất địa chỉ sản phẩm
+    const location = useLocation()
+    // xử lí sự kiện ấn chọn mua sản phẩm
+    const handleAddOrderProduct = () => {
+        if (!user?.id) {
+            navigate('/sign-in', { state: location?.pathname })
+        }
+    }
     const onChange = (value) => {
         setQuantity(Number(value))
     }
@@ -186,6 +195,7 @@ const ProductdetailsComponent = ({ idProduct }) => {
                                 fontSize: '15px',
                                 fontWeight: '700'
                             }}
+                            onClick={handleAddOrderProduct}
                         ></ButtonComponent>
 
                         <ButtonComponent
