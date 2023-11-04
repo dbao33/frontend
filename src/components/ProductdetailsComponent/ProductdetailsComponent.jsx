@@ -14,6 +14,7 @@ import LoadingComponent from '../LoadingComponent/LoadingComponent'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { addOrderProduct, decreaseAmount, increaseAmount, removeOrderProduct } from '../../redux/slides/orderSlice'
+import { convertPrice } from '../../untils'
 
 const ProductdetailsComponent = ({ idProduct }) => {
 
@@ -140,7 +141,7 @@ const ProductdetailsComponent = ({ idProduct }) => {
                     {/* Giá của sp */}
                     <WrapperPriceProduct>
                         <WrapperPriceTextProduct>
-                            {productDetails?.price} ₫
+                            {convertPrice(productDetails?.price)}
                         </WrapperPriceTextProduct>
                     </WrapperPriceProduct>
                     {/* địa chỉ giao hàng */}

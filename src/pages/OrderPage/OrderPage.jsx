@@ -1,5 +1,5 @@
 import { Checkbox } from 'antd'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import {
     WrapperCountOrder, WrapperInfo, WrapperItemOrder, WrapperLeft,
     WrapperListOrder, WrapperRight, WrapperStyleHeader, WrapperTotal
@@ -12,6 +12,7 @@ import {
     decreaseAmount, increaseAmount,
     removeAllOrderProduct, removeOrderProduct
 } from '../../redux/slides/orderSlice'
+import { convertPrice } from '../../untils'
 
 
 const OrderPage = () => {
@@ -20,7 +21,9 @@ const OrderPage = () => {
     const dispatch = useDispatch()
     const onChange = (e) => {
         if (listChecked.includes(e.target.value)) {
-            const newListChecked = listChecked.filter((item) => item !== e.target.value)
+            const newListChecked = listChecked.filter(
+                (item) => item !== e.target.value
+            )
             setListChecked(newListChecked)
         } else {
             setListChecked([...listChecked, e.target.value])
@@ -56,6 +59,37 @@ const OrderPage = () => {
             dispatch(removeAllOrderProduct({ listChecked }))
         }
     }
+    // tính tiền
+    const priceMemo = useMemo(() => {
+        const result = order?.orderItems?.reduce((total, cur) => {
+            return total + cur.price * cur.amount
+        }, 0)
+        return result
+    }, [order])
+
+    const discountMemo = useMemo(() => {
+        const result = order?.orderItems?.reduce((total, cur) => {
+            return total - (cur.discount * cur.amount)
+        }, 0)
+        if (Number(result)) {
+            return result
+        }
+        return 0
+    }, [order])
+
+    const DeliveryPriceMemo = useMemo(() => {
+        if (priceMemo > 2000000) {
+            return 0
+        } else {
+            return 10000
+        }
+    }, [order])
+
+    const TotalPriceMemo = useMemo(() => {
+        return (
+            Number(priceMemo) + Number(DeliveryPriceMemo) - Number(discountMemo)
+        )
+    }, [priceMemo, discountMemo, DeliveryPriceMemo])
 
     return (
         <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
@@ -116,7 +150,9 @@ const OrderPage = () => {
                                                 overflow: 'hidden',
                                                 textOverflow: 'ellipsis',
                                                 whiteSpace: 'nowrap'
-                                            }}>{order?.name}</div>
+                                            }}>
+                                                {order?.name}
+                                            </div>
                                         </div>
                                         <div
                                             style={{
@@ -130,7 +166,8 @@ const OrderPage = () => {
                                                     style={{
                                                         fontSize: '13px',
                                                         color: '#242424'
-                                                    }}>{order?.price}
+                                                    }}>
+                                                    {convertPrice(order?.price)}
                                                 </span>
                                             </span>
                                             <WrapperCountOrder>
@@ -168,7 +205,8 @@ const OrderPage = () => {
                                                     color: 'rgb(255, 66, 78)',
                                                     fontSize: '13px',
                                                     fontWeight: 500
-                                                }}>{order?.price * order?.amount}
+                                                }}>
+                                                {convertPrice(order?.price * order?.amount)}
                                             </span>
 
                                             <DeleteOutlined
@@ -196,7 +234,7 @@ const OrderPage = () => {
                                             color: '#000',
                                             fontSize: '14px',
                                             fontWeight: 'bold'
-                                        }}>{order?.price * order?.amount}
+                                        }}>{convertPrice(priceMemo)}
                                     </span>
                                 </div>
 
@@ -212,25 +250,12 @@ const OrderPage = () => {
                                             color: '#000',
                                             fontSize: '14px',
                                             fontWeight: 'bold'
-                                        }}>0
+                                        }}
+                                    >
+                                        {convertPrice(discountMemo)}
                                     </span>
                                 </div>
 
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'space-between'
-                                    }}>
-                                    <span>Thuế</span>
-                                    <span
-                                        style={{
-                                            color: '#000',
-                                            fontSize: '14px',
-                                            fontWeight: 'bold'
-                                        }}>0
-                                    </span>
-                                </div>
 
                                 <div
                                     style={{
@@ -244,7 +269,9 @@ const OrderPage = () => {
                                             color: '#000',
                                             fontSize: '14px',
                                             fontWeight: 'bold'
-                                        }}>0
+                                        }}
+                                    >
+                                        {convertPrice(DeliveryPriceMemo)}
                                     </span>
                                 </div>
                             </WrapperInfo>
@@ -261,7 +288,9 @@ const OrderPage = () => {
                                             color: 'rgb(254, 56, 52)',
                                             fontSize: '24px',
                                             fontWeight: 'bold'
-                                        }}>0213
+                                        }}
+                                    >
+                                        {convertPrice(TotalPriceMemo)}
                                     </span>
                                     <span
                                         style={{
