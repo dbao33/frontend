@@ -20,6 +20,7 @@ import InputComponent from '../../components/InputComponent/InputComponent'
 import useMutationHooks from '../../hooks/UseMutationHook'
 import * as UserService from '../../services/UserService'
 import { updateUser } from '../../redux/slides/userSlide'
+import { useNavigate } from 'react-router-dom'
 
 
 const OrderPage = () => {
@@ -38,11 +39,18 @@ const OrderPage = () => {
 
     const [form] = Form.useForm()
 
+    const navige = useNavigate()
+
+    const handleChangeAddress = () => {
+        setIsOpenModalUpdateInfo(true)
+    }
     const handleAddCard = () => {
         if (!order?.orderItemsSelected?.length) {
             Message.error('Vui lòng chọn sản phẩm')
         } else if (!user?.phone || !user?.address || !user.name || !user?.city) {
             setIsOpenModalUpdateInfo(true)
+        } else {
+            navige('/payment')
         }
     }
 
@@ -183,7 +191,6 @@ const OrderPage = () => {
     useEffect(() => {
         if (isOpenModalUpdateInfo) {
             setStateUserDetail({
-                ...stateUserDetail,
                 city: user?.city,
                 name: user?.name,
                 address: user?.address,
@@ -322,6 +329,24 @@ const OrderPage = () => {
                     </WrapperLeft>
                     <WrapperRight>
                         <div style={{ width: '100%' }}>
+                            <WrapperInfo >
+                                <div >
+                                    <span>Địa chỉ: </span>
+                                    <span style={{ fontWeight: 'bold' }}>
+                                        {`${user?.address} , ${user?.city}`}
+                                    </span>
+                                    <span
+                                        onClick={handleChangeAddress}
+                                        style={{ color: '#9255FD', cursor: 'pointer' }}
+                                    >
+                                        Thay đổi
+                                    </span>
+                                </div>
+                            </WrapperInfo>
+                        </div>
+
+
+                        <div style={{ width: '100%' }}>
                             <WrapperInfo>
                                 <div
                                     style={{
@@ -382,7 +407,8 @@ const OrderPage = () => {
                                 <span
                                     style={{
                                         display: 'flex',
-                                        flexDirection: 'column'
+                                        flexDirection: 'column',
+
                                     }}>
                                     <span
                                         style={{

@@ -1,5 +1,5 @@
 import { Checkbox } from 'antd'
-import styles  from 'styled-components'
+import styles from 'styled-components'
 export const WrapperStyleHeader = styles.div`
   background: rgb(255, 255, 255);
   padding: 9px 16px;
@@ -47,7 +47,7 @@ export const WrapperPriceDiscount = styles.span`
   text-decoration: line-through;
   margin-left: 4px;
 `
-export const WrapperCountOrder  = styles.div`
+export const WrapperCountOrder = styles.div`
   display: flex;
   align-items: center;
   width: 84px;
@@ -70,7 +70,6 @@ export const WrapperInfo = styles.div`
   background: #fff;
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
-  width: 100%
 `
 
 export const WrapperTotal = styles.div`
