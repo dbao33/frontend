@@ -1,42 +1,26 @@
-import { Form, Radio } from 'antd'
+import { Radio } from 'antd'
 import React, { useEffect, useMemo, useState } from 'react'
 import {
   WrapperInfo, WrapperLeft,
   WrapperRight, WrapperTotal
 } from '../OrderPage/style'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { convertPrice } from '../../untils'
 import * as Message from '../../components/Message/Message'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
 import useMutationHooks from '../../hooks/UseMutationHook'
-import * as UserService from '../../services/UserService'
 import * as OrderService from '../../services/OrderService'
-import { updateUser } from '../../redux/slides/userSlide'
 import { useNavigate } from 'react-router-dom'
 import { LableStyle, WrapperRadio } from './style'
 
 
 const PaymentPage = () => {
   const order = useSelector((state) => state.order)
-  console.log('order', order)
   const user = useSelector((state) => state.user)
 
   const [delivery, setDelivery] = useState('fast')
   const [payment, setPayment] = useState('later_money')
-
-  const dispatch = useDispatch()
-
-  const [stateUserDetails, setstateUserDetails] = useState({
-    name: '',
-    phone: '',
-    address: '',
-    city: '',
-  })
-  const [isOpenModalUpdateInfo, setIsOpenModalUpdateInfo] = useState(false)
-
-  const [form] = Form.useForm()
-
 
 
   const handleAddOrder = () => {
@@ -68,16 +52,7 @@ const PaymentPage = () => {
 
 
 
-  // gia tri duoc dua vao mutation update product
-  const mutationUpdate = useMutationHooks((data) => {
-    const { id, token, ...rests } = data
-    const response = UserService.updateUser(
-      id,
-      { ...rests },
-      token
-    )
-    return response
-  })
+  // gia tri duoc dua vao mutation 
   const mutationAddOrder = useMutationHooks((data) => {
     const { token, ...rests } = data
     const response = OrderService.CreateOrder({ ...rests }, token)
@@ -85,8 +60,6 @@ const PaymentPage = () => {
   })
 
   // mutation
-  const { data, isLoading, } = mutationUpdate
-
   const {
     data: dataAdd,
     isLoading: isLoadingAddOrder,
@@ -103,28 +76,7 @@ const PaymentPage = () => {
   }, [isSuccess, isError])
 
   // khi click vao finish thi gia tri nhap vao se duoc luu vao mutation
-  const handleUpdateInforUser = () => {
-    const { name, address, city, phone } = stateUserDetails
-    if (name && address && city && phone) {
-      mutationUpdate.mutate({
-        id: user?.id,
-        token: user?.access_token,
-        ...stateUserDetails,
-      }, {
-        onSuccess: () => {
-          dispatch(updateUser({ name, address, city, phone }))
-          setIsOpenModalUpdateInfo(false)
-        }
-      })
-    }
-  }
-  // lay gia tri cua nguoi dung nhap vao
-  const handleOnchangeDetails = (e) => {
-    setstateUserDetails({
-      ...stateUserDetails,
-      [e.target.name]: e.target.value,
-    })
-  }
+
   const handleDilivery = (e) => {
     setDelivery(e.target.value)
   }
@@ -167,20 +119,6 @@ const PaymentPage = () => {
   }, [priceMemo, discountMemo, DeliveryPriceMemo])
 
 
-  useEffect(() => {
-    form.setFieldsValue(stateUserDetails)
-  }, [form, stateUserDetails])
-
-  useEffect(() => {
-    if (isOpenModalUpdateInfo) {
-      setstateUserDetails({
-        city: user?.city,
-        name: user?.name,
-        address: user?.address,
-        phone: user?.phone,
-      })
-    }
-  }, [isOpenModalUpdateInfo])
 
   return (
     <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
