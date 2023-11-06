@@ -28,6 +28,7 @@ const AdminProduct = () => {
         rating: '',
         image: '',
         type: '',
+        discount: '',
         countInStock: '',
         newType: '',
       })
@@ -35,6 +36,17 @@ const AdminProduct = () => {
     const [product, setProduct] =  useState(inittial())
     const [productDetails, setProductDetails] =  useState(inittial())
 
+    // product update code này có sử dụng
+    // const [productDetails, setProductDetails] = useState({
+    //     name: '',
+    //     price: '',
+    //     description: '',
+    //     rating: '',
+    //     discount: '',
+    //     image: '',
+    //     type: '',
+    //     countInStock: '',
+    // })
     const [form] = Form.useForm()
 
     const mutation = useMutationHooks((data) => {
@@ -45,7 +57,9 @@ const AdminProduct = () => {
             description,
             rating,
             type,
+            discount,
             countInStock,
+
         } = data
 
         const response = ProductService.createProduct({
@@ -54,6 +68,7 @@ const AdminProduct = () => {
             price,
             description,
             rating,
+            discount,
             type,
             countInStock,
         })
@@ -125,7 +140,23 @@ const AdminProduct = () => {
         queryKey: ['products'],
         queryFn: getAllProducts
     })
-
+    // update product code này có sở dụng
+    // const fetchGetDetailsProduct = async (rowSelected) => {
+    //     const res = await ProductService.getDetailsProduct(rowSelected);
+    //     if (res?.data) {
+    //         setProductDetails({
+    //             name: res?.data?.name,
+    //             price: res?.data?.price,
+    //             discount: res?.data?.discount,
+    //             description: res?.data?.description,
+    //             rating: res?.data?.rating,
+    //             image: res?.data?.image,
+    //             type: res?.data?.type,
+    //             countInStock: res?.data?.countInStock,
+    //         })
+    //     }
+    //     setIsLoadingUpdate(false);
+    // }
     const renderAction = () => {
 
         return (
@@ -302,6 +333,7 @@ const AdminProduct = () => {
                     <PlusOutlined style={{ fontSize: '60px' }} />
                 </Button>
             </div>
+
             <div>
             <TableComponent 
                 columns={columns} 
@@ -316,6 +348,7 @@ const AdminProduct = () => {
                 };   
             }}/>
             </div>
+            
             <Modal
                 title='Tạo sản phẩm'
                 open={isModalOpen}
@@ -459,6 +492,22 @@ const AdminProduct = () => {
                             />
                         </Form.Item>
 
+                        <Form.Item
+                            label='Discount'
+                            name='discount'
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your discount!',
+                                },
+                            ]}
+                        >
+                            <InputComponent
+                                value={product.discount}
+                                onChange={handleOnchange}
+                                name='discount'
+                            />
+                        </Form.Item>
 
                         <Form.Item
                             label='Image'
@@ -502,6 +551,7 @@ const AdminProduct = () => {
                 </LoadingComponent>
 
             </Modal>
+
             <DrawerComponent 
                 title='Chi tiết sản phẩm' 
                 isOpen={isOpenDrawer} 
@@ -687,6 +737,26 @@ const AdminProduct = () => {
                 </LoadingComponent>
             </DrawerComponent>
         </div>
+
+        //     {/* form discount trong update product admin */}
+        //     {/* <Form.Item
+        //         label="Discount"
+        //         name="discount"
+        //         rules={[
+        //             {
+        //                 required: true,
+        //                 message: "Please input your price!",
+        //             },
+        //         ]}
+        //     >
+        //         <InputComponent
+        //             value={productDetails.discount}
+        //             onChange={handleOnchangeDetails}
+        //             name="discount"
+        //         />
+        //     </Form.Item> */}
+        // </>
+
     )
 }
 

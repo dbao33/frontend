@@ -11,22 +11,20 @@ import { WrapperTextLight } from '../../pages/TypeProductPage/style'
 import * as ProductService from '../../services/ProductService'
 import { useQuery } from '@tanstack/react-query'
 import LoadingComponent from '../LoadingComponent/LoadingComponent'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { addOrderProduct, decreaseAmount, increaseAmount, removeOrderProduct } from '../../redux/slides/orderSlice'
+import { convertPrice } from '../../untils'
 
 const ProductdetailsComponent = ({ idProduct }) => {
 
+    const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
     const [quantity, setQuantity] = useState(1)
     const navigate = useNavigate()
     // dùng để lưu địa chỉ khi đăng nhập không mất địa chỉ sản phẩm
     const location = useLocation()
-    // xử lí sự kiện ấn chọn mua sản phẩm
-    const handleAddOrderProduct = () => {
-        if (!user?.id) {
-            navigate('/sign-in', { state: location?.pathname })
-        }
-    }
+
     const onChange = (value) => {
         setQuantity(Number(value))
     }
@@ -44,15 +42,43 @@ const ProductdetailsComponent = ({ idProduct }) => {
             enabled: !!idProduct,
         }
     )
-
-    const hanleChangeCount = (type) => {
+    // xử lí sự kiện ấn chọn mua sản phẩm
+    const handleAddOrderProduct = () => {
+        if (!user?.id) {
+            navigate('/sign-in', { state: location?.pathname })
+        } else {
+            dispatch(
+                addOrderProduct({
+                    orderItem: {
+                        name: productDetails?.name,
+                        amount: quantity,
+                        image: productDetails?.image,
+                        price: productDetails?.price,
+                        product: productDetails?._id,
+                        // discount: productDetails?.discount,
+                        // countInstock: productDetails?.countInStock,
+                    },
+                })
+            )
+        }
+    }
+    const hanleChangeCount = (type, idProduct) => {
+        // if (type === 'increase') {
+        //     setQuantity(quantity + 1)
+        // } else if (type === 'decrease') {
+        //     setQuantity(quantity - 1)
+        // }
         if (type === 'increase') {
-            setQuantity(quantity + 1)
-        } else if (type === 'decrease') {
-            setQuantity(quantity - 1)
+            dispatch(increaseAmount({ idProduct }))
+        } else {
+            dispatch(decreaseAmount({ idProduct }))
         }
     }
 
+    const handleDeleteOrder = (idProduct) => {
+        // dispatch(removeOrderProduct({idProduct}))
+        dispatch(removeOrderProduct({ idProduct }))
+    }
 
     return (
         <LoadingComponent isLoading={isLoading || false}>
@@ -115,7 +141,7 @@ const ProductdetailsComponent = ({ idProduct }) => {
                     {/* Giá của sp */}
                     <WrapperPriceProduct>
                         <WrapperPriceTextProduct>
-                            {productDetails?.price} ₫
+                            {convertPrice(productDetails?.price)}
                         </WrapperPriceTextProduct>
                     </WrapperPriceProduct>
                     {/* địa chỉ giao hàng */}
