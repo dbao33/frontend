@@ -25,6 +25,16 @@ export const getDetailsProduct = async (id) => {
     return response.data
 }
 
+export const updateProduct = async (id, access_token, data) => {
+    const response = await
+        axios.put(`http://localhost:3000/v1/api/product/update/${id}`, data, {
+            headers: {
+                token: `Bearer ${access_token}`,
+            }
+        })
+    return response.data
+}
+
 
 export const getAllTypeProducts = async () => {
     const response = await
