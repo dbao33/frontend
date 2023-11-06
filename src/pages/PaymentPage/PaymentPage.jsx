@@ -5,7 +5,7 @@ import {
   WrapperRight, WrapperTotal
 } from '../OrderPage/style'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { convertPrice } from '../../untils'
 import * as Message from '../../components/Message/Message'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
@@ -13,6 +13,7 @@ import useMutationHooks from '../../hooks/UseMutationHook'
 import * as OrderService from '../../services/OrderService'
 import { useNavigate } from 'react-router-dom'
 import { LableStyle, WrapperRadio } from './style'
+import { removeAllOrderProduct } from '../../redux/slides/orderSlice'
 
 
 const PaymentPage = () => {
@@ -22,6 +23,8 @@ const PaymentPage = () => {
   const [delivery, setDelivery] = useState('fast')
   const [payment, setPayment] = useState('later_money')
 
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleAddOrder = () => {
     if (
@@ -69,7 +72,24 @@ const PaymentPage = () => {
 
   useEffect(() => {
     if (isSuccess && dataAdd?.status === 'OK') {
-      Message.success('Đặt hàng thành công')
+      // nếu thành công thì xóa các sản phẩm trong giỏ hàng
+      const arrayOrdered = []
+      // đẩy các sản phẩm đã chọn vào 1 mảng rỗng
+      order?.orderItemsSelected?.forEach(element => {
+        arrayOrdered.push(element.product)
+      })
+      // gọi đến hành động xóa các sản phẩm và truyền tham số mảng chứa các sản phẩm 
+      dispatch(removeAllOrderProduct({ listChecked: arrayOrdered }))
+      Message.success('Đặt hàng thành công');
+      // truyền đi 1 state có chứa các thông tin
+      navigate('/order-success', {
+        state: {
+          delivery,
+          payment,
+          orders: order?.orderItemsSelected,
+          totalPrice: TotalPriceMemo,
+        }
+      })
     } else if (isError) {
       Message.error()
     }
@@ -103,12 +123,12 @@ const PaymentPage = () => {
   }, [order])
 
   const DeliveryPriceMemo = useMemo(() => {
-    if (priceMemo > 2000000) {
-      return 15000
-    } else if (priceMemo === 0) {
+    if ((priceMemo === 0 && order?.orderItemsSelected?.length === 0) || priceMemo >= 2000000) {
       return 0
-    } else {
+    } else if (priceMemo < 500000) {
       return 30000
+    } else {
+      return 15000
     }
   }, [order])
 
@@ -148,7 +168,7 @@ const PaymentPage = () => {
                       </span>
                       Giao hàng tiết kiệm
                     </Radio>
-                    <Radio value='Express'>
+                    <Radio value='express'>
                       <span style={{ color: '#ea8500', fontWeight: 'bold' }}>
                         EXPRESS
                       </span>

@@ -21,7 +21,7 @@ import useMutationHooks from '../../hooks/UseMutationHook'
 import * as UserService from '../../services/UserService'
 import { updateUser } from '../../redux/slides/userSlide'
 import { useNavigate } from 'react-router-dom'
-
+import Step from '../../components/Steps/StepComponent'
 
 const OrderPage = () => {
     const order = useSelector((state) => state.order)
@@ -167,10 +167,14 @@ const OrderPage = () => {
     }, [order])
 
     const DeliveryPriceMemo = useMemo(() => {
-        if (priceMemo > 2000000 || priceMemo === 0) {
+
+
+        if ((priceMemo === 0 && order?.orderItemsSelected?.length === 0) || priceMemo >= 2000000) {
             return 0
+        } else if (priceMemo < 500000) {
+            return 30000
         } else {
-            return 10000
+            return 15000
         }
     }, [order])
 
@@ -179,7 +183,20 @@ const OrderPage = () => {
             Number(priceMemo) + Number(DeliveryPriceMemo) - Number(discountMemo)
         )
     }, [priceMemo, discountMemo, DeliveryPriceMemo])
-
+    const itemsDelivery = [
+        {
+            title: '30.000 VND',
+            description: 'Dưới 500.000 VND',
+        },
+        {
+            title: '15.000 VND',
+            description: 'Từ 500.000 VND đến dưới 2.000.000 VND',
+        },
+        {
+            title: 'Free ship',
+            description: 'Trên 2.000.000 VND',
+        },
+    ]
     useEffect(() => {
         dispatch(selectedOrder({ listChecked }))
     }, [listChecked])
@@ -187,7 +204,7 @@ const OrderPage = () => {
     useEffect(() => {
         form.setFieldValue(stateUserDetail)
     }, [form, stateUserDetail])
-
+    useEffect(() => { }, [priceMemo, DeliveryPriceMemo])
     useEffect(() => {
         if (isOpenModalUpdateInfo) {
             setStateUserDetail({
@@ -205,6 +222,13 @@ const OrderPage = () => {
                 <h3>Giỏ hàng</h3>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <WrapperLeft>
+                        <div style={{ backgroundColor: "#fff", padding: '16px' }}>
+                            <Step
+                                items={itemsDelivery}
+                                current={
+                                    DeliveryPriceMemo === 15000 ? 2 : DeliveryPriceMemo === 30000 ? 1 : order.orderItemsSelected.length === 0 ? 0 : 3}
+                            />
+                        </div>
                         <WrapperStyleHeader>
                             <span style={{ display: 'inline-block', width: '390px' }}>
                                 <Checkbox
