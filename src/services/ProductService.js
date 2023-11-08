@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { axiosJWT } from './UserService'
 
 
 export const createProduct = async (data) => {
@@ -27,7 +28,7 @@ export const getDetailsProduct = async (id) => {
 
 export const updateProduct = async (id, access_token, data) => {
     const response = await
-        axios.put(`http://localhost:3000/v1/api/product/update/${id}`, data, {
+        axiosJWT.put(`http://localhost:3000/v1/api/product/update-product/${id}`, data, {
             headers: {
                 token: `Bearer ${access_token}`,
             }
@@ -35,6 +36,15 @@ export const updateProduct = async (id, access_token, data) => {
     return response.data
 }
 
+export const deleteProduct = async (id, access_token) => {
+    const response = await
+        axiosJWT.delete(`http://localhost:3000/v1/api/product/delete-product/${id}`, {
+            headers: {
+                token: `Bearer ${access_token}`,
+            }
+        })
+    return response.data
+}
 
 export const getAllTypeProducts = async () => {
     const response = await
