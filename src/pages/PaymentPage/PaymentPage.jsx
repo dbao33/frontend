@@ -75,7 +75,7 @@ const PaymentPage = () => {
       // nếu thành công thì xóa các sản phẩm trong giỏ hàng
       const arrayOrdered = []
       // đẩy các sản phẩm đã chọn vào 1 mảng rỗng
-      order?.orderItemsSelected?.forEach(element => {
+      order?.orderItemsSelected?.forEach((element) => {
         arrayOrdered.push(element.product)
       })
       // gọi đến hành động xóa các sản phẩm và truyền tham số mảng chứa các sản phẩm 

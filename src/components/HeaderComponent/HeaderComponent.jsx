@@ -22,8 +22,24 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
   const handleNavigateLogin = () => {
     navige('/sign-in')
   }
-  const handleNavigateAdmin = () => {
-    navige('/admin')
+
+  const [isOpenPopOver, setIsOpenPopOver] = useState(false)
+  const handleClickNavigate = (type) => {
+    if (type === 'profile') {
+      navige('/profile-user')
+    } else if (type === 'admin') {
+      navige('/admin')
+    } else if (type === 'my-order') {
+      navige('/my-order', {
+        state: {
+          id: user?.id,
+          token: user?.access_token
+        }
+      })
+    } else {
+      handleLogout()
+    }
+    setIsOpenPopOver(false)
   }
   const user = useSelector((state) => state.user)
   const [userName, setUserName] = useState('')
@@ -48,16 +64,22 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
   const content = (
     <div>
 
-      <WrapperContentPopup onClick={() => navige('/profile-user')}>
+      <WrapperContentPopup onClick={() => handleClickNavigate('profile')}>
         Thông tin người dùng
       </WrapperContentPopup>
 
+      <WrapperContentPopup
+        onClick={() => handleClickNavigate('my-order')}
+      >
+        Đơn hàng của tôi
+      </WrapperContentPopup>
+
       {user?.isAdmin && (
-        <WrapperContentPopup onClick={handleNavigateAdmin}>
+        <WrapperContentPopup onClick={() => handleClickNavigate('admin')}>
           Quản lí website
         </WrapperContentPopup>
       )}
-      <WrapperContentPopup onClick={handleLogout}>Đăng xuất</WrapperContentPopup>
+      <WrapperContentPopup onClick={() => handleClickNavigate()}>Đăng xuất</WrapperContentPopup>
     </div>
   )
 
@@ -107,26 +129,28 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
           <LoadingComponent isLoading={loading}>
             <WrapperHeaderAccout style={{ cursor: 'pointer' }}>
 
-              {user?.avatar ? (
-                <img src={user?.avatar} alt='avatar' style={{
-                  height: '40px',
-                  width: '40px',
-                  borderRadius: '50%',
-                  objectFit: 'cover'
-                }} />
-              ) : (
-                <Avatar size={40}
-                  style={{ backgroundColor: '#fff' }}
-                  icon={<UserOutlined
-                    style={{ color: '#000', fontSize: '30px' }}
-                  />}
-                />)}
-
               {/* ten dang nhap */}
               {user?.access_token ? (
                 <>
-                  <Popover content={content} trigger='click'>
-                    <div style={{ cursor: 'pointer', marginLeft: '5px' }}>{userName?.length ? userName : user?.email}</div>
+                  <Popover content={content} trigger='click' open={isOpenPopOver}>
+                    <div style={{ display: "flex", alignItems: "center" }} onClick={() => setIsOpenPopOver(!isOpenPopOver)}>
+                      {user?.avatar ? (
+                        <img src={user?.avatar} alt='avatar' style={{
+                          height: '40px',
+                          width: '40px',
+                          borderRadius: '50%',
+                          objectFit: 'cover'
+                        }} />
+                      ) : (
+                        <Avatar size={40}
+                          style={{ backgroundColor: '#fff' }}
+                          icon={<UserOutlined
+                            style={{ color: '#000', fontSize: '30px' }}
+                          />}
+                        />)
+                      }
+                      <div style={{ cursor: 'pointer', marginLeft: '5px' }}>{userName?.length ? userName : user?.email}</div>
+                    </div>
                   </Popover>
                 </>
               ) : (

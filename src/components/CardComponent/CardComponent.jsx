@@ -18,7 +18,8 @@ const CardComponent = (props) => {
     return (
         <WrapperCardStyle
             hoverable
-            onClick={() => handleDetailProduct(id)}
+            onClick={() => countInStock !== 0 && handleDetailProduct(id)}
+            disable={countInStock === 0}
             style={{ width: 200 }}
             headStyle={{ width: '200px', height: '200px' }}
             bodyStyle={{ padding: '10px' }}
