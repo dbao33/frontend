@@ -36,17 +36,6 @@ const AdminProduct = () => {
     const [product, setProduct] =  useState(inittial())
     const [productDetails, setProductDetails] =  useState(inittial())
 
-    // product update code này có sử dụng
-    // const [productDetails, setProductDetails] = useState({
-    //     name: '',
-    //     price: '',
-    //     description: '',
-    //     rating: '',
-    //     discount: '',
-    //     image: '',
-    //     type: '',
-    //     countInStock: '',
-    // })
     const [form] = Form.useForm()
 
     const mutation = useMutationHooks((data) => {
@@ -106,7 +95,23 @@ const AdminProduct = () => {
         }
         setIsLoadingUpdate(false)
     }
-
+// update product code này có sở dụng
+    // const fetchGetDetailsProduct = async (rowSelected) => {
+    //     const res = await ProductService.getDetailsProduct(rowSelected);
+    //     if (res?.data) {
+    //         setProductDetails({
+    //             name: res?.data?.name,
+    //             price: res?.data?.price,
+    //             discount: res?.data?.discount,
+    //             description: res?.data?.description,
+    //             rating: res?.data?.rating,
+    //             image: res?.data?.image,
+    //             type: res?.data?.type,
+    //             countInStock: res?.data?.countInStock,
+    //         })
+    //     }
+    //     setIsLoadingUpdate(false);
+    // }
     useEffect(() => {
         if(!isModalOpen) {
             form.setFieldsValue(productDetails)
@@ -140,23 +145,7 @@ const AdminProduct = () => {
         queryKey: ['products'],
         queryFn: getAllProducts
     })
-    // update product code này có sở dụng
-    // const fetchGetDetailsProduct = async (rowSelected) => {
-    //     const res = await ProductService.getDetailsProduct(rowSelected);
-    //     if (res?.data) {
-    //         setProductDetails({
-    //             name: res?.data?.name,
-    //             price: res?.data?.price,
-    //             discount: res?.data?.discount,
-    //             description: res?.data?.description,
-    //             rating: res?.data?.rating,
-    //             image: res?.data?.image,
-    //             type: res?.data?.type,
-    //             countInStock: res?.data?.countInStock,
-    //         })
-    //     }
-    //     setIsLoadingUpdate(false);
-    // }
+    
     const renderAction = () => {
 
         return (

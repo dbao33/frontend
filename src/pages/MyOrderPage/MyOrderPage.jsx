@@ -13,20 +13,60 @@ import { useLocation } from 'react-router-dom'
 
 
 const MyOrderPage = () => {
-  const user = useSelector((state) => state.user)
+
   const location = useLocation()
+  const { state } = location
   const fetchMyOrder = async () => {
-    const response = await OrderService.getOrderByUserId(user?.id, user?.access_token)
+    const response = await OrderService.getOrderByUserId(
+      state?.id,
+      state?.access_token
+    )
     return response.data
 
   }
 
-  const queryOrder = useQuery({ queryKey: ['orders'], queryFn: fetchMyOrder }, {
-    // nếu có id và access_token của người dùng thì mới được phép gọi tới fetchMyOrder
-    enabled: user?.id && user?.access_token
-  })
+  const queryOrder = useQuery(
+    { queryKey: ['orders'], queryFn: fetchMyOrder },
+    {
+      // nếu có id và access_token của người dùng thì mới được phép gọi tới fetchMyOrder
+      enabled: state?.id && state?.access_token
+    })
   const { isLoading, data } = queryOrder
-  console.log(data)
+
+  const renderProduct = (data) => {
+    return data?.map((order) => {
+      return (
+        <WrapperHeaderItem>
+          <img
+            src={order?.image}
+            style={{
+              width: '70px',
+              height: '70px',
+              objectFit: 'cover',
+              border: '1px solid rgb(238, 238, 238)',
+              padding: '2px',
+            }}
+          />
+          <div
+            style={{
+              width: 260,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              marginLeft: '10px',
+            }}
+          >
+            {order?.name}
+          </div>
+          <span
+            style={{ fontSize: '13px', color: '#242424', marginLeft: 'auto' }}
+          >
+            {convertPrice(order?.price)}
+          </span>
+        </WrapperHeaderItem>
+      )
+    })
+  }
 
   return (
     <Loading isLoading={isLoading}>
@@ -34,7 +74,7 @@ const MyOrderPage = () => {
         <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
           <h4>Đơn hàng của tôi</h4>
           <WrapperListOrder>
-            {data?.orderItems?.map((order) => {
+            {data?.map((order) => {
 
               return (
                 <WrapperItemOrder key={order?._id}>
@@ -57,32 +97,9 @@ const MyOrderPage = () => {
                       {`${order.isPaid ? 'Đã thanh toán' : 'Chưa thanh toán'}`}
                     </div>
                   </WrapperStatus>
-                  <WrapperHeaderItem>
-                    <img src={order?.image}
-                      style={{
-                        width: '70px',
-                        height: '70px',
-                        objectFit: 'cover',
-                        border: '1px solid rgb(238, 238, 238)',
-                        padding: '2px'
-                      }}
-                    />
-                    <div style={{
-                      width: 260,
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                      marginLeft: '10px'
-                    }}>{order?.name}</div>
-                    <span
-                      style={{
-                        fontSize: '13px',
-                        color: '#242424',
-                        marginLeft: 'auto'
-                      }}>
-                      {convertPrice(order?.price)}
-                    </span>
-                  </WrapperHeaderItem>
+
+                  {renderProduct(order?.orderItems)}
+
                   <WrapperFooterItem>
                     <div>
                       <span style={{ color: 'rgb(255, 66, 78)' }}>
@@ -91,14 +108,14 @@ const MyOrderPage = () => {
                       <span
                         style={{ fontSize: '13px', color: 'rgb(56, 56, 61)', fontWeight: 700 }}
                       >
-                        {convertPrice(data?.totalPrice)}
+                        {convertPrice(order?.totalPrice)}
                       </span>
                     </div>
                     <div style={{ display: 'flex', gap: '10px' }}>
                       <ButtonComponent
                         // onClick={() => handleAddCard()}
                         size={40}
-                        style={{
+                        styleButton={{
                           height: '36px',
                           border: '1px solid rgb(11, 116, 229)',
                           borderRadius: '4px'
@@ -110,7 +127,7 @@ const MyOrderPage = () => {
                       <ButtonComponent
                         // onClick={() => handleAddCard()}
                         size={40}
-                        style={{
+                        styleButton={{
                           height: '36px',
                           border: '1px solid rgb(11, 116, 229)',
                           borderRadius: '4px'
