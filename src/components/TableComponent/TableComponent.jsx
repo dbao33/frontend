@@ -1,11 +1,16 @@
 import { Divider, Table } from 'antd'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import LoadingComponent from '../LoadingComponent/LoadingComponent'
-
+import { Excel } from "antd-table-saveas-excel";
 
 const TableComponent = (props) => {
     const { selectionType = 'checkbox', data:dataSource = [], isLoading = false, columns = [], handleDeletedMany = [] } = props
     const [rowSelectedKeys, setRowSelectedKeys] = useState([])
+    const newColumnExport = useMemo(() => {
+        const arr = columns?.filter((col) => col.dataIndex !== 'action')
+        return arr
+      }, [columns])
+
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
             setRowSelectedKeys(selectedRowKeys)
@@ -21,6 +26,18 @@ const TableComponent = (props) => {
     const handleDeleteAll = () => {
         handleDeletedMany(rowSelectedKeys)
     }
+
+    const exportExcel = () => {
+        const excel = new Excel();
+        excel
+          .addSheet("test")
+          .addColumns(newColumnExport)
+          .addDataSource(dataSource, {
+            str2Percent: true
+          })
+          .saveAs("Excel.xlsx");
+      };
+      
     
     return ( 
         <div>
@@ -39,7 +56,9 @@ const TableComponent = (props) => {
                         Xóa tất cả
                     </div>
                 )}
+                <button onClick={exportExcel}>Export Excel</button>
                 <Table
+                    id='table-xls'
                     rowSelection={{
                         type: selectionType,
                         ...rowSelection,
