@@ -68,7 +68,11 @@ const AdminProduct = () => {
         })
         return response
     })
-
+    const mutationDeletedMany = useMutationHooks((data) => {
+        const { token, ...ids } = data
+        const response = ProductService.deleteManyProducts(ids, token)
+           return response;
+    }, );
     
     const mutationUpdate = useMutationHooks((data) => {
         const {
@@ -82,7 +86,8 @@ const AdminProduct = () => {
             token,
             { ...rests })
         return response
-    },)
+    },
+    )
 
     const mutationDelete = useMutationHooks((data) => {
         const {
@@ -90,7 +95,11 @@ const AdminProduct = () => {
             token,
         } = data
 
-        const response = ProductService.deleteProduct(
+    
+        
+
+
+    const response = ProductService.deleteProduct(
             id,
             token,)
         return response
@@ -155,6 +164,7 @@ const AdminProduct = () => {
     const { data, isLoading, isError, isSuccess } = mutation
     const { data : dataUpdated, isLoading : isLoadingUpdated, isError : isErrorUpdated, isSuccess : isSuccessUpdated } = mutationUpdate
     const { data : dataDeleted, isLoading : isLoadingDeleted, isError : isErrorDeleted, isSuccess : isSuccessDeleted } = mutationDelete
+    const { data : dataDeletedMany, isLoading : isLoadingDeletedMany, isError : isErrorDeletedMany, isSuccess : isSuccessDeletedMany } = mutationDeletedMany
 
     const queryProduct = useQuery({
         queryKey: ['products'],
@@ -166,8 +176,8 @@ const AdminProduct = () => {
 
         return (
             <div>
-                <DeleteOutlined style={{ color: 'red', fontSize: '30px', cursor: 'pointer' }}  onClick={() => setIsModalOpenDelete(true)}/>
-                <EditOutlined style={{ color: 'orange', fontSize: '30px', cursor: 'pointer' }} onClick={handleDetailsProduct}/>
+                <DeleteOutlined style={{ color: 'red', fontSize: '18px', cursor: 'pointer' }}  onClick={() => setIsModalOpenDelete(true)}/>
+                <EditOutlined style={{ color: 'orange', fontSize: '18px', cursor: 'pointer' }} onClick={handleDetailsProduct}/>
             </div>
         )
     }
@@ -348,6 +358,14 @@ const AdminProduct = () => {
           })
         }
 
+    const handleDeleteManyProducts = (ids) => {
+        mutationDeletedMany.mutate({ ids: ids, token: user?.access_token }, {
+            onSettled: () => {
+                queryProduct.refetch()
+            }
+        })
+    }
+
     // khi tao 1 san moi thanh cong thi
     useEffect(() => {
         if (isSuccess && data?.status === 'OK') {
@@ -366,6 +384,14 @@ const AdminProduct = () => {
             Message.error()
         }
     }, [isSuccessDeleted])
+
+    useEffect(() => {
+        if (isSuccessDeletedMany && dataDeletedMany?.status === 'OK') {
+          Message.success()
+        } else if (isErrorDeletedMany) {
+          Message.error()
+        }
+      }, [isSuccessDeletedMany])
 
     const handleCloseDrawer = () => {
         setIsOpenDrawer(false)
@@ -474,6 +500,7 @@ const AdminProduct = () => {
 
             <div>
             <TableComponent 
+                handleDeletedMany={handleDeleteManyProducts}
                 columns={columns} 
                 isLoading={isLoadingProducts} 
                 data={dataTable} 
@@ -487,7 +514,7 @@ const AdminProduct = () => {
             }}/>
             </div>
             
-            <ModalComponent
+            <ModalComponent forceRender
                 title='Tạo sản phẩm'
                 open={isModalOpen}
                 onCancel={handleCancel}
@@ -853,6 +880,7 @@ const AdminProduct = () => {
                                             width: '60px',
                                             borderRadius: '50%',
                                             objectFit: 'cover',
+                                            marginLeft: '10px',
                                         }}
                                         alt='avatar'
                                     />
@@ -868,7 +896,7 @@ const AdminProduct = () => {
                             }}
                         >
                             <Button type='primary' htmlType='submit'>
-                                Tạo
+                                Apply
                             </Button>
                         </Form.Item>
                     </Form>

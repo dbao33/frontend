@@ -1,33 +1,51 @@
 import { Divider, Table } from 'antd'
-import React from 'react'
+import React, { useState } from 'react'
 import LoadingComponent from '../LoadingComponent/LoadingComponent'
 
-const TableComponent = (props) => {
-    const { selectionType = 'checkbox', data = [], isLoading = false, columns = [] } = props
 
+const TableComponent = (props) => {
+    const { selectionType = 'checkbox', data:dataSource = [], isLoading = false, columns = [], handleDeletedMany = [] } = props
+    const [rowSelectedKeys, setRowSelectedKeys] = useState([])
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
+            setRowSelectedKeys(selectedRowKeys)
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
         },
-        getCheckboxProps: (record) => ({
-            disabled: record.name === 'Disabled User',
-            // Column configuration not to be checked
-            name: record.name,
-        }),
+        // getCheckboxProps: (record) => ({
+        //     disabled: record.name === 'Disabled User',
+        //     // Column configuration not to be checked
+        //     name: record.name,
+        // }),
     }
-    return (
 
+    const handleDeleteAll = () => {
+        handleDeletedMany(rowSelectedKeys)
+    }
+    
+    return ( 
         <div>
-
-            <Divider style={{ margin: '10px' }} />
+        <Divider style={{ margin: '10px' }} />
             <LoadingComponent isLoading={isLoading}>
+                {rowSelectedKeys.length > 0 && (
+                    <div style={{
+                        background: '#1d1ddd',
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        padding: '10px',
+                        cursor: 'pointer'
+                    }}
+                        onClick={handleDeleteAll}
+                    >
+                        Xóa tất cả
+                    </div>
+                )}
                 <Table
                     rowSelection={{
                         type: selectionType,
                         ...rowSelection,
                     }}
                     columns={columns}
-                    dataSource={data}
+                    dataSource={dataSource}
                     {...props}
                 />
             </LoadingComponent>

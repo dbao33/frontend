@@ -25,13 +25,7 @@ const AdminUser = () => {
   // filter
   const searchInput = useRef(null)
   const [searchText, setSearchText] = useState('')
-  // user
-  const [stateUser, setStateUser] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    isAdmin: false,
-  })
+
   // user update
   const [stateUserDetail, setUserDetail] = useState({
     name: '',
@@ -42,7 +36,7 @@ const AdminUser = () => {
     isAdmin: false,
   })
   const [form] = Form.useForm()
-  // gia tri duoc dua vao mutation update product
+  // gia tri duoc dua vao mutation update user
   const mutationUpdate = useMutationHooks((data) => {
     const { id, token, ...rests } = data
     const res = UserService.updateUser(id, { ...rests }, token)
@@ -60,12 +54,13 @@ const AdminUser = () => {
     const res = UserService.deleteManyUser(ids, token)
     return res
   })
-  // lien ket voi api get all product
+  
+  // lien ket voi api get all user
   const fetchUserAll = async () => {
     const res = await UserService.getAllUser(user?.access_token)
     return res
   }
-  // update product
+  // update user
   const fetchGetDetailsUser = async (rowSelected) => {
     const res = await UserService.getDetailsUser(rowSelected)
     if (res?.data) {
@@ -289,7 +284,7 @@ const columns = [
       Message.error()
     }
   }, [isSuccessDeletedMany])
-  // set product vao gia tri ban dau khi update da thanh cong
+  // set user vao gia tri ban dau khi update da thanh cong
   const handleCloseDrawer = () => {
     setIsOpenDrawer(false)
     setUserDetail({
@@ -357,7 +352,7 @@ const columns = [
         onSettled: () => {
           queryUser.refetch()
         },
-      }
+      } 
     )
   }
   return (

@@ -59,3 +59,13 @@ export const getProductAllTypes = async (type, page, limit) => {
         return response.data
     }
 }
+
+export const deleteManyProducts = async (data, access_token) => {
+    const response = await
+        axiosJWT.post(`http://localhost:3000/v1/api/product/delete-many-products/`, data, {
+            headers: {
+                token: `Bearer ${access_token}`,
+            }
+        })
+    return response.data
+}
