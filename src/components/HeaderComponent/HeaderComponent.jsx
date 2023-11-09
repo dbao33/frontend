@@ -102,7 +102,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
           <Col span={13} >
             <ButtonInputSearch
               size='large'
-              textButton='Tìm kiếm'
+              // textButton='Tìm kiếm'
               placeholder='Nhập nội dung muốn tìm kiếm!'
               onChange={onSearch}
             />
@@ -133,7 +133,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
               {user?.access_token ? (
                 <>
                   <Popover content={content} trigger='click' open={isOpenPopOver}>
-                    <div style={{ display: "flex", alignItems: "center" }} onClick={() => setIsOpenPopOver(!isOpenPopOver)}>
+                    <div style={{ display: 'flex', alignItems: 'center' }} onClick={() => setIsOpenPopOver(!isOpenPopOver)}>
                       {user?.avatar ? (
                         <img src={user?.avatar} alt='avatar' style={{
                           height: '40px',
@@ -150,17 +150,28 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
                         />)
                       }
                       <div style={{ cursor: 'pointer', marginLeft: '5px' }}>{userName?.length ? userName : user?.email}</div>
+
+                      <CaretDownOutlined />
                     </div>
                   </Popover>
                 </>
               ) : (
                 <>
-                  <span onClick={handleNavigateLogin} style={{ marginLeft: '5px' }}>Tài khoản</span>
+                  <div style={{ display: 'flex', alignItems: 'center' }} onClick={handleNavigateLogin}>
 
+                    <Avatar size={40}
+                      style={{ backgroundColor: '#fff' }}
+                      icon={<UserOutlined
+                        style={{ color: '#000', fontSize: '30px' }}
+                      />}
+                    />
+                    <span style={{ marginLeft: '5px' }}>
+                      Tài khoản
+                    </span>
+                  </div>
                 </>
               )}
 
-              <CaretDownOutlined />
             </WrapperHeaderAccout>
           </LoadingComponent>
 
