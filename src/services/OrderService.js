@@ -24,3 +24,14 @@ export const getOrderByUserId = async (id, access_token) => {
       })
   return response.data
 }
+
+export const getAllOrder = async (access_token) => {
+  const response = await 
+    axiosJWT.get(`http://localhost:3000/v1/api/order/get-all-order`, 
+    {
+      headers: {
+          token: `Bearer ${access_token}`,
+      }
+  })
+  return response.data
+}
