@@ -22,6 +22,7 @@ import * as UserService from '../../services/UserService'
 import { updateUser } from '../../redux/slides/userSlide'
 import { useNavigate } from 'react-router-dom'
 import Step from '../../components/Steps/StepComponent'
+import ModalComponent from '../../components/ModalComponent/ModalComponent'
 
 const OrderPage = () => {
     const order = useSelector((state) => state.order)
@@ -476,79 +477,13 @@ const OrderPage = () => {
                     </WrapperRight>
                 </div>
             </div>
-            {/* <ModalComponent
-                title='Cập nhật thông tin giao hàng'
-                open={isOpenModalUpdateInfo}
-                onCancel={handleCancleUpdate}
-                onOk={handleUpdateInforUser}
-            >
-                <Loading isLoading={isLoading}>
-                    <Form
-                        name='basic'
-                        labelCol={{ span: 4 }}
-                        wrapperCol={{ span: 20 }}
-                        autoComplete='on'
-                        form={form}
-                    >
-                        <Form.Item
-                            label='Name'
-                            name='name'
-                            rules={[{ required: true, message: 'Please input your name!' }]}
-                        >
-                            <InputComponent
-                                value={stateUserDetail['name']}
-                                onChange={handleOnchangeDetails}
-                                name='name'
-                            />
-                        </Form.Item>
-                        <Form.Item
-                            label='City'
-                            name='city'
-                            rules={[{ required: true, message: 'Please input your city!' }]}
-                        >
-                            <InputComponent
-                                value={stateUserDetail['city']}
-                                onChange={handleOnchangeDetails}
-                                name='city'
-                            />
-                        </Form.Item>
-                        <Form.Item
-                            label='Phone'
-                            name='phone'
-                            rules={[{ required: true, message: 'Please input your  phone!' }]}
-                        >
-                            <InputComponent
-                                value={stateUserDetail.phone}
-                                onChange={handleOnchangeDetails}
-                                name='phone'
-                            />
-                        </Form.Item>
-
-                        <Form.Item
-                            label='Adress'
-                            name='address'
-                            rules={[
-                                { required: true, message: 'Please input your  address!' },
-                            ]}
-                        >
-                            <InputComponent
-                                value={stateUserDetail.address}
-                                onChange={handleOnchangeDetails}
-                                name='address'
-                            />
-                        </Form.Item>
-                    </Form>
-                </Loading>
-            </ModalComponent> */}
-
-            <Modal
+            <ModalComponent
                 title='Cập nhật thông tin giao hàng'
                 open={isOpenModalUpdateInfo}
                 onCancel={handleCancleUpdate}
                 onOk={handleUpdateInforUser}
             >
                 <LoadingComponent isLoading={isLoading}>
-                    {/* <LoadingComponent > */}
                     <Form
                         name='basic'
                         labelCol={{ span: 4 }}
@@ -605,7 +540,8 @@ const OrderPage = () => {
                         </Form.Item>
                     </Form>
                 </LoadingComponent>
-            </Modal>
+            </ModalComponent>
+
         </div>
     )
 }
