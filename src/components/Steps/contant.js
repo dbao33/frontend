@@ -7,7 +7,6 @@ export const orderContant = {
   payment: {
     later_money: 'Thanh toán tiền mặt khi nhận hàng',
     paypal_money: 'Thanh toán bằng paypal',
-    momo_money: 'Thanh toán bằng momo',
   },
   detail: {
     fast: 'Giao hàng tiết kiệm',

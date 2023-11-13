@@ -13,7 +13,7 @@ import { useQuery } from '@tanstack/react-query'
 import LoadingComponent from '../LoadingComponent/LoadingComponent'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { addOrderProduct, decreaseAmount, increaseAmount, removeOrderProduct } from '../../redux/slides/orderSlice'
+import { addOrderProduct, decreaseAmount, increaseAmount } from '../../redux/slides/orderSlice'
 import { convertPrice } from '../../untils'
 
 const ProductdetailsComponent = ({ idProduct }) => {
@@ -55,19 +55,15 @@ const ProductdetailsComponent = ({ idProduct }) => {
                         image: productDetails?.image,
                         price: productDetails?.price,
                         product: productDetails?._id,
-                        // discount: productDetails?.discount,
-                        // countInstock: productDetails?.countInStock,
+                        discount: productDetails?.discount,
+                        countInstock: productDetails?.countInStock,
                     },
                 })
             )
         }
     }
     const hanleChangeCount = (type, idProduct) => {
-        // if (type === 'increase') {
-        //     setQuantity(quantity + 1)
-        // } else if (type === 'decrease') {
-        //     setQuantity(quantity - 1)
-        // }
+
         if (type === 'increase') {
             dispatch(increaseAmount({ idProduct }))
         } else {
@@ -75,10 +71,7 @@ const ProductdetailsComponent = ({ idProduct }) => {
         }
     }
 
-    const handleDeleteOrder = (idProduct) => {
-        // dispatch(removeOrderProduct({idProduct}))
-        dispatch(removeOrderProduct({ idProduct }))
-    }
+
 
     return (
         <LoadingComponent isLoading={isLoading || false}>
@@ -182,7 +175,7 @@ const ProductdetailsComponent = ({ idProduct }) => {
                                 onChange={onChange}
                                 size='middle'
                                 value={quantity}
-                                max={10}
+                                max={productDetails?.countInStock}
                                 min={1}
                             />
 

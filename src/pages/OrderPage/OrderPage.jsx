@@ -120,11 +120,15 @@ const OrderPage = () => {
         }
     }
 
-    const handleChangeCount = (type, idProduct) => {
+    const handleChangeCount = (type, idProduct, limit) => {
         if (type === 'increase') {
-            dispatch(increaseAmount({ idProduct }))
+            if (!limit) {
+                dispatch(increaseAmount({ idProduct }))
+            }
         } else {
-            dispatch(decreaseAmount({ idProduct }))
+            if (!limit) {
+                dispatch(decreaseAmount({ idProduct }))
+            }
         }
     }
 
@@ -310,7 +314,7 @@ const OrderPage = () => {
                                                         background: 'transparent',
                                                         cursor: 'pointer'
                                                     }}
-                                                    onClick={() => handleChangeCount('decrease', order?.product)}
+                                                    onClick={() => handleChangeCount('decrease', order?.product, order?.amount === 1)}
                                                 >
                                                     <MinusOutlined
                                                         style={{ color: '#000', fontSize: '10px' }} />
@@ -319,6 +323,8 @@ const OrderPage = () => {
                                                     defaultValue={order?.amount}
                                                     value={order?.amount}
                                                     size='small'
+                                                    min={1}
+                                                    max={order?.countInstock}
                                                 />
 
                                                 <button
@@ -327,7 +333,7 @@ const OrderPage = () => {
                                                         background: 'transparent',
                                                         cursor: 'pointer'
                                                     }}
-                                                    onClick={() => handleChangeCount('increase', order?.product)}
+                                                    onClick={() => handleChangeCount('increase', order?.product, order?.amount === order?.countInstock)}
                                                 >
                                                     <PlusOutlined
                                                         style={{ color: '#000', fontSize: '10px' }} />

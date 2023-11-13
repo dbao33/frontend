@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { WrapperContainerLeft, WrapperContainerRight } from '../SignInPage/style'
-import { Image, message } from 'antd'
+import { Image} from 'antd'
 import imageLogo from '../../assets/images/sign-in.png'
 import InputForm from '../../components/InputForm/InputForm'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'

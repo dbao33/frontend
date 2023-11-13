@@ -34,7 +34,7 @@ const SignInPage = () => {
 
     const mutation = useMutationHooks(data => UserService.UserLogin(data))
     // console.log('mutation', mutation)
-    const { data, isLoading, isSuccess } = mutation
+    const { data, isLoading } = mutation
 
     const dispatch = useDispatch()
     const handleGetDetailsUser = async (id, token) => {

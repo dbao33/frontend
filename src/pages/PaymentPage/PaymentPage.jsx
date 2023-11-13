@@ -185,9 +185,7 @@ const PaymentPage = () => {
                     value={payment}
                   >
 
-                    <Radio value='momo_money'>
-                      Thanh toán Momo
-                    </Radio>
+
                     <Radio value='paypal_money'>
                       Thanh toán Paypal
                     </Radio>
