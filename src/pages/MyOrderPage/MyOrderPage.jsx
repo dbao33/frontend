@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import * as OrderService from '../../services/OrderService'
 import Loading from '../../components/LoadingComponent/LoadingComponent'
-import { useSelector } from 'react-redux'
 import { useQuery } from '@tanstack/react-query'
 import {
   WrapperItemOrder, WrapperListOrder, WrapperStatus,
@@ -9,17 +8,18 @@ import {
 } from './style'
 import { convertPrice } from '../../untils'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
-import { useLocation } from 'react-router-dom'
-
+import { useLocation, useNavigate } from 'react-router-dom'
+import * as Message from '../../components/Message/Message'
+import useMutationHooks from '../../hooks/UseMutationHook'
 
 const MyOrderPage = () => {
-
+  const navigate = useNavigate()
   const location = useLocation()
   const { state } = location
   const fetchMyOrder = async () => {
     const response = await OrderService.getOrderByUserId(
       state?.id,
-      state?.access_token
+      state?.token
     )
     return response.data
 
@@ -28,10 +28,48 @@ const MyOrderPage = () => {
   const queryOrder = useQuery(
     { queryKey: ['orders'], queryFn: fetchMyOrder },
     {
-      // nếu có id và access_token của người dùng thì mới được phép gọi tới fetchMyOrder
-      enabled: state?.id && state?.access_token
+      // nếu có id và token của người dùng thì mới được phép gọi tới fetchMyOrder
+      enabled: state?.id && state?.token
     })
   const { isLoading, data } = queryOrder
+  const handleDetailsOrder = (id) => {
+    navigate(`/details-order/${id}`,
+      {
+        state:
+        {
+          token: state?.token
+        }
+      })
+  }
+
+  const mutationCancel = useMutationHooks((data) => {
+    const { id, token } = data
+    const response = OrderService.cancelOrder(id, token)
+    return response
+  })
+  
+  const handleCancelOrder = (id) => {
+    mutationCancel.mutate({ id, token: state?.token }, {
+      onSuccess: () => {
+        queryOrder.refetch()
+      }
+    })
+  }
+  const {
+    data: dataCancel,
+    isLoading: isLoadingCancel,
+    isError: isErrorCancel,
+    isSuccess: isSuccessCancel,
+  } = mutationCancel
+
+  useEffect(() => {
+    if (isSuccessCancel && dataCancel?.status === 'OK') {
+      Message.success()
+    } else if (isErrorCancel) {
+      Message.error()
+    }
+  }, [isSuccessCancel, isErrorCancel])
+
 
   const renderProduct = (data) => {
     return data?.map((order) => {
@@ -69,7 +107,7 @@ const MyOrderPage = () => {
   }
 
   return (
-    <Loading isLoading={isLoading}>
+    <Loading isLoading={isLoading || isLoadingCancel}>
       <WrapperContainer>
         <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
           <h4>Đơn hàng của tôi</h4>
@@ -114,6 +152,7 @@ const MyOrderPage = () => {
                     <div style={{ display: 'flex', gap: '10px' }}>
                       <ButtonComponent
                         // onClick={() => handleAddCard()}
+                        onClick={() => handleCancelOrder(order?._id)}
                         size={40}
                         styleButton={{
                           height: '36px',
@@ -126,6 +165,7 @@ const MyOrderPage = () => {
                       </ButtonComponent>
                       <ButtonComponent
                         // onClick={() => handleAddCard()}
+                        onClick={() => handleDetailsOrder(order?._id)}
                         size={40}
                         styleButton={{
                           height: '36px',

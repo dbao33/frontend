@@ -26,12 +26,34 @@ export const getOrderByUserId = async (id, access_token) => {
 }
 
 export const getAllOrder = async (access_token) => {
-  const response = await 
-    axiosJWT.get(`http://localhost:3000/v1/api/order/get-all-order`, 
-    {
-      headers: {
+  const response = await
+    axiosJWT.get(`http://localhost:3000/v1/api/order/get-all-order`,
+      {
+        headers: {
           token: `Bearer ${access_token}`,
-      }
-  })
+        }
+      })
+  return response.data
+}
+
+export const getDetailsOrder = async (id, access_token) => {
+  const response = await
+    axiosJWT.get(`http://localhost:3000/v1/api/order/get-order-details/${id}`,
+      {
+        headers: {
+          token: `Bearer ${access_token}`,
+        }
+      })
+  return response.data
+}
+
+export const cancelOrder = async (id, access_token) => {
+  const response = await
+    axiosJWT.delete(`http://localhost:3000/v1/api/order/cancel-order/${id}`,
+      {
+        headers: {
+          token: `Bearer ${access_token}`,
+        }
+      })
   return response.data
 }
