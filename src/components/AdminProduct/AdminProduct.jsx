@@ -122,23 +122,8 @@ const AdminProduct = () => {
         }
         setIsLoadingUpdate(false)
     }
-// update product code này có sở dụng
-    // const fetchGetDetailsProduct = async (rowSelected) => {
-    //     const res = await ProductService.getDetailsProduct(rowSelected);
-    //     if (res?.data) {
-    //         setProductDetails({
-    //             name: res?.data?.name,
-    //             price: res?.data?.price,
-    //             discount: res?.data?.discount,
-    //             description: res?.data?.description,
-    //             rating: res?.data?.rating,
-    //             image: res?.data?.image,
-    //             type: res?.data?.type,
-    //             countInStock: res?.data?.countInStock,
-    //         })
-    //     }
-    //     setIsLoadingUpdate(false);
-    // }
+
+    
     useEffect(() => {
         if(!isModalOpen) {
             form.setFieldsValue(productDetails)

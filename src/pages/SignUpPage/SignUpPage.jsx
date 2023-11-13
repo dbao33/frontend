@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { WrapperContainerLeft, WrapperContainerRight } from '../SignInPage/style'
-import { Image } from 'antd'
+import { Image, message } from 'antd'
 import imageLogo from '../../assets/images/sign-in.png'
 import InputForm from '../../components/InputForm/InputForm'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
@@ -33,15 +33,15 @@ const SignInPage = () => {
     }
 
     const mutation = useMutationHooks(data => UserService.UserSignUp(data))
-    const { data, isLoading, isError, isSuccess } = mutation
+    const { data, isLoading } = mutation
     useEffect(() => {
-        if (isSuccess) {
+        if (data?.status === 'OK') {
             Message.success()
             handleNavigateLogin()
-        } else if (isError) {
-            Message.error()
+        } else if (data?.status === 'ERR') {
+            Message.error(data?.message)
         }
-    }, [isError, isSuccess])
+    }, [data?.status])
 
     const showresult = () => {
         mutation.mutate({
