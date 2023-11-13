@@ -13,6 +13,7 @@ import LoadingComponent from '../../components/LoadingComponent/LoadingComponent
 import jwt_decode from 'jwt-decode'
 import { updateUser } from '../../redux/slides/userSlide'
 import { useDispatch } from 'react-redux'
+import * as Message from '../../components/Message/Message'
 
 const SignInPage = () => {
     const navige = useNavigate()
@@ -43,12 +44,9 @@ const SignInPage = () => {
     }
 
     useEffect(() => {
-        if (isSuccess) {
-            if (location?.state) {
-                navige(location?.state)
-            } else {
-                navige('/')
-            }
+        if (data?.status === 'OK') {
+
+            navige('/')
             localStorage.setItem('access_token', JSON.stringify(data?.access_token))
             if (data?.access_token) {
                 const decoded = jwt_decode(data?.access_token)
@@ -56,8 +54,11 @@ const SignInPage = () => {
                     handleGetDetailsUser(decoded?.id, data?.access_token)
                 }
             }
+
+        } else if (data?.status === 'ERR') {
+            Message.error(data?.message)
         }
-    }, [isSuccess])
+    }, [data?.status])
 
     const showresult = () => {
         mutation.mutate({
