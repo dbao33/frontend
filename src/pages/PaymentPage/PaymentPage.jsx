@@ -14,6 +14,8 @@ import * as OrderService from '../../services/OrderService'
 import { useNavigate } from 'react-router-dom'
 import { LableStyle, WrapperRadio } from './style'
 import { removeAllOrderProduct } from '../../redux/slides/orderSlice'
+import * as PaymentService from '../../services/PaymentService'
+import { PayPalButton } from 'react-paypal-button-v2'
 
 
 const PaymentPage = () => {
@@ -45,6 +47,7 @@ const PaymentPage = () => {
         phone: user?.phone,
         city: user?.city,
         paymentMethod: payment,
+        deliveredMethod: delivery,
         itemsPrice: priceMemo,
         shippingPrice: DeliveryPriceMemo,
         totalPrice: TotalPriceMemo,
@@ -80,7 +83,7 @@ const PaymentPage = () => {
       })
       // gọi đến hành động xóa các sản phẩm và truyền tham số mảng chứa các sản phẩm 
       dispatch(removeAllOrderProduct({ listChecked: arrayOrdered }))
-      Message.success('Đặt hàng thành công');
+      Message.success('Đặt hàng thành công')
       // truyền đi 1 state có chứa các thông tin
       navigate('/order-success', {
         state: {
@@ -90,8 +93,8 @@ const PaymentPage = () => {
           totalPrice: TotalPriceMemo,
         }
       })
-    } else if (isError) {
-      Message.error()
+    } else if (isSuccess) {
+      Message.error(dataAdd?.message)
     }
   }, [isSuccess, isError])
 
@@ -139,7 +142,45 @@ const PaymentPage = () => {
   }, [priceMemo, discountMemo, DeliveryPriceMemo])
 
 
+  const [sdkReady, setSdkReady] = useState(false)
+  // paypal
+  const addPaypalScript = async () => {
+    const { data } = await PaymentService.getConfig()
+    const script = document.createElement('script')
+    script.type = 'text/javascript'
+    script.src = `https://www.paypal.com/sdk/js?client-id=${data}`
+    script.async = true
+    script.onload = () => {
+      setSdkReady(true)
+    }
+    document.body.appendChild(script)
+  }
 
+  useEffect(() => {
+    if (!window.paypal) {
+      addPaypalScript()
+    } else {
+      setSdkReady(true)
+    }
+  }, [])
+  const onSuccessPayment = (details, data) => {
+    mutationAddOrder.mutate({
+      token: user?.access_token,
+      orderItems: order?.orderItemsSelected,
+      fullName: user?.name,
+      address: user?.address,
+      phone: user?.phone,
+      city: user?.city,
+      paymentMethod: payment,
+      deliveredMethod: delivery,
+      itemsPrice: priceMemo,
+      shippingPrice: DeliveryPriceMemo,
+      totalPrice: TotalPriceMemo,
+      user: user?.id,
+      isPaid: true,
+      paidAt: details.update_time
+    })
+  }
   return (
     <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
       <LoadingComponent isLoading={isLoadingAddOrder}>
@@ -291,26 +332,42 @@ const PaymentPage = () => {
                   </span>
                 </WrapperTotal>
               </div>
-              <ButtonComponent
-                onClick={() => handleAddOrder()}
-                size={40}
+              {/* payment */}
+              {payment === 'paypal_money' && sdkReady ? (
+                <div style={{
+                  width: '320px'
+                }}>
+                  <PayPalButton
+                    amount='0.01'
 
-                styleButton={{
-                  background: 'rgb(5, 5, 7)',
-                  height: '48px',
-                  width: '100%',
-                  borderRadius: '4px',
-                  border: 'none',
-                  margin: '26px 0 10px'
-                }}
+                    onSuccess={onSuccessPayment}
+                    onError={() => {
+                      alert('Error')
+                    }}
+                  />
+                </div>
+              ) : (
+                < ButtonComponent
+                  onClick={() => handleAddOrder()}
+                  size={40}
 
-                styleTextButton={{
-                  color: '#fff',
-                  fontSize: '15px',
-                  fontWeight: '700'
-                }}
-                textButton={'Đặt hàng'}
-              ></ButtonComponent>
+                  styleButton={{
+                    background: 'rgb(5, 5, 7)',
+                    height: '48px',
+                    width: '100%',
+                    borderRadius: '4px',
+                    border: 'none',
+                    margin: '26px 0 10px'
+                  }}
+
+                  styleTextButton={{
+                    color: '#fff',
+                    fontSize: '15px',
+                    fontWeight: '700'
+                  }}
+                  textButton={'Đặt hàng'}
+                ></ButtonComponent>
+              )}
             </WrapperRight>
           </div>
         </div>

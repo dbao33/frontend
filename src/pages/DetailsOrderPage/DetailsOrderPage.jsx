@@ -7,7 +7,7 @@ import {
 import { useLocation, useParams } from 'react-router-dom'
 import * as OrderService from '../../services/OrderService'
 import { useQuery } from '@tanstack/react-query'
-import { orderContant } from '../../contant'
+import { orderContant } from '../../components/Steps/contant'
 import { convertPrice } from '../../untils'
 import { useMemo } from 'react'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
@@ -44,7 +44,7 @@ const DetailsOrderPage = () => {
               <WrapperLabel>Địa chỉ người nhận</WrapperLabel>
               <WrapperContentInfo>
                 <div className='name-info'>
-                  {data?.shippingAddress?.fullName}
+                  Khách hàng: {data?.shippingAddress?.fullName}
                 </div>
                 <div className='address-info'>
                   <span>Địa chỉ: </span>
@@ -60,8 +60,11 @@ const DetailsOrderPage = () => {
               <WrapperLabel>Hình thức giao hàng</WrapperLabel>
               <WrapperContentInfo>
                 <div className='delivery-info'>
-                  <span className='name-delivery'>FAST </span>Giao hàng tiết
-                  kiệm
+                  <span className='name-delivery'>
+                    {orderContant.delivery[data?.deliveredMethod]} {' '}
+                  </span>
+                  {orderContant.detail[data?.deliveredMethod]}
+
                 </div>
                 <div className='delivery-fee'>
                   <span>Phí giao hàng: </span> {data?.shippingPrice}
