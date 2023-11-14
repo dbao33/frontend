@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Col, Avatar, Popover, Badge } from 'antd'
 import {
   WrapperHeader, WrapperTextHeader, WrapperHeaderAccout, WrapperContentPopup
-} from './type'
+} from './style'
 import {
   UserOutlined, CaretDownOutlined, ShoppingCartOutlined
 } from '@ant-design/icons'
@@ -10,9 +10,9 @@ import ButtonInputSearch from '../ButtonInputSearch/ButtonInputSearch'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import * as UserService from '../../services/UserService'
-import { resetUser } from '../../redux/slides/userSlide'
+import { resetUser } from '../../redux/slices/userSlice'
 import LoadingComponent from '../LoadingComponent/LoadingComponent'
-import { searchProduct } from '../../redux/slides/ProductSlice'
+import { searchProduct } from '../../redux/slices/ProductSlice'
 
 const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
   const navige = useNavigate()

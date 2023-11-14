@@ -1,15 +1,15 @@
 import { Divider, Table } from 'antd'
 import React, { useMemo, useState } from 'react'
 import LoadingComponent from '../LoadingComponent/LoadingComponent'
-import { Excel } from "antd-table-saveas-excel";
+import { Excel } from 'antd-table-saveas-excel'
 
 const TableComponent = (props) => {
-    const { selectionType = 'checkbox', data:dataSource = [], isLoading = false, columns = [], handleDeletedMany = [] } = props
+    const { selectionType = 'checkbox', data: dataSource = [], isLoading = false, columns = [], handleDeletedMany = [] } = props
     const [rowSelectedKeys, setRowSelectedKeys] = useState([])
     const newColumnExport = useMemo(() => {
         const arr = columns?.filter((col) => col.dataIndex !== 'action')
         return arr
-      }, [columns])
+    }, [columns])
 
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
@@ -28,20 +28,20 @@ const TableComponent = (props) => {
     }
 
     const exportExcel = () => {
-        const excel = new Excel();
+        const excel = new Excel()
         excel
-          .addSheet("test")
-          .addColumns(newColumnExport)
-          .addDataSource(dataSource, {
-            str2Percent: true
-          })
-          .saveAs("Excel.xlsx");
-      };
-      
-    
-    return ( 
+            .addSheet('test')
+            .addColumns(newColumnExport)
+            .addDataSource(dataSource, {
+                str2Percent: true
+            })
+            .saveAs('Excel.xlsx')
+    }
+
+
+    return (
         <div>
-        <Divider style={{ margin: '10px' }} />
+            <Divider style={{ margin: '10px' }} />
             <LoadingComponent isLoading={isLoading}>
                 {rowSelectedKeys.length > 0 && (
                     <div style={{

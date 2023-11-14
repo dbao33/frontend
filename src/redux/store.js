@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import userReducer from './slides/userSlide'
-import productReducer from './slides/ProductSlice'
-import orderReducer from './slides/orderSlice'
+import userReducer from './slices/userSlice'
+import productReducer from './slices/ProductSlice'
+import orderReducer from './slices/orderSlice'
 import {
     persistStore,
     persistReducer,

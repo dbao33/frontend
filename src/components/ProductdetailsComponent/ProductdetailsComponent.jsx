@@ -3,17 +3,17 @@ import { Col, Rate, Row } from 'antd'
 import {
     WrapperStyleImageSmall, WrapperStyleCollImage, WrapperStyleNameProduct,
     WrapperStyleTextSell, WrapperPriceProduct, WrapperPriceTextProduct,
-    WrapperAddressProduct, WrapperQuanlityProduct, WrapperInputNumber
+    WrapperAddressProduct, WrapperQuanlityProduct, WrapperInputNumber,
+    WrapperTextLight
 } from './style'
 import ButtonComponent from '../ButtonComponent/ButtonComponent'
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons'
-import { WrapperTextLight } from '../../pages/TypeProductPage/style'
 import * as ProductService from '../../services/ProductService'
 import { useQuery } from '@tanstack/react-query'
 import LoadingComponent from '../LoadingComponent/LoadingComponent'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { addOrderProduct } from '../../redux/slides/orderSlice'
+import { addOrderProduct } from '../../redux/slices/orderSlice'
 import { convertPrice } from '../../untils'
 import * as Message from '../Message/Message'
 

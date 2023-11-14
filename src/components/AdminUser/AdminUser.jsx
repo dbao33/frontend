@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Checkbox, Divider, Form, Space } from 'antd'
 import { Button } from 'antd'
-import {  DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import TableComponent from '../TableComponent/TableComponent'
 import { WrapperHeader, WrapperUploadFile } from './style'
 import { SearchOutlined } from '@ant-design/icons'
@@ -32,7 +32,7 @@ const AdminUser = () => {
     email: '',
     phone: '',
     avatar: '',
-    address:'',
+    address: '',
     isAdmin: false,
   })
   const [form] = Form.useForm()
@@ -54,7 +54,7 @@ const AdminUser = () => {
     const res = UserService.deleteManyUser(ids, token)
     return res
   })
-  
+
   // lien ket voi api get all user
   const fetchUserAll = async () => {
     const res = await UserService.getAllUser(user?.access_token)
@@ -204,7 +204,7 @@ const AdminUser = () => {
     },
   })
 
-const columns = [
+  const columns = [
     {
       title: 'Name',
       dataIndex: 'name',
@@ -330,20 +330,20 @@ const columns = [
       }
     )
   }
- // delete many
- const handleDeletedManyUser = (ids) => {
-  mutationDeletedMany.mutate(
-    {
-      ids: ids,
-      token: user?.access_token,
-    },
-    {
-      onSettled: () => {
-        queryUser.refetch()
+  // delete many
+  const handleDeletedManyUser = (ids) => {
+    mutationDeletedMany.mutate(
+      {
+        ids: ids,
+        token: user?.access_token,
       },
-    }
-  )
-}
+      {
+        onSettled: () => {
+          queryUser.refetch()
+        },
+      }
+    )
+  }
   // khi click vao finish thi gia tri nhap vao se duoc luu vao mutation
   const onUpdateUser = () => {
     mutationUpdate.mutate(
@@ -352,7 +352,7 @@ const columns = [
         onSettled: () => {
           queryUser.refetch()
         },
-      } 
+      }
     )
   }
   return (
@@ -501,7 +501,7 @@ const columns = [
       </DrawerComponent>
       {/* xoa sp */}
       <ModalComponent
-      forceRender
+        forceRender
         title='Xóa người dùng'
         open={isModalOpenDelete}
         onCancel={handleCancelDelete}

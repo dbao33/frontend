@@ -1,19 +1,15 @@
-import { WrapperHeader } from '../AdminUser/style'
-import React, { useEffect, useState, useRef } from 'react'
-import { Checkbox, Divider, Form, Space } from 'antd'
+import { WrapperHeader } from './style'
+import React from 'react'
+import { Space } from 'antd'
 import { Button } from 'antd'
 import TableComponent from '../TableComponent/TableComponent'
-import { convertPrice, getBase64 } from '../../untils'
+import { convertPrice } from '../../untils'
 import InputComponent from '../InputComponent/InputComponent'
 import * as OrderService from '../../services/OrderService'
-import LoadingComponent from '../LoadingComponent/LoadingComponent'
 import { useQuery } from '@tanstack/react-query'
-import * as Message from '../../components/Message/Message'
-import DrawerComponent from '../DrawerComponent/DrawerComponent'
 import { useSelector } from 'react-redux'
-import ModalComponent from '../ModalComponent/ModalComponent'
-import { DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons'
-import { orderContant } from '../../contant'
+import { SearchOutlined } from '@ant-design/icons'
+import { orderContant } from '../Steps/contant'
 import PieChartComponent from './PieChart'
 
 
@@ -33,7 +29,7 @@ const AdminOrder = () => {
   })
 
   const { isLoading: isLoadingOrder, data: orders } = queryOrder
-  
+
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
       setSelectedKeys,
@@ -48,13 +44,13 @@ const AdminOrder = () => {
         onKeyDown={(e) => e.stopPropagation()}
       >
         <InputComponent
-        //   ref={searchInput}
+          //   ref={searchInput}
           placeholder={`Search ${dataIndex}`}
           value={selectedKeys[0]}
           onChange={(e) =>
             setSelectedKeys(e.target.value ? [e.target.value] : [])
           }
-        //   onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          //   onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
           style={{
             marginBottom: 8,
             display: 'block',
@@ -100,7 +96,7 @@ const AdminOrder = () => {
     },
   })
 
-const columns = [
+  const columns = [
     {
       title: 'User Name',
       dataIndex: 'username',
@@ -147,31 +143,30 @@ const columns = [
   const dataTable =
     orders?.data?.length &&
     orders?.data?.map((order) => {
-        console.log('usewr', order)
       return {
         ...order,
         key: order._id,
-        userName: order?.shippingAddress?.fullName, 
+        userName: order?.shippingAddress?.fullName,
         phone: order?.shippingAddress?.phone,
         address: order?.shippingAddress?.address,
         paymentMethod: orderContant.payment[order?.paymentMethod],
-        isPaid: order?.isPaid ? 'TRUE' :'FALSE',
-        isDelivered: order?.isDelivered ? 'TRUE' : 'FALSE', 
+        isPaid: order?.isPaid ? 'TRUE' : 'FALSE',
+        isDelivered: order?.isDelivered ? 'TRUE' : 'FALSE',
         totalPrice: convertPrice(order?.totalPrice)
       }
     })
- 
+
 
   return (
     <>
       <WrapperHeader>Quản lí đơn hàng</WrapperHeader>
-      <div style={{height: 200, width:200}}>
+      <div style={{ height: 200, width: 200 }}>
         <PieChartComponent data={orders?.data} />
       </div>
       <div style={{ marginTop: '20px' }}>
-        <TableComponent  columns={columns} isLoading={isLoadingOrder} data={dataTable} />
+        <TableComponent columns={columns} isLoading={isLoadingOrder} data={dataTable} />
       </div>
-      
+
     </>
   )
 }

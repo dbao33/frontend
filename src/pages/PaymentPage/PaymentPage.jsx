@@ -1,9 +1,5 @@
 import { Radio } from 'antd'
 import React, { useEffect, useMemo, useState } from 'react'
-import {
-  WrapperInfo, WrapperLeft,
-  WrapperRight, WrapperTotal
-} from '../OrderPage/style'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
 import { useDispatch, useSelector } from 'react-redux'
 import { convertPrice } from '../../untils'
@@ -12,8 +8,11 @@ import LoadingComponent from '../../components/LoadingComponent/LoadingComponent
 import useMutationHooks from '../../hooks/UseMutationHook'
 import * as OrderService from '../../services/OrderService'
 import { useNavigate } from 'react-router-dom'
-import { LableStyle, WrapperRadio } from './style'
-import { removeAllOrderProduct } from '../../redux/slides/orderSlice'
+import {
+  LableStyle, WrapperRadio, WrapperInfo,
+  WrapperLeft, WrapperRight, WrapperTotal,
+} from './style'
+import { removeAllOrderProduct } from '../../redux/slices/orderSlice'
 import * as PaymentService from '../../services/PaymentService'
 import { PayPalButton } from 'react-paypal-button-v2'
 

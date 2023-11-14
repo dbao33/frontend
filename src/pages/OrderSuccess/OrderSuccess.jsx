@@ -1,9 +1,10 @@
 import React from 'react'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
 import { useLocation } from 'react-router-dom'
-import { WrapperInfo } from '../OrderPage/style'
-import { LableStyle } from '../PaymentPage/style'
-import { WrapperContainer, WrapperItemOrder, WrapperItemOrderInfo, WrapperValue } from './style'
+import {
+  WrapperContainer, WrapperItemOrder, WrapperItemOrderInfo,
+  WrapperValue, WrapperInfo, LableStyle
+} from './style'
 import { convertPrice } from '../../untils'
 import { orderContant } from '../../components/Steps/contant'
 const PaymentPage = () => {

@@ -1,5 +1,5 @@
-import Upload from "antd/es/upload/Upload";
-import styled from "styled-components";
+import Upload from 'antd/es/upload/Upload'
+import styled from 'styled-components'
 
 export const HeaderProfile = styled.h1`
     padding: 10px 120px;

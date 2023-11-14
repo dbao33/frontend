@@ -12,14 +12,14 @@ import {
     decreaseAmount, increaseAmount,
     removeAllOrderProduct, removeOrderProduct,
     selectedOrder
-} from '../../redux/slides/orderSlice'
+} from '../../redux/slices/orderSlice'
 import { convertPrice } from '../../untils'
 import * as Message from '../../components/Message/Message'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
 import InputComponent from '../../components/InputComponent/InputComponent'
 import useMutationHooks from '../../hooks/UseMutationHook'
 import * as UserService from '../../services/UserService'
-import { updateUser } from '../../redux/slides/userSlide'
+import { updateUser } from '../../redux/slices/userSlice'
 import { useNavigate } from 'react-router-dom'
 import Step from '../../components/Steps/StepComponent'
 import ModalComponent from '../../components/ModalComponent/ModalComponent'

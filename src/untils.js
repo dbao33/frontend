@@ -1,4 +1,4 @@
-import { orderContant } from "./contant"
+import { orderContant } from './components/Steps/contant'
 
 export const isJsonString = (data) => {
     try {
@@ -59,11 +59,11 @@ export const convertDataChart = (data, type) => {
     try {
         const object = {}
         Array.isArray(data) && data.forEach((opt) => {
-            if(!object[opt[type]]) {
+            if (!object[opt[type]]) {
                 object[opt[type]] = 1
             } else {
-                object[opt[type]]+=1
-                console.log('c;getBase64', object[opt[type]], typeof(object[opt[type]]))
+                object[opt[type]] += 1
+                console.log('c;getBase64', object[opt[type]], typeof (object[opt[type]]))
             }
         })
         const results = Array.isArray(Object.keys(object)) && Object.keys(object).map((item) => {
@@ -73,7 +73,7 @@ export const convertDataChart = (data, type) => {
             }
         })
         return results
-    }catch(e) {
+    } catch (e) {
         return []
     }
-  }
+}

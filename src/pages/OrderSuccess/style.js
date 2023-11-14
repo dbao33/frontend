@@ -30,3 +30,16 @@ export const WrapperItemOrderInfo = styles.div`
   display: flex;
   justify-content: center;
 `
+export const LableStyle = styles.span`
+  font-size: 12px;
+  color: #000;
+  font-weight: bold
+`
+
+export const WrapperInfo = styles.div`
+  padding: 17px 20px;
+  border-bottom: 1px solid #f5f5f5;
+  background: #fff;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+`
