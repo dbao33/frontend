@@ -16,6 +16,8 @@ const initialState = {
     paidAt: '',
     isDelivered: false,
     deliveredAt: '',
+    deliveredMethod: '',
+    isErrorOrder: false,
 
 }
 
@@ -29,7 +31,10 @@ export const orderSlice = createSlice({
             const itemOrder =
                 state?.orderItems?.find((item) => item?.product === orderItem.product)
             if (itemOrder) {
-                itemOrder.amount += orderItem?.amount
+                if (itemOrder.amount <= itemOrder.countInstock) {
+                    itemOrder.amount += orderItem?.amount
+                    state.isSuccessOrder = true
+                }
             } else {
                 state.orderItems.push(orderItem)
             }

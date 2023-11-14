@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Col, Rate, Row } from 'antd'
 import {
     WrapperStyleImageSmall, WrapperStyleCollImage, WrapperStyleNameProduct,
@@ -13,8 +13,9 @@ import { useQuery } from '@tanstack/react-query'
 import LoadingComponent from '../LoadingComponent/LoadingComponent'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { addOrderProduct, decreaseAmount, increaseAmount } from '../../redux/slides/orderSlice'
+import { addOrderProduct } from '../../redux/slides/orderSlice'
 import { convertPrice } from '../../untils'
+import * as Message from '../Message/Message'
 
 const ProductdetailsComponent = ({ idProduct }) => {
 
@@ -47,29 +48,58 @@ const ProductdetailsComponent = ({ idProduct }) => {
         if (!user?.id) {
             navigate('/sign-in', { state: location?.pathname })
         } else {
-            dispatch(
-                addOrderProduct({
-                    orderItem: {
-                        name: productDetails?.name,
-                        amount: quantity,
-                        image: productDetails?.image,
-                        price: productDetails?.price,
-                        product: productDetails?._id,
-                        discount: productDetails?.discount,
-                        countInstock: productDetails?.countInStock,
-                    },
-                })
+            const orderRedux = order?.orderItems?.find(
+                (item) => item.product === productDetails?._id
             )
+            if (
+                (orderRedux?.amount + quantity) <= orderRedux?.countInstock ||
+                (!orderRedux && productDetails?.countInStock > 0)
+            ) {
+                dispatch(
+                    addOrderProduct({
+                        orderItem: {
+                            name: productDetails?.name,
+                            amount: quantity,
+                            image: productDetails?.image,
+                            price: productDetails?.price,
+                            product: productDetails?._id,
+                            discount: productDetails?.discount,
+                            countInstock: productDetails?.countInStock,
+                        },
+                    })
+                )
+                Message.success('Đã thêm vào giỏ hàng')
+            } else {
+                setErrorLimitOrder(true)
+            }
         }
     }
-    const hanleChangeCount = (type, idProduct) => {
-
+    const hanleChangeCount = (type, limited) => {
         if (type === 'increase') {
-            dispatch(increaseAmount({ idProduct }))
+            if (!limited) {
+                setQuantity(quantity + 1)
+            }
         } else {
-            dispatch(decreaseAmount({ idProduct }))
+            if (!limited) {
+                setQuantity(quantity - 1)
+            }
         }
     }
+
+    const order = useSelector((state) => state.order)
+    const [errorLimitOrder, setErrorLimitOrder] = useState(false)
+
+
+    useEffect(() => {
+        const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id)
+        if ((orderRedux?.amount + quantity) <= orderRedux?.countInstock || (!orderRedux && productDetails?.countInStock > 0)) {
+            setErrorLimitOrder(false)
+        } else if (productDetails?.countInStock === 0) {
+            setErrorLimitOrder(true)
+        }
+    }, [quantity])
+
+
 
 
 
@@ -164,7 +194,7 @@ const ProductdetailsComponent = ({ idProduct }) => {
                                     background: 'transparent',
                                     cursor: 'pointer',
                                 }}
-                                onClick={() => hanleChangeCount('decrease')} >
+                                onClick={() => hanleChangeCount('decrease', quantity === 1)} >
                                 <MinusOutlined
                                     style={{ color: '#000', fontSize: '20px ' }}
 
@@ -185,7 +215,11 @@ const ProductdetailsComponent = ({ idProduct }) => {
                                     background: 'transparent',
                                     cursor: 'pointer',
                                 }}
-                                onClick={() => hanleChangeCount('increase')}
+                                disabled={errorLimitOrder}
+                                onClick={() => hanleChangeCount(
+                                    'increase',
+                                    quantity === productDetails?.countInStock
+                                )}
                             >
                                 <PlusOutlined
                                     style={{ color: '#000', fontSize: '20px ' }}
@@ -193,6 +227,8 @@ const ProductdetailsComponent = ({ idProduct }) => {
                             </button>
                         </WrapperQuanlityProduct>
                     </div>
+
+                    {errorLimitOrder && <div style={{ color: 'red' }}>Sản phẩm đã hết hàng</div>}
 
                     <div style={{
                         display: 'flex',
@@ -217,7 +253,7 @@ const ProductdetailsComponent = ({ idProduct }) => {
                             onClick={handleAddOrderProduct}
                         ></ButtonComponent>
 
-                        <ButtonComponent
+                        {/* <ButtonComponent
                             size={40}
                             styleButton={{
                                 background: '#fff',
@@ -232,7 +268,7 @@ const ProductdetailsComponent = ({ idProduct }) => {
                                 fontSize: '15px',
                                 fontWeight: '700'
                             }}
-                        ></ButtonComponent>
+                        ></ButtonComponent> */}
                     </div>
 
                 </Col>
