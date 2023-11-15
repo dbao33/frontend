@@ -185,7 +185,16 @@ const PaymentPage = () => {
       <LoadingComponent isLoading={isLoadingAddOrder}>
 
         <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
-          <h3>Thanh toán</h3>
+
+          <div style={{
+            fontWeight: 'bold',
+            fontSize: '16px',
+            display: 'flex',
+            paddingLeft: '10px',
+          }}>
+
+            Thanh toán
+          </div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <WrapperLeft>
 

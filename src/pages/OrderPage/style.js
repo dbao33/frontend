@@ -91,3 +91,8 @@ export const CustomCheckbox = styles(Checkbox)`
     border-color: #9255FD;
   }
 `
+
+export const WrapperText = styles.div`
+  font-size: 16px;
+  font-weight: 500;
+`

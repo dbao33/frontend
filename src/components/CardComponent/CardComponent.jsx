@@ -42,12 +42,14 @@ const CardComponent = (props) => {
                 <span style={{ marginRight: '4px' }}>
                     <span>{rating}</span> <StarFilled style={{ fontSize: '15px', color: 'rgb(253, 216, 54)' }} />
                 </span>
-                <WrapperStyleTextSell> |  Đã bán {selled || 1000}+ </WrapperStyleTextSell>
+                <WrapperStyleTextSell> |  Đã bán {selled || 0}+ </WrapperStyleTextSell>
             </WrapperReportText>
             <WrapperPriceText>{convertPrice(price)}
-                <WrapperPriceDiscountText style={{ marginLeft: '6px' }}>
-                    - {discount || 5}%
-                </WrapperPriceDiscountText>
+                {discount > 0 &&
+                    <WrapperPriceDiscountText style={{ marginLeft: '6px' }}>
+                        - {discount}%
+                    </WrapperPriceDiscountText>
+                }
             </WrapperPriceText>
         </WrapperCardStyle>
     )

@@ -15,7 +15,16 @@ const PaymentPage = () => {
       <LoadingComponent isLoading={false}>
 
         <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
-          <h3>Đơn hàng đã đặt thành công</h3>
+          
+          <div style={{
+            fontWeight: 'bold',
+            fontSize: '16px',
+            display: 'flex',
+            paddingLeft: '10px',
+          }}>
+
+            Đơn hàng đã đặt thành công
+          </div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <WrapperContainer>
 

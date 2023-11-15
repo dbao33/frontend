@@ -2,7 +2,7 @@ import { Checkbox, Form, Modal } from 'antd'
 import React, { useEffect, useMemo, useState } from 'react'
 import {
     WrapperCountOrder, WrapperInfo, WrapperItemOrder, WrapperLeft,
-    WrapperListOrder, WrapperRight, WrapperStyleHeader, WrapperTotal
+    WrapperListOrder, WrapperRight, WrapperStyleHeader, WrapperText, WrapperTotal
 } from './style'
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
@@ -224,7 +224,15 @@ const OrderPage = () => {
     return (
         <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
             <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
-                <h3>Giỏ hàng</h3>
+                <div style={{
+                    fontWeight: 'bold',
+                    fontSize: '16px',
+                    display: 'flex',
+                    paddingLeft: '10px',
+                }}>
+
+                    Giỏ hàng
+                </div>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <WrapperLeft>
                         <div style={{ backgroundColor: "#fff", padding: '16px' }}>

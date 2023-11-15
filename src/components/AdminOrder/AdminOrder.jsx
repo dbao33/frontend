@@ -29,7 +29,6 @@ const AdminOrder = () => {
   })
 
   const { isLoading: isLoadingOrder, data: orders } = queryOrder
-
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
       setSelectedKeys,
@@ -99,9 +98,9 @@ const AdminOrder = () => {
   const columns = [
     {
       title: 'User Name',
-      dataIndex: 'username',
+      dataIndex: 'userName',
       sorter: (a, b) => a.username.length - b.username.length,
-      ...getColumnSearchProps('username')
+      ...getColumnSearchProps('userName')
     },
     {
       title: 'Phone',
