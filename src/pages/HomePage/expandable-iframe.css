@@ -1,0 +1,10 @@
+.expandable-iframe {
+  width: 400px;
+  height: 300px;
+  transition: all 0.3s ease;
+}
+
+.expandable-iframe:hover {
+  width: 800px;
+  height: 600px;
+}

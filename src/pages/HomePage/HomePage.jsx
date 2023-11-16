@@ -13,6 +13,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
 import { useDebounce } from '../../hooks/valueDebounce'
+import './expandable-iframe.css'
 
 const HomePage = () => {
 
@@ -21,7 +22,7 @@ const HomePage = () => {
     const [isLoadingSearch, setIsLoadingSearch] = useState(false)
     const searchDebounce = useDebounce(SearchProduct, 1000)
     // const arr = ['LENOVO', 'ASUS', 'HP', 'DELL']
-    
+
     const [limit, setLimit] = useState(5)
     const fetchProductAll = async (context) => {
         const limit = context?.queryKey && context?.queryKey[1]
@@ -67,7 +68,7 @@ const HomePage = () => {
                 </div>
 
                 <div className='body' style={{ width: '100%', backgroundColor: '#fff' }}>
-                    <div id='container' style={{ height: '1000px', width: '100%', margin: '0 auto' }}>
+                    <div id='container' style={{ width: '100%', margin: '0 auto' }}>
                         <SliderComponent arrImages={[slider_1, slider_2, slider_4, slider_5]} />
                         <WrapperProducts>
 
@@ -101,8 +102,9 @@ const HomePage = () => {
                                     )
                                 })}
                             </WrapperProducts>
+
                         </WrapperProducts>
-                        <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+                        <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '10px', marginBottom: '20px' }}>
                             <WrapperButtonMore
                                 textButton={isPreviousData ? 'Xem Thêm' : 'Xem Thêm'}
                                 type='outline'
@@ -123,6 +125,17 @@ const HomePage = () => {
                                     products?.total === products?.data?.length || products?.totalPages === 1}
                                 onClick={() => setLimit((prev) => prev + 5)}
                             />
+
+                        </div>
+                        <div style={{ textAlign: 'center' }}>
+                            <iframe
+                                className='expandable-iframe'
+                                src='https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d23651.30408792001!2d106.62409558413344!3d10.868459536359174!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1690950899112!5m2!1svi!2s'
+                                allowFullScreen=''
+                                loading='lazy'
+                                width='300'
+                                height='250'
+                            ></iframe>
                         </div>
                     </div>
                 </div>

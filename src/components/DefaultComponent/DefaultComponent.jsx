@@ -4,9 +4,11 @@ import FooterComponent from '../FooterComponent/FooterComponent'
 
 const DefaultComponent = ({ children }) => {
   return (
-    <div>
+    <div style={{ minHeight: '100vh' }}>
       <HeaderComponent />
-      {children}
+      <div style={{ paddingBottom: '20px' }}>
+        {children}
+      </div>
       <FooterComponent />
     </div>
 
