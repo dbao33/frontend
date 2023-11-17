@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import TypeProduct from '../../components/TypeProduct/TypeProduct'
 import { WrapperButtonMore, WrapperProducts, WrapperTypeProduct } from './style'
 import SliderComponent from '../../components/SliderComponent/SliderComponent.jsx'
-import slider_2 from '../../assets/images/slider_2.webp'
-import slider_1 from '../../assets/images/slider_1.png'
-import slider_4 from '../../assets/images/slider_4.jpg'
-import slider_5 from '../../assets/images/slider_5.jpg'
+import slider_2 from '../../assets/images/slide_1.jpg'
+import slider_1 from '../../assets/images/slide_2.jpg'
+import slider_4 from '../../assets/images/slide_3.jpg'
+import slider_5 from '../../assets/images/slide_4.jpg'
 import CardComponent from '../../components/CardComponent/CardComponent'
 import { Col } from 'antd'
 import * as ProductService from '../../services/ProductService'
@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
 import { useDebounce } from '../../hooks/valueDebounce'
 import './expandable-iframe.css'
+import FooterComponent from '../../components/FooterComponent/FooterComponent.jsx'
 
 const HomePage = () => {
 
@@ -109,12 +110,12 @@ const HomePage = () => {
                                 textButton={isPreviousData ? 'Xem Thêm' : 'Xem Thêm'}
                                 type='outline'
                                 styleButton={{
-                                    border: '1px solid rgb(5, 5, 7)',
+                                    border: '1px solid rgb(76,27,133)',
                                     width: '240px',
                                     height: '38px', borderRadius: '4px',
                                     color: `${products?.total === products?.data?.length
                                         ? '#ccc'
-                                        : 'rgb(5, 5, 7)'
+                                        : 'rgb(76,27,133)'
                                         }`,
                                 }}
                                 styleTextButton={{
@@ -127,7 +128,8 @@ const HomePage = () => {
                             />
 
                         </div>
-                        <div style={{ textAlign: 'center' }}>
+                        <div style={{ textAlign: 'center', marginBottom: '20px' }}
+                        >
                             <iframe
                                 className='expandable-iframe'
                                 src='https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d23651.30408792001!2d106.62409558413344!3d10.868459536359174!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1690950899112!5m2!1svi!2s'
@@ -140,6 +142,7 @@ const HomePage = () => {
                     </div>
                 </div>
             </LoadingComponent>
+            <FooterComponent />
         </>
     )
 }

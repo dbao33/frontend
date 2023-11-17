@@ -1,15 +1,21 @@
 import styled from 'styled-components'
-import { Row } from 'antd'
+import { Badge, Row } from 'antd'
 
 export const WrapperHeader = styled(Row)`
-    padding: 10px 120px;
-    background-color: #050507;
-    color: #fff;
+    padding: 14px 120px;
+    background-image: 
+    
+    linear-gradient(183deg, rgba(23,3,93,1) 4%, rgba(152,33,165,1) 50%, rgba(29,4,76,1) 96%);
     align-items: center;
     gap: 16px;
     flex-wrap: nowrap;
+    border-bottom: 1px solid rgb(5,5,7);
 `
-
+export const WrapperBage = styled(Badge)`
+    &.ant-badge.ant-badge-count {
+        inset-inline-end: -15px !important;
+    }
+`
 export const WrapperTextHeader = styled.span`
     font-size: 24px;
     color: #fff;

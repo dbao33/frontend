@@ -81,7 +81,7 @@ const SignInPage = () => {
                     <h1 >Xin Chào</h1>
                     <p style={{ fontSize: '16px' }}>Vui lòng đăng nhập tài khoản</p>
                     <InputForm
-                        style={{ marginBottom: '10px' }}
+                        style={{ marginBottom: '10px', padding: '8px' }}
                         placeholder='@gmail.com'
                         value={email}
                         onChange={handleOnChangeEmail}
@@ -99,7 +99,7 @@ const SignInPage = () => {
                         >
                             {isShowPassword ? <EyeFilled /> : <EyeInvisibleFilled />}
                         </span>
-                        <InputForm style={{ marginBottom: '15px' }}
+                        <InputForm style={{ marginBottom: '15px', padding: '8px' }}
                             placeholder='password'
                             type={isShowPassword ? 'text' : 'password'}
                             value={password}
@@ -116,7 +116,7 @@ const SignInPage = () => {
                             onClick={showresult}
                             size={40}
                             styleButton={{
-                                background: 'rgb(5, 5, 7)',
+                                background: 'linear-gradient(183deg, rgba(76,27,133,1) 17%, rgba(184,72,213,0.938813025210084) 50%, rgba(49,15,84,1) 87%)',
                                 height: '48px',
                                 width: '100%',
                                 borderRadius: '4px',

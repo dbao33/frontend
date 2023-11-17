@@ -94,13 +94,13 @@ const ProfilePage = () => {
                         size={40}
                         styleButton={{
                             height: '30px',
-                            border: '1px solid rgb(1, 82, 215)',
+                            border: '1px solid rgb(76,27,133)',
                             width: 'fit-content',
                             borderRadius: '4px',
                             padding: '2px 6px 6px'
                         }}
                         textButton={'Cập nhập'}
-                        styleTextButton={{ color: 'rgb(1, 82, 215)', fontSize: '15px', fontWeight: '700' }}
+                        styleTextButton={{ color: 'rgb(76,27,133)', fontSize: '15px', fontWeight: '700' }}
                     ></ButtonComponent>
                 </WrapperInput>
                 <WrapperInput>
@@ -115,13 +115,13 @@ const ProfilePage = () => {
                         size={40}
                         styleButton={{
                             height: '30px',
-                            border: '1px solid rgb(1, 82, 215)',
+                            border: '1px solid rgb(76,27,133)',
                             width: 'fit-content',
                             borderRadius: '4px',
                             padding: '2px 6px 6px'
                         }}
                         textButton={'Cập nhập'}
-                        styleTextButton={{ color: 'rgb(1, 82, 215)', fontSize: '15px', fontWeight: '700' }}
+                        styleTextButton={{ color: 'rgb(76,27,133)', fontSize: '15px', fontWeight: '700' }}
                     ></ButtonComponent>
                 </WrapperInput>
 
@@ -137,13 +137,13 @@ const ProfilePage = () => {
                         size={40}
                         styleButton={{
                             height: '30px',
-                            border: '1px solid rgb(1, 82, 215)',
+                            border: '1px solid rgb(76,27,133)',
                             width: 'fit-content',
                             borderRadius: '4px',
                             padding: '2px 6px 6px'
                         }}
                         textButton={'Cập nhập'}
-                        styleTextButton={{ color: 'rgb(1, 82, 215)', fontSize: '15px', fontWeight: '700' }}
+                        styleTextButton={{ color: 'rgb(76,27,133)', fontSize: '15px', fontWeight: '700' }}
                     ></ButtonComponent>
                 </WrapperInput>
                 <WrapperInput>
@@ -158,13 +158,13 @@ const ProfilePage = () => {
                         size={40}
                         styleButton={{
                             height: '30px',
-                            border: '1px solid rgb(1, 82, 215)',
+                            border: '1px solid rgb(76,27,133)',
                             width: 'fit-content',
                             borderRadius: '4px',
                             padding: '2px 6px 6px'
                         }}
                         textButton={'Cập nhập'}
-                        styleTextButton={{ color: 'rgb(1, 82, 215)', fontSize: '15px', fontWeight: '700' }}
+                        styleTextButton={{ color: 'rgb(76,27,133)', fontSize: '15px', fontWeight: '700' }}
                     ></ButtonComponent>
                 </WrapperInput>
                 <WrapperInput>
@@ -190,13 +190,13 @@ const ProfilePage = () => {
                         size={40}
                         styleButton={{
                             height: '30px',
-                            border: '1px solid rgb(1, 82, 215)',
+                            border: '1px solid rgb(76,27,133)',
                             width: 'fit-content',
                             borderRadius: '4px',
                             padding: '2px 6px 6px'
                         }}
                         textButton={'Cập nhập'}
-                        styleTextButton={{ color: 'rgb(1, 82, 215)', fontSize: '15px', fontWeight: '700' }}
+                        styleTextButton={{ color: 'rgb(76,27,133)', fontSize: '15px', fontWeight: '700' }}
                     ></ButtonComponent>
                 </WrapperInput>
             </WrapperContentProfile>

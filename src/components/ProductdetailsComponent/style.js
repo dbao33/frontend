@@ -14,6 +14,7 @@ export const WrapperStyleNameProduct = styled.h1`
     color: rgb(36, 36, 36);
     font-size: 24px;
     font-weight: 300;
+    font-weight: bold;
     line-height: 32px;
     word-break: break-word;
 `

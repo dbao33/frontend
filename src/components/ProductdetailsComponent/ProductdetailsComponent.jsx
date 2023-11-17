@@ -115,7 +115,7 @@ const ProductdetailsComponent = ({ idProduct }) => {
                         preview={false}
                     />
 
-                    <Row style={{ padding: '10px', justifyContent: 'space-between' }}>
+                    {/* <Row style={{ padding: '10px', justifyContent: 'space-between' }}>
 
                         <WrapperStyleCollImage span={4}>
                             <WrapperStyleImageSmall
@@ -143,7 +143,7 @@ const ProductdetailsComponent = ({ idProduct }) => {
                         </WrapperStyleCollImage>
 
 
-                    </Row>
+                    </Row> */}
                 </Col>
 
                 <Col span={14} style={{ paddingLeft: '10px' }}>
@@ -238,7 +238,7 @@ const ProductdetailsComponent = ({ idProduct }) => {
                         <ButtonComponent
                             size={40}
                             styleButton={{
-                                background: 'rgb(5, 5, 7)',
+                                background: 'linear-gradient(183deg, rgba(76,27,133,1) 17%, rgba(184,72,213,0.938813025210084) 50%, rgba(49,15,84,1) 87%)',
                                 height: '48px',
                                 width: '220px',
                                 borderRadius: '4px',

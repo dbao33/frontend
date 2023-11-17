@@ -167,11 +167,11 @@ const MyOrderPage = () => {
                         size={40}
                         styleButton={{
                           height: '36px',
-                          border: '1px solid rgb(11, 116, 229)',
+                          border: '1px solid rgb(76,27,133)',
                           borderRadius: '4px'
                         }}
                         textButton={'Hủy đơn hàng'}
-                        styleTextButton={{ color: 'rgb(11, 116, 229)', fontSize: '14px' }}
+                        styleTextButton={{ color: 'rgb(76,27,133)', fontSize: '14px' }}
                       >
                       </ButtonComponent>
                       <ButtonComponent
@@ -180,11 +180,11 @@ const MyOrderPage = () => {
                         size={40}
                         styleButton={{
                           height: '36px',
-                          border: '1px solid rgb(11, 116, 229)',
+                          border: '1px solid rgb(76,27,133)',
                           borderRadius: '4px'
                         }}
                         textButton={'Xem chi tiết'}
-                        styleTextButton={{ color: 'rgb(11, 116, 229)', fontSize: '14px' }}
+                        styleTextButton={{ color: 'rgb(76,27,133)', fontSize: '14px' }}
                       >
                       </ButtonComponent>
                     </div>

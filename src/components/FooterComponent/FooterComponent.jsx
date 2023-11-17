@@ -7,7 +7,12 @@ import {
 import { FooterItem, FooterList } from './style'
 const FooterComponent = () => {
     return (
-        <div style={{ background: '#ccc', padding: '20px 120px', boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)' }}>
+        <div style={{
+            background: '#fff',
+            padding: '10px 120px',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
+            borderTop: '1px solid rgb(76,27,133)'
+        }}>
             <Row
                 gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
                 style={{ marginTop: '30px' }}
@@ -20,7 +25,7 @@ const FooterComponent = () => {
                     <span style={{
                         fontSize: '40px',
                         fontWeight: 'bold',
-                        color: '#989393'
+                        color: 'rgb(76,27,133)'
                     }}>
                         SRuy
                     </span>
@@ -44,7 +49,7 @@ const FooterComponent = () => {
                             color: '#000',
                             paddingRight: '5px', fontSize: '15px'
                         }} />
-                        <span>Thành Phố Hồ Chí Minh</span>
+                        <span style={{ color: '#000' }}>Thành Phố Hồ Chí Minh</span>
                     </FooterItem>
                 </Col>
                 <Col span={6}>
@@ -54,14 +59,14 @@ const FooterComponent = () => {
                             color: '#000',
                             paddingRight: '5px', fontSize: '15px'
                         }} />
-                        <span>2051120207@ut.edu.vn</span>
+                        <span style={{ color: '#000' }}>2051120207@ut.edu.vn</span>
                     </FooterItem>
                     <FooterItem>
                         <PhoneFilled style={{
                             color: '#000',
                             paddingRight: '5px', fontSize: '15px'
                         }} />
-                        <span>0123456789</span>
+                        <span style={{ color: '#000' }}>0123456789</span>
                     </FooterItem>
                 </Col>
                 <Col span={6}>
@@ -71,14 +76,14 @@ const FooterComponent = () => {
                             color: '#000',
                             paddingRight: '5px', fontSize: '15px'
                         }} />
-                        <span>SRuy</span>
+                        <span style={{ color: '#000' }}>SRuy</span>
                     </FooterItem>
                     <FooterItem>
                         <GithubFilled style={{
                             color: '#000',
                             paddingRight: '5px', fontSize: '15px'
                         }} />
-                        <span>SRuy</span>
+                        <span style={{ color: '#000' }}>SRuy</span>
                     </FooterItem>
                 </Col>
             </Row>

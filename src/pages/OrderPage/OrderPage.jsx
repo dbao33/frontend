@@ -1,4 +1,4 @@
-import { Checkbox, Form, Modal } from 'antd'
+import { Button, Checkbox, Form, Modal } from 'antd'
 import React, { useEffect, useMemo, useState } from 'react'
 import {
     WrapperCountOrder, WrapperInfo, WrapperItemOrder, WrapperLeft,
@@ -473,7 +473,7 @@ const OrderPage = () => {
                             size={40}
 
                             styleButton={{
-                                background: 'rgb(5, 5, 7)',
+                                background: 'linear-gradient(183deg, rgba(76,27,133,1) 17%, rgba(184,72,213,0.938813025210084) 50%, rgba(49,15,84,1) 87%)',
                                 height: '48px',
                                 width: '100%',
                                 borderRadius: '4px',
@@ -496,6 +496,7 @@ const OrderPage = () => {
                 open={isOpenModalUpdateInfo}
                 onCancel={handleCancleUpdate}
                 onOk={handleUpdateInforUser}
+                titleColor={'#4c1b85'}
             >
                 <LoadingComponent isLoading={isLoading}>
                     <Form

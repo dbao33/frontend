@@ -123,7 +123,7 @@ const SignInPage = () => {
                             onClick={showresult}
                             size={40}
                             styleButton={{
-                                background: 'rgb(5, 5, 7)',
+                                background: 'linear-gradient(183deg, rgba(76,27,133,1) 17%, rgba(184,72,213,0.938813025210084) 50%, rgba(49,15,84,1) 87%)',
                                 height: '48px',
                                 width: '100%',
                                 borderRadius: '4px',

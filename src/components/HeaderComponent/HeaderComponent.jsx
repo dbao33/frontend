@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Avatar, Popover, Badge } from 'antd'
 import {
-  WrapperHeader, WrapperTextHeader, WrapperHeaderAccout, WrapperContentPopup
+  WrapperHeader, WrapperTextHeader, WrapperHeaderAccout, WrapperContentPopup, WrapperBage
 } from './style'
 import {
   UserOutlined, CaretDownOutlined, ShoppingCartOutlined
@@ -109,20 +109,19 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
           </Col>
         )}
 
-        <Col span={6} style={{ display: 'flex', justifyContent: 'center', gap: ' 30px', alignItems: 'center' }}>
+        <Col span={6} style={{ display: 'flex', justifyContent: 'center', gap: ' 60px', alignItems: 'center' }}>
 
           {!isHiddenCart && (
             <LoadingComponent isLoading={loading}>
-              <Badge style={{ fontSize: '15px' }} count={order?.orderItems?.length}
+              <WrapperBage style={{ fontSize: '15px', insetInlineEnd: "-7px" }} count={order?.orderItems?.length}
               >
                 <WrapperHeaderAccout
                   style={{ marginLeft: '30px', cursor: 'pointer' }}
                   onClick={() => navige('/order')}
                 >
                   <ShoppingCartOutlined style={{ fontSize: '40px' }} />
-                  <span >Giỏ hàng</span>
                 </WrapperHeaderAccout>
-              </Badge>
+              </WrapperBage>
             </LoadingComponent>
           )}
 
