@@ -270,7 +270,7 @@ const OrderPage = () => {
                         <WrapperListOrder>
                             {order?.orderItems?.map((order) => {
                                 return (
-                                    <WrapperItemOrder>
+                                    <WrapperItemOrder key={order?.name}>
                                         <div
                                             style={{
                                                 width: '390px',

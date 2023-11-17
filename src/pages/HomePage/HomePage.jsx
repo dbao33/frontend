@@ -60,7 +60,7 @@ const HomePage = () => {
                     <WrapperTypeProduct >
                         {typeProduct.map((item) => {
                             return (
-                                <TypeProduct name={item} key={item} />
+                                <TypeProduct key={item} name={item} />
                             )
                         })}
                     </WrapperTypeProduct>
@@ -82,8 +82,8 @@ const HomePage = () => {
                             >
                                 {products?.data?.map((product) => {
                                     return (
-                                        <Col className='gutter-row' span={2 / 4} >
-                                            <div>
+                                        <Col key={product._id} className='gutter-row' span={2 / 4} >
+                                            <div >
                                                 <CardComponent
                                                     key={product._id}
                                                     countInStock={product.countInStock}
@@ -127,7 +127,7 @@ const HomePage = () => {
                             />
 
                         </div>
-                        
+
                     </div>
                 </div>
             </LoadingComponent>
