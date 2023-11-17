@@ -13,7 +13,6 @@ import { useQuery } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
 import { useDebounce } from '../../hooks/valueDebounce'
-import './expandable-iframe.css'
 import FooterComponent from '../../components/FooterComponent/FooterComponent.jsx'
 
 const HomePage = () => {
@@ -128,17 +127,7 @@ const HomePage = () => {
                             />
 
                         </div>
-                        <div style={{ textAlign: 'center', marginBottom: '20px' }}
-                        >
-                            <iframe
-                                className='expandable-iframe'
-                                src='https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d23651.30408792001!2d106.62409558413344!3d10.868459536359174!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1690950899112!5m2!1svi!2s'
-                                allowFullScreen=''
-                                loading='lazy'
-                                width='300'
-                                height='250'
-                            ></iframe>
-                        </div>
+                        
                     </div>
                 </div>
             </LoadingComponent>

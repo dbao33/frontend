@@ -647,7 +647,7 @@ const AdminProduct = () => {
                             name='discount'
                             rules={[
                                 {
-                                    required: true,
+                                    required: false,
                                     message: 'Please input your discount!',
                                 },
                             ]}
@@ -850,7 +850,7 @@ const AdminProduct = () => {
                             name='discount'
                             rules={[
                                 {
-                                    required: true,
+                                    required: false,
                                     message: 'Please input your  discount!',
                                 },
                             ]}

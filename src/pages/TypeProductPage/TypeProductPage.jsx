@@ -50,7 +50,7 @@ const TypeProductPage = () => {
 
             <div style={{
                 padding: '0 120px',
-                background: '#efefef',
+                backgroundColor: 'rgba(90, 30, 135, 0.05)',
                 height: '1000px',
                 paddingTop: '40px',
             }}>

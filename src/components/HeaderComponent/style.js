@@ -9,7 +9,7 @@ export const WrapperHeader = styled(Row)`
     align-items: center;
     gap: 16px;
     flex-wrap: nowrap;
-    border-bottom: 1px solid rgb(5,5,7);
+    // border-bottom: 1px solid rgb(5,5,7);
 `
 export const WrapperBage = styled(Badge)`
     &.ant-badge.ant-badge-count {

@@ -84,3 +84,65 @@ export const WrapperTextLight = styled.span`
     font-size: 16px;
     cursor: pointer;
 `
+export const Title = styled.div`
+    width: 292px;
+    height: 56px;
+    line-height: 56px;
+    margin-right: 19px;
+    font-size: 16px;
+    text-align: center;
+    &:after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 2px;
+        background: rgb(76,27,133);
+        transition: width .3s;
+    }
+    &:hover::after {
+        width: 100%;
+    }
+`
+export const WrapContent = styled.div`
+        width: 1200px;
+        margin: 20px auto;
+        margin-bottom: 40px;
+        padding: 10px;
+        height: 300px;
+        border-radius: 20px;
+        font-size: 16px;
+        white-space: pre-line;
+        text-align: justify;
+        border: 1px solid #eae7e7;
+`
+export const TableContent = styled.table`
+        width: 1200px;
+        margin: 20px auto;
+        margin-bottom: 40px;
+        padding: 10px;
+        height: 300px;
+        border-radius: 20px;
+        font-size: 16px;
+        white-space: pre-line;
+        text-align: justify;
+        border: 1px solid #eae7e7;
+`
+export const ContentDescription = styled.p`
+        margin: 2rem 10px;
+`
+export const AttributeItem = styled.th`
+    width: 40%;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    padding-left: 20px;
+    text-align: center;
+`
+export const AttributeValue = styled.th`
+    width: 60%;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    padding-left: 20px;
+    text-align: center;
+`

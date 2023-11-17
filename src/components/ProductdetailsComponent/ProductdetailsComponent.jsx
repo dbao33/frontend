@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Rate, Row } from 'antd'
 import {
-    WrapperStyleImageSmall, WrapperStyleCollImage, WrapperStyleNameProduct,
+    WrapperStyleImageSmall, WrapperStyleNameProduct,
     WrapperStyleTextSell, WrapperPriceProduct, WrapperPriceTextProduct,
     WrapperAddressProduct, WrapperQuanlityProduct, WrapperInputNumber,
-    WrapperTextLight
+    WrapperTextLight, Title, WrapContent, ContentDescription,
+    AttributeItem, TableContent, AttributeValue
 } from './style'
 import ButtonComponent from '../ButtonComponent/ButtonComponent'
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons'
@@ -19,6 +20,7 @@ import * as Message from '../Message/Message'
 
 const ProductdetailsComponent = ({ idProduct }) => {
 
+    const [active, setActive] = useState(1)
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
     const [quantity, setQuantity] = useState(1)
@@ -106,7 +108,13 @@ const ProductdetailsComponent = ({ idProduct }) => {
     return (
         <LoadingComponent isLoading={isLoading || false}>
 
-            <Row style={{ padding: '16px', background: '#fff', borderRadius: '8px' }}>
+            <Row style={{
+                padding: '16px',
+                background: '#fff',
+                borderRadius: '8px',
+                marginTop: '5px',
+                boxShadow: ' 0 0 6pt 1pt #D3D3D3',
+            }}>
                 <Col span={10}
                     style={{ borderRight: '1px solid #e5e5e5', paddingRight: '8px' }}>
                     <WrapperStyleImageSmall
@@ -173,10 +181,6 @@ const ProductdetailsComponent = ({ idProduct }) => {
                         <span className='address'>
                             {user?.address}
                         </span>
-                        '-'
-                        <WrapperTextLight className='change-address'>
-                            Đổi địa chỉ
-                        </WrapperTextLight>
                     </WrapperAddressProduct>
 
 
@@ -269,11 +273,83 @@ const ProductdetailsComponent = ({ idProduct }) => {
                                 fontWeight: '700'
                             }}
                         ></ButtonComponent> */}
+
                     </div>
 
                 </Col>
             </Row>
-        </LoadingComponent>
+            <Row style={{
+                padding: '16px',
+                background: '#fff',
+                borderRadius: '8px',
+                marginTop: '5px',
+                boxShadow: ' 0 0 6pt 1pt #D3D3D3',
+            }}
+            >
+                <p
+                    style={{
+                        paddingLeft: '16px',
+                        width: '516px',
+                        fontSize: '16px',
+                        whiteSpace: 'pre-line',
+                        textAlign: 'justify',
+                    }}
+                >
+                    {productDetails?.name}
+                </p>
+                {/* spectification */}
+                <div
+                    style={{
+                        width: '100%',
+                        height: '56px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: '20px',
+                        borderRadius: '20px',
+                        boxShadow: ' 0 0 6pt 1pt rgb(90,30,135)',
+
+                    }}
+                >
+                    <Title onClick={() => setActive(1)}>Thông tin nổi bật</Title>
+                    <Title onClick={() => setActive(2)}>Thông số kỹ thuật</Title>
+
+                </div>
+                {active === 1 ? (
+                    <WrapContent>
+                        <ContentDescription>
+                            {productDetails?.description}
+                        </ContentDescription>
+                    </WrapContent>
+                ) : (
+                    <TableContent>
+                        <tbody>
+                            <tr style={{ backgroundColor: 'rgba(90, 30, 135, 0.2)' }}>
+                                <AttributeItem>Name</AttributeItem>
+                                <AttributeValue>{productDetails?.name}</AttributeValue>
+                            </tr>
+                            <tr>
+                                <AttributeItem>Price</AttributeItem>
+                                <AttributeValue>{productDetails?.price}</AttributeValue>
+                            </tr>
+                            <tr style={{ backgroundColor: 'rgba(90, 30, 135, 0.2)' }}>
+                                <AttributeItem>Rating</AttributeItem>
+                                <AttributeValue>
+                                    {productDetails?.rating}
+                                </AttributeValue>
+                            </tr>
+                            <tr>
+                                <AttributeItem>Discount</AttributeItem>
+                                <AttributeValue>{productDetails?.discount} %</AttributeValue>
+                            </tr>
+                        </tbody>
+                    </TableContent>
+                )}
+            </Row>
+
+
+
+        </LoadingComponent >
     )
 }
 

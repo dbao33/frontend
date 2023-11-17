@@ -2,10 +2,22 @@ import { Col, Divider, Row } from 'antd'
 import React from 'react'
 import {
     FacebookFilled, GithubFilled, MailFilled,
-    PhoneFilled, FlagFilled
+    PhoneFilled, PushpinFilled,
 } from '@ant-design/icons'
 import { FooterItem, FooterList } from './style'
+import { useNavigate } from 'react-router-dom'
+
 const FooterComponent = () => {
+    const navige = useNavigate()
+    const handleAddress = () => {
+        navige('/map')
+    }
+    const handleFacebookClick = () => {
+        window.open('https://www.facebook.com/', '_blank')
+    }
+    const handleGithubClick = () => {
+        window.open('https://www.github.com/', '_blank')
+    }
     return (
         <div style={{
             background: '#fff',
@@ -25,7 +37,8 @@ const FooterComponent = () => {
                     <span style={{
                         fontSize: '40px',
                         fontWeight: 'bold',
-                        color: 'rgb(76,27,133)'
+                        color: 'rgb(76,27,133)',
+                        cursor: 'pointer'
                     }}>
                         SRuy
                     </span>
@@ -36,7 +49,7 @@ const FooterComponent = () => {
                     }}></span>
                 </Col>
                 <Col span={6}>
-                    <FooterList>Trụ sở chính</FooterList>
+                    <FooterList style={{ cursor: 'pointer' }}>Địa chỉ của SRuy Shop</FooterList>
                     {/* <FooterItem>
                         <FlagFilled style={{
                             color: '#000',
@@ -44,24 +57,27 @@ const FooterComponent = () => {
                         }} />
                         <span>Thủ Đô Hà Nội</span>
                     </FooterItem> */}
-                    <FooterItem>
-                        <FlagFilled style={{
+                    <FooterItem style={{ cursor: 'pointer', }} onClick={handleAddress}>
+                        <PushpinFilled style={{
                             color: '#000',
-                            paddingRight: '5px', fontSize: '15px'
-                        }} />
+                            paddingRight: '5px',
+                            fontSize: '15px',
+                            cursor: 'pointer',
+                        }}
+                        />
                         <span style={{ color: '#000' }}>Thành Phố Hồ Chí Minh</span>
                     </FooterItem>
                 </Col>
                 <Col span={6}>
-                    <FooterList>Liên Hệ</FooterList>
-                    <FooterItem>
+                    <FooterList style={{ cursor: 'pointer' }}>Liên Hệ</FooterList>
+                    <FooterItem style={{ cursor: 'pointer' }}>
                         <MailFilled style={{
                             color: '#000',
                             paddingRight: '5px', fontSize: '15px'
                         }} />
                         <span style={{ color: '#000' }}>2051120207@ut.edu.vn</span>
                     </FooterItem>
-                    <FooterItem>
+                    <FooterItem style={{ cursor: 'pointer' }}>
                         <PhoneFilled style={{
                             color: '#000',
                             paddingRight: '5px', fontSize: '15px'
@@ -69,16 +85,16 @@ const FooterComponent = () => {
                         <span style={{ color: '#000' }}>0123456789</span>
                     </FooterItem>
                 </Col>
-                <Col span={6}>
-                    <FooterList>Mạng Xã Hội</FooterList>
-                    <FooterItem>
+                <Col span={6} >
+                    <FooterList style={{ cursor: 'pointer' }}>Mạng Xã Hội</FooterList>
+                    <FooterItem onClick={handleFacebookClick} style={{ cursor: 'pointer' }}>
                         <FacebookFilled style={{
                             color: '#000',
                             paddingRight: '5px', fontSize: '15px'
                         }} />
                         <span style={{ color: '#000' }}>SRuy</span>
                     </FooterItem>
-                    <FooterItem>
+                    <FooterItem style={{ cursor: 'pointer' }} onClick={handleGithubClick} >
                         <GithubFilled style={{
                             color: '#000',
                             paddingRight: '5px', fontSize: '15px'
