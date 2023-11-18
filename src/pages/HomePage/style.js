@@ -27,3 +27,13 @@ export const WrapperProducts = styled.div`
     flex-wrap: wrap;
     margin-top: 20px;
 `
+export const WrapperText = styled.div`
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    margin-left: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(76,27,133);
+`

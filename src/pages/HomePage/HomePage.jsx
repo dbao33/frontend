@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import TypeProduct from '../../components/TypeProduct/TypeProduct'
-import { WrapperButtonMore, WrapperProducts, WrapperTypeProduct } from './style'
+import { WrapperButtonMore, WrapperProducts, WrapperText, WrapperTypeProduct } from './style'
 import SliderComponent from '../../components/SliderComponent/SliderComponent.jsx'
 import slider_2 from '../../assets/images/slide_1.jpg'
 import slider_1 from '../../assets/images/slide_2.jpg'
@@ -70,6 +70,7 @@ const HomePage = () => {
                 <div className='body' style={{ width: '100%', backgroundColor: '#fff' }}>
                     <div id='container' style={{ width: '100%', margin: '0 auto' }}>
                         <SliderComponent arrImages={[slider_1, slider_2, slider_4, slider_5]} />
+                        <WrapperText>TẤT CẢ SẢN PHẨM</WrapperText>
                         <WrapperProducts>
 
                             <WrapperProducts
@@ -127,6 +128,7 @@ const HomePage = () => {
                             />
 
                         </div>
+
 
                     </div>
                 </div>

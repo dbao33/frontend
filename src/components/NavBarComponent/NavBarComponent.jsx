@@ -49,16 +49,16 @@ const NavBarComponent = () => {
     }
     return (
         <div>
-            <WrapperLabelText>Label</WrapperLabelText>
+            <WrapperLabelText>Các dòng hãng latop</WrapperLabelText>
             <WrapperContent>
                 {renderContent('text', ['ASSUS', 'HP', 'DELL', 'Lenovo'])}
-                {renderContent('checkbox', [
+                {/* {renderContent('checkbox', [
                     { value: 'a', label: 'a' },
                     { value: 'b', label: 'b' }
 
                 ])}
                 {renderContent('star', [3, 4, 5])}
-                {renderContent('price', [6, 7, 8])}
+                {renderContent('price', [6, 7, 8])} */}
             </WrapperContent>
 
         </div>
