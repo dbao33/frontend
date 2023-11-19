@@ -9,7 +9,6 @@ import useMutationHooks from '../../hooks/UseMutationHook'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
 import * as Message from '../../components/Message/Message'
 import './style.css'
-
 const SignInPage = () => {
     const navige = useNavigate()
     const handleNavigateLogin = () => {
@@ -52,11 +51,11 @@ const SignInPage = () => {
 
     return (
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: '', height: '100vh' }}>
-            {/* <WrapperContainerLeft>
-                <Image src={imageLogo} preview={false} alt='sign-in' height='auto' width='403px' math-width='540px'></Image>
-            </WrapperContainerLeft> */}
-
+        <div id='sign' style={{
+            display: 'flex', alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh',
+        }}>
             < div style={{
                 width: '400px',
                 height: '470px',
