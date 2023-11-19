@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { WrapperContainerLeft, WrapperContainerRight, WrapperTextLight } from './style'
-import { Image } from 'antd'
-import imageLogo from '../../assets/images/sign-in.png'
+import { WrapperContainer, WrapperTextLight } from './style'
 import InputForm from '../../components/InputForm/InputForm'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
 import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons'
@@ -10,6 +8,7 @@ import * as UserService from '../../services/UserService'
 import useMutationHooks from '../../hooks/UseMutationHook'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
 import * as Message from '../../components/Message/Message'
+import './style.css'
 
 const SignInPage = () => {
     const navige = useNavigate()
@@ -53,19 +52,24 @@ const SignInPage = () => {
 
     return (
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(136deg, rgb(240, 248, 255) -1%, rgb(219, 238, 255) 85%)', height: '100vh' }}>
-            <WrapperContainerLeft>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: '', height: '100vh' }}>
+            {/* <WrapperContainerLeft>
                 <Image src={imageLogo} preview={false} alt='sign-in' height='auto' width='403px' math-width='540px'></Image>
-            </WrapperContainerLeft>
+            </WrapperContainerLeft> */}
 
-            <div style={{ width: '500px', height: '445px', borderRadius: '6px', background: '#fff' }}>
+            < div style={{
+                width: '400px',
+                height: '470px',
+                borderRadius: '8px',
+                background: 'rgba(255, 255, 255, 0.3)',
+            }}>
 
-                <WrapperContainerRight>
+                <WrapperContainer>
                     <h1 >Xin Chào</h1>
                     <p style={{ fontSize: '16px' }}>Vui lòng đăng ký tài khoản</p>
 
                     <InputForm
-                        style={{ marginBottom: '10px' }}
+                        style={{ marginBottom: '10px', padding: '8px', background: 'rgba(255, 255, 255, 0.5)' }}
                         placeholder='@gmail.com'
                         value={email}
                         onChange={handleOnChangeEmail}
@@ -78,14 +82,14 @@ const SignInPage = () => {
                             style={{
                                 zIndex: 10,
                                 position: 'absolute',
-                                top: '12px',
-                                right: '4px'
+                                top: '9px',
+                                right: '11px'
                             }}
                         >
                             {isShowPassword ? <EyeFilled /> : <EyeInvisibleFilled />}
                         </span>
                         <InputForm
-                            style={{ marginBottom: '15px' }}
+                            style={{ marginBottom: '15px', padding: '8px', background: 'rgba(255, 255, 255, 0.5)' }}
                             placeholder='password'
                             type={isShowPassword ? 'text' : 'password'}
                             value={password}
@@ -99,14 +103,14 @@ const SignInPage = () => {
                             style={{
                                 zIndex: 10,
                                 position: 'absolute',
-                                top: '12px',
-                                right: '4px'
+                                top: '9px',
+                                right: '11px'
                             }}
                         >
                             {isShowConfirmPassword ? <EyeFilled /> : <EyeInvisibleFilled />}
                         </span>
                         <InputForm
-                            style={{ marginBottom: '15px' }}
+                            style={{ marginBottom: '15px', padding: '8px', background: 'rgba(255, 255, 255, 0.5)' }}
                             placeholder='confirm password'
                             type={isShowConfirmPassword ? 'text' : 'password'}
                             value={confirmPassword}
@@ -123,7 +127,7 @@ const SignInPage = () => {
                             onClick={showresult}
                             size={40}
                             styleButton={{
-                                background: 'linear-gradient(183deg, rgba(76,27,133,1) 17%, rgba(184,72,213,0.938813025210084) 50%, rgba(49,15,84,1) 87%)',
+                                background: 'linear-gradient(183deg, rgba(91,35,201,1) 17%, rgba(206,54,136,1) 50%, rgba(45,45,137,1) 87%)',
                                 height: '48px',
                                 width: '100%',
                                 borderRadius: '4px',
@@ -138,7 +142,7 @@ const SignInPage = () => {
                     <p style={{ fontSize: '16px' }}>
                         Bạn đã có tài khoản?<WrapperTextLight onClick={handleNavigateLogin} > Đăng nhập</WrapperTextLight></p>
 
-                </WrapperContainerRight>
+                </WrapperContainer>
             </div>
         </div>
 

@@ -1,0 +1,21 @@
+body {
+  background-image: url('sigin-1.jpeg');
+  background-size: contain;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+
+h2 {
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 10px;
+}
+
