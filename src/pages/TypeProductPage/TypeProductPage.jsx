@@ -4,7 +4,7 @@ import CardComponent from '../../components/CardComponent/CardComponent'
 import { Col, Pagination, Row } from 'antd'
 import { useLocation } from 'react-router-dom'
 import * as ProductService from '../../services/ProductService'
-import { WrapperProducts } from './style'
+import { WrapButton, WrapperProducts } from './style'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
 import { useSelector } from 'react-redux'
 import { useDebounce } from '../../hooks/valueDebounce'
@@ -44,6 +44,43 @@ const TypeProductPage = () => {
             fetchProductType(state, panigate.page, panigate.limit)
         }
     }, [state, panigate.page, panigate.limit])
+    // lọc sản phẩm
+    const [filterRedProduct, setFilterRedProduct] = useState(product)
+    const [stateFilter, setstateFilter] = useState(false)
+    // hàm lọc sản phẩm nhỏ hơn 5 triệu
+    const handleStateClick = () => {
+        setstateFilter(false)
+    };
+    const filterProductMin = (product, value) => {
+        return product.filter((item) => {
+            return item.price <= value;
+        });
+    };
+    const handleFilterMin = () => {
+        setstateFilter(true)
+        const value = 20000000;
+        const filtered = filterProductMin(product, value);
+        setFilterRedProduct(filtered);
+    };
+    // hàm lọc sản phẩm lớn hơn 5 triệu
+    const filterProductMax = (product, value) => {
+        return product.filter((item) => {
+            return item.price >= value;
+        });
+    };
+    const handleFilterMax = () => {
+        setstateFilter(true)
+        const value = 20000000;
+        const filtered = filterProductMax(product, value);
+        setFilterRedProduct(filtered);
+    };
+    useEffect(() => {
+        if (!stateFilter) {
+            setFilterRedProduct(product)
+        } else {
+            setFilterRedProduct(filterRedProduct)
+        }
+    })
     return (
         <LoadingComponent isLoading={isLoading}>
 
@@ -64,7 +101,7 @@ const TypeProductPage = () => {
                     }}
                 >
                     <Col
-                        span={4}
+                        span={7}
                         style={{
                             background: '#fff',
                             borderRadius: '4px 0 0 4px',
@@ -74,19 +111,31 @@ const TypeProductPage = () => {
                             paddingBottom: '10px',
                         }}
                     >
-                        <NavBarComponent />
+                        {/* <NavBarComponent /> */}
+                        <div>
+                            {/* min */}
+                            <WrapButton onClick={handleFilterMin}>
+                                Sản phẩm có giá nhỏ hơn 20 triệu
+                            </WrapButton>
+                            {/* max */}
+                            <WrapButton onClick={handleFilterMax}>
+                                Sản phẩm có lớn nhỏ hơn 20 triệu
+                            </WrapButton>
+                            {/* không lọc */}
+                            <WrapButton onClick={handleStateClick}>default</WrapButton>
+                        </div>
                     </Col>
-                    <Col span={20}>
+                    <Col span={17}>
                         <div
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: '20px',
+                                gap: '10px',
                                 marginTop: '20px',
                             }}
                         >
                             <WrapperProducts gutter={[10, 10]}>
-                                {product?.filter((pro) => {
+                                {filterRedProduct?.filter((pro) => {
                                     if (searchDebounce === '') {
                                         return pro
                                     } else if (pro?.name?.toLowerCase()?.includes(searchDebounce?.toLowerCase())) {

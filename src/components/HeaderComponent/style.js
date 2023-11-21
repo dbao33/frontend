@@ -3,9 +3,9 @@ import { Badge, Row } from 'antd'
 
 export const WrapperHeader = styled(Row)`
     padding: 14px 120px;
-    background-image: 
-    
+    background-image:
     linear-gradient(183deg, rgba(23,3,93,1) 4%, rgba(152,33,165,1) 50%, rgba(29,4,76,1) 96%);
+    // background: rgb(76,27,133);
     align-items: center;
     gap: 16px;
     flex-wrap: nowrap;
