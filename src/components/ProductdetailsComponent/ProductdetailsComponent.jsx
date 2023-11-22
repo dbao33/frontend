@@ -325,22 +325,22 @@ const ProductdetailsComponent = ({ idProduct }) => {
                     <TableContent>
                         <tbody>
                             <tr style={{ backgroundColor: 'rgba(90, 30, 135, 0.2)' }}>
-                                <AttributeItem>Name</AttributeItem>
-                                <AttributeValue>{productDetails?.name}</AttributeValue>
+                                <AttributeItem>Màn hình</AttributeItem>
+                                <AttributeValue>{productDetails?.hardDrive}</AttributeValue>
                             </tr>
                             <tr>
-                                <AttributeItem>Price</AttributeItem>
-                                <AttributeValue>{productDetails?.price}</AttributeValue>
+                                <AttributeItem>CPU</AttributeItem>
+                                <AttributeValue>{productDetails?.cpu}</AttributeValue>
                             </tr>
                             <tr style={{ backgroundColor: 'rgba(90, 30, 135, 0.2)' }}>
-                                <AttributeItem>Rating</AttributeItem>
+                                <AttributeItem>RAM</AttributeItem>
                                 <AttributeValue>
-                                    {productDetails?.rating}
+                                    {productDetails?.ram}
                                 </AttributeValue>
                             </tr>
                             <tr>
-                                <AttributeItem>Discount</AttributeItem>
-                                <AttributeValue>{productDetails?.discount} %</AttributeValue>
+                                <AttributeItem>Ổ cứng</AttributeItem>
+                                <AttributeValue>{productDetails?.monitor}</AttributeValue>
                             </tr>
                         </tbody>
                     </TableContent>

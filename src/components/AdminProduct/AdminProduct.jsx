@@ -36,6 +36,10 @@ const AdminProduct = () => {
         discount: '',
         countInStock: '',
         newType: '',
+        hardDrive: '',
+        cpu: '',
+        ram: '',
+        monitor: '',
     })
 
     const [product, setProduct] = useState(inittial())
@@ -53,6 +57,10 @@ const AdminProduct = () => {
             type,
             discount,
             countInStock,
+            hardDrive,
+            cpu,
+            ram,
+            monitor
 
         } = data
 
@@ -65,6 +73,10 @@ const AdminProduct = () => {
             discount,
             type,
             countInStock,
+            hardDrive,
+            cpu,
+            ram,
+            monitor
         })
         return response
     })
@@ -118,6 +130,10 @@ const AdminProduct = () => {
                 type: response?.data?.type,
                 countInStock: response?.data?.countInStock,
                 newType: response?.data?.newType,
+                hardDrive: response?.data?.hardDrive,
+                cpu: response?.data?.cpu,
+                ram: response?.data?.ram,
+                monitor: response?.data?.monitor,
             })
         }
         setIsLoadingUpdate(false)
@@ -309,7 +325,12 @@ const AdminProduct = () => {
             image: product.image,
             type: product.type === 'add type' ? product.newType : product.type,
             countInStock: product.countInStock,
-            discount: product.discount
+            discount: product.discount,
+            hardDrive: product.hardDrive,
+            cpu: product.cpu,
+            ram: product.ram,
+            monitor: product.monitor,
+
         }
         mutation.mutate(params, {
             onSettled: () => {
@@ -328,6 +349,10 @@ const AdminProduct = () => {
             rating: '',
             type: '',
             countInStock: '',
+            hardDrive: '',
+            cpu: '',
+            ram: '',
+            monitor: '',
         })
         form.resetFields()
     }
@@ -388,6 +413,10 @@ const AdminProduct = () => {
             rating: '',
             type: '',
             countInStock: '',
+            hardDrive: '',
+            cpu: '',
+            ram: '',
+            monitor: '',
 
         })
         form.resetFields()
@@ -660,6 +689,71 @@ const AdminProduct = () => {
                         </Form.Item>
 
                         <Form.Item
+                            label='Hard Drive'
+                            name='hardDrive'
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your hardDrive!',
+                                },
+                            ]}
+                        >
+                            <InputComponent
+                                value={product.hardDrive}
+                                onChange={handleOnchange}
+                                name='hardDrive'
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            label='Cpu'
+                            name='cpu'
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your cpu!',
+                                },
+                            ]}
+                        >
+                            <InputComponent
+                                value={product.cpu}
+                                onChange={handleOnchange}
+                                name='cpu'
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            label='Ram'
+                            name='ram'
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your ram!',
+                                },
+                            ]}
+                        >
+                            <InputComponent
+                                value={product.ram}
+                                onChange={handleOnchange}
+                                name='ram'
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            label='Monitor'
+                            name='monitor'
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your monitor!',
+                                },
+                            ]}
+                        >
+                            <InputComponent
+                                value={product.monitor}
+                                onChange={handleOnchange}
+                                name='monitor'
+                            />
+                        </Form.Item>
+
+                        <Form.Item
                             label='Image'
                             name='image'
                             rules={[
@@ -859,6 +953,71 @@ const AdminProduct = () => {
                                 value={productDetails.discount}
                                 onChange={handleOnchangeDetails}
                                 name='discount'
+                            />
+                        </Form.Item>
+
+                        <Form.Item
+                            label='Hard Drive'
+                            name='hardDrive'
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your hardDrive!',
+                                },
+                            ]}
+                        >
+                            <InputComponent
+                                value={product.hardDrive}
+                                onChange={handleOnchangeDetails}
+                                name='hardDrive'
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            label='Cpu'
+                            name='cpu'
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your cpu!',
+                                },
+                            ]}
+                        >
+                            <InputComponent
+                                value={product.cpu}
+                                onChange={handleOnchangeDetails}
+                                name='cpu'
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            label='Ram'
+                            name='ram'
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your ram!',
+                                },
+                            ]}
+                        >
+                            <InputComponent
+                                value={product.ram}
+                                onChange={handleOnchangeDetails}
+                                name='ram'
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            label='Monitor'
+                            name='monitor'
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your monitor!',
+                                },
+                            ]}
+                        >
+                            <InputComponent
+                                value={product.monitor}
+                                onChange={handleOnchangeDetails}
+                                name='monitor'
                             />
                         </Form.Item>
 

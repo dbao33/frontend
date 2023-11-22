@@ -114,18 +114,7 @@ const AdminOrder = () => {
       sorter: (a, b) => a.address.length - b.address.length,
       ...getColumnSearchProps('address')
     },
-    {
-      title: 'Paided',
-      dataIndex: 'isPaid',
-      sorter: (a, b) => a.isPaid.length - b.isPaid.length,
-      ...getColumnSearchProps('isPaid')
-    },
-    {
-      title: 'Shipped',
-      dataIndex: 'isDelivered',
-      sorter: (a, b) => a.isDelivered.length - b.isDelivered.length,
-      ...getColumnSearchProps('isDelivered')
-    },
+
     {
       title: 'Payment method',
       dataIndex: 'paymentMethod',
@@ -149,8 +138,6 @@ const AdminOrder = () => {
         phone: order?.shippingAddress?.phone,
         address: order?.shippingAddress?.address,
         paymentMethod: orderContant.payment[order?.paymentMethod],
-        isPaid: order?.isPaid ? 'TRUE' : 'FALSE',
-        isDelivered: order?.isDelivered ? 'TRUE' : 'FALSE',
         totalPrice: convertPrice(order?.totalPrice)
       }
     })
