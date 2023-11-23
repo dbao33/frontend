@@ -122,7 +122,7 @@ const TypeProductPage = () => {
                                 Sản phẩm có lớn nhỏ hơn 20 triệu
                             </WrapButton>
                             {/* không lọc */}
-                            <WrapButton onClick={handleStateClick}>default</WrapButton>
+                            <WrapButton onClick={handleStateClick}>Tất cả</WrapButton>
                         </div>
                     </Col>
                     <Col span={17}>

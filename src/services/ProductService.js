@@ -71,7 +71,6 @@ export const deleteManyProducts = async (data, access_token) => {
 }
 
 export const searchProduct = async (keyword) => {
-    console.log('keyword', keyword)
     const response = await
         axios.get(`http://localhost:3000/v1/api/product/search?keyword=${keyword}`)
     return response.data

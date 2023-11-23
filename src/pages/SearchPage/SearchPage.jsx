@@ -84,13 +84,6 @@ const SearchPage = () => {
           })}
         </Row>
       </div>
-      <div
-        style={{
-          width: '100%',
-          marginTop: '15px',
-        }}
-      >
-      </div>
     </div>
   )
 }
