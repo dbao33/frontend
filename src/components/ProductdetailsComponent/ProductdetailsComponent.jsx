@@ -286,18 +286,7 @@ const ProductdetailsComponent = ({ idProduct }) => {
                 boxShadow: ' 0 0 6pt 1pt #D3D3D3',
             }}
             >
-                <p
-                    style={{
-                        paddingLeft: '16px',
-                        width: '516px',
-                        fontSize: '16px',
-                        whiteSpace: 'pre-line',
-                        textAlign: 'justify',
-                    }}
-                >
-                    {productDetails?.name}
-                </p>
-                {/* spectification */}
+                
                 <div
                     style={{
                         width: '100%',

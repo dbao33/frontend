@@ -16,6 +16,7 @@ const ProfilePage = () => {
     const user = useSelector((state) => state.user)
     const [email, setEmail] = useState('')
     const [name, setName] = useState('')
+    const [password, setPassword] = useState('')
     const [phone, setPhone] = useState('')
     const [address, setAddress] = useState('')
     const [avatar, setAvatar] = useState('')
@@ -36,6 +37,7 @@ const ProfilePage = () => {
         setPhone(user?.phone)
         setAddress(user?.address)
         setAvatar(user?.avatar)
+        setAvatar(user?.password)
     }, [user])
 
     useEffect(() => {
@@ -60,6 +62,9 @@ const ProfilePage = () => {
         setName(value)
 
     }
+    const handleOnChangePassword = (value) => {
+        setPassword(value)
+    }
     const handleOnChangePhone = (value) => {
         setPhone(value)
 
@@ -75,7 +80,7 @@ const ProfilePage = () => {
         setAvatar(file.preview)
     }
     const handleUpdate = () => {
-        mutation.mutate({ id: user?.id, email, name, phone, address, avatar, access_token: user?.access_token })
+        mutation.mutate({ id: user?.id, email, name, password, phone, address, avatar, access_token: user?.access_token })
 
     }
     return (
@@ -88,6 +93,27 @@ const ProfilePage = () => {
                         id='name'
                         value={name}
                         onChange={handleOnChangeName}
+                    />
+                    <ButtonComponent
+                        onClick={handleUpdate}
+                        size={40}
+                        styleButton={{
+                            height: '30px',
+                            border: '1px solid rgb(76,27,133)',
+                            width: 'fit-content',
+                            borderRadius: '4px',
+                            padding: '2px 6px 6px'
+                        }}
+                        textButton={'Cập nhập'}
+                        styleTextButton={{ color: 'rgb(76,27,133)', fontSize: '15px', fontWeight: '700' }}
+                    ></ButtonComponent>
+                </WrapperInput>
+                <WrapperInput>
+                    <WrapperLabel htmlFor='password'>Mật khẩu</WrapperLabel>
+                    <InputForm style={{ width: '300px' }}
+                        id='password'
+                        value={password}
+                        onChange={handleOnChangePassword}
                     />
                     <ButtonComponent
                         onClick={handleUpdate}

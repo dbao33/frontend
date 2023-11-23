@@ -28,7 +28,7 @@ export const WrapperLabel = styled.label`
     font-size: 12px;
     line-height: 30px;
     font-weight: 600;
-    width: 50px;
+    width: 60px;
     text-align: left;
 `
 
@@ -36,6 +36,7 @@ export const WrapperInput = styled.div`
     display: flex;
     align-items: center;
     gap: 20px;
+    
 `
 
 export const WrapperUploadFile = styled(Upload)`
