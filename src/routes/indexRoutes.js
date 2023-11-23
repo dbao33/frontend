@@ -13,6 +13,7 @@ import OrderSuccess from '../pages/OrderSuccess/OrderSuccess'
 import MyOrderPage from '../pages/MyOrderPage/MyOrderPage'
 import DetailsOrderPage from '../pages/DetailsOrderPage/DetailsOrderPage'
 import Map from '../pages/Map/Map'
+import SearchPage from '../pages/SearchPage/SearchPage'
 
 export const routes = [
     {
@@ -85,6 +86,11 @@ export const routes = [
         path: '/map',
         page: Map,
         isShowHeader: true,
+    },
+    {
+        path: '/search',
+        page: SearchPage,
+        isShowHeader: true
     },
     {
         path: '*',

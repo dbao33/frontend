@@ -83,12 +83,25 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
     </div>
   )
 
-  const [search, setSearch] = useState('')
-  const onSearch = (e) => {
-    setSearch(e.target.value)
-    dispatch(searchProduct(e.target.value))
+  // const [search, setSearch] = useState('')
+  // const onSearch = (e) => {
+  //   setSearch(e.target.value)
+  //   dispatch(searchProduct(e.target.value))
+  // }
+  const [keyword, setKeyword] = useState('')
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      const searchUrl = `/search?keyword=${encodeURIComponent(keyword)}`
+      //encodeURIComponent mã hóa kí tự đặc biệt
+      navige(searchUrl)
+    }
   }
 
+  const handleChange = (event) => {
+    setKeyword(event.target.value)
+    dispatch(searchProduct(event.target.value))
+  }
   return (
     <div>
       <WrapperHeader
@@ -102,9 +115,11 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
           <Col span={13} >
             <ButtonInputSearch
               size='large'
+              type='text'
               // textButton='Tìm kiếm'
               placeholder='Nhập nội dung muốn tìm kiếm!'
-              onChange={onSearch}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
             />
           </Col>
         )}
@@ -113,7 +128,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
 
           {!isHiddenCart && (
             <LoadingComponent isLoading={loading}>
-              <WrapperBage style={{ fontSize: '15px', insetInlineEnd: "-7px" }} count={order?.orderItems?.length}
+              <WrapperBage style={{ fontSize: '15px', insetInlineEnd: '-7px' }} count={order?.orderItems?.length}
               >
                 <WrapperHeaderAccout
                   style={{ marginLeft: '30px', cursor: 'pointer' }}

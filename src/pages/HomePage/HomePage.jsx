@@ -10,29 +10,29 @@ import CardComponent from '../../components/CardComponent/CardComponent'
 import { Col } from 'antd'
 import * as ProductService from '../../services/ProductService'
 import { useQuery } from '@tanstack/react-query'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
-import { useDebounce } from '../../hooks/valueDebounce'
+// import { useDebounce } from '../../hooks/valueDebounce'
 import FooterComponent from '../../components/FooterComponent/FooterComponent.jsx'
 
 const HomePage = () => {
 
     // fillter
-    const SearchProduct = useSelector((state) => state?.product?.search)
+    // const SearchProduct = useSelector((state) => state?.product?.search)
     const [isLoadingSearch, setIsLoadingSearch] = useState(false)
-    const searchDebounce = useDebounce(SearchProduct, 1000)
+    // const searchDebounce = useDebounce(SearchProduct, 1000)
     // const arr = ['LENOVO', 'ASUS', 'HP', 'DELL']
 
     const [limit, setLimit] = useState(5)
     const fetchProductAll = async (context) => {
         const limit = context?.queryKey && context?.queryKey[1]
-        const search = context?.queryKey && context?.queryKey[2]
-        const response = await ProductService.getAllProduct(search, limit)
+        // const search = context?.queryKey && context?.queryKey[2]
+        const response = await ProductService.getAllProduct('', limit)
         return response
     }
 
     const { isLoading, data: products, isPreviousData } = useQuery(
-        ['products', limit, searchDebounce],
+        ['products', limit],
         fetchProductAll,
         {
             retry: 3,
