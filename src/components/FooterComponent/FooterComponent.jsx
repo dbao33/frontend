@@ -4,7 +4,7 @@ import {
     FacebookFilled, GithubFilled, MailFilled,
     PhoneFilled, PushpinFilled,
 } from '@ant-design/icons'
-import { FooterItem, FooterList } from './style'
+import { ContainerFooter, FooterItem, FooterList, WrapperFooter } from './style'
 import { useNavigate } from 'react-router-dom'
 
 const FooterComponent = () => {
@@ -19,15 +19,9 @@ const FooterComponent = () => {
         window.open('https://www.github.com/', '_blank')
     }
     return (
-        <div style={{
-            background: '#fff',
-            padding: '10px 120px',
-            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
-            borderTop: '1px solid rgb(76,27,133)'
-        }}>
-            <Row
+        <ContainerFooter>
+            <WrapperFooter
                 gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
-                style={{ marginTop: '30px' }}
             >
                 <Col style={{
                     display: 'flex',
@@ -48,15 +42,9 @@ const FooterComponent = () => {
                         fontWeight: '300'
                     }}></span>
                 </Col>
-                <Col span={6}>
+                <Col xs={24} xl={6}>
                     <FooterList style={{ cursor: 'pointer' }}>Địa chỉ của SRuy Shop</FooterList>
-                    {/* <FooterItem>
-                        <FlagFilled style={{
-                            color: '#000',
-                            paddingRight: '5px', fontSize: '15px'
-                        }} />
-                        <span>Thủ Đô Hà Nội</span>
-                    </FooterItem> */}
+
                     <FooterItem style={{ cursor: 'pointer', }} onClick={handleAddress}>
                         <PushpinFilled style={{
                             color: '#000',
@@ -67,8 +55,8 @@ const FooterComponent = () => {
                         />
                         <span style={{ color: '#000' }}>Thành Phố Hồ Chí Minh</span>
                     </FooterItem>
-                </Col>
-                <Col span={6}>
+                </Col >
+                <Col xs={24} xl={6}>
                     <FooterList style={{ cursor: 'pointer' }}>Liên Hệ</FooterList>
                     <FooterItem style={{ cursor: 'pointer' }}>
                         <MailFilled style={{
@@ -85,7 +73,7 @@ const FooterComponent = () => {
                         <span style={{ color: '#000' }}>0123456789</span>
                     </FooterItem>
                 </Col>
-                <Col span={6} >
+                <Col xs={24} xl={6} >
                     <FooterList style={{ cursor: 'pointer' }}>Mạng Xã Hội</FooterList>
                     <FooterItem onClick={handleFacebookClick} style={{ cursor: 'pointer' }}>
                         <FacebookFilled style={{
@@ -102,9 +90,16 @@ const FooterComponent = () => {
                         <span style={{ color: '#000' }}>SRuy</span>
                     </FooterItem>
                 </Col>
-            </Row>
+            </WrapperFooter>
             <Divider />
-        </div>
+            <span style={{
+                display: 'block',
+                textAlign: 'center',
+                color: '#8d8d8d',
+                fontSize: '12px',
+                fontWeight: '400'
+            }}>@2023 - Duy Bảo - Trung Hiếu</span>
+        </ContainerFooter>
     )
 }
 

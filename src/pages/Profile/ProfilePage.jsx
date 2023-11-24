@@ -80,8 +80,11 @@ const ProfilePage = () => {
         setAvatar(file.preview)
     }
     const handleUpdate = () => {
-        mutation.mutate({ id: user?.id, email, name, password, phone, address, avatar, access_token: user?.access_token })
-
+        if (password) {
+            mutation.mutate({ id: user?.id, email, name, password, phone, address, avatar, access_token: user?.access_token })
+        } else {
+            mutation.mutate({ id: user?.id, email, name, phone, address, avatar, access_token: user?.access_token })
+        }
     }
     return (
         <div style={{ width: '1270px', margin: '0 auto', height: '500px' }}>

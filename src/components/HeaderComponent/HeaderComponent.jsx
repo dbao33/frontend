@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Avatar, Popover, Badge } from 'antd'
 import {
-  WrapperHeader, WrapperTextHeader, WrapperHeaderAccout, WrapperContentPopup, WrapperBage
+  WrapperHeader, WrapperTextHeader, WrapperContentPopup, WrapperBage, WrapperText, WrapperCart, WrapperItemsMobile, Wrapper, WrapperItems
 } from './style'
 import {
   UserOutlined, CaretDownOutlined, ShoppingCartOutlined
@@ -103,16 +103,27 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
     dispatch(searchProduct(event.target.value))
   }
   return (
-    <div>
+    <Wrapper>
       <WrapperHeader
         style={{ justifyContent: isHiddenSearch ? 'space-between' : 'unset' }}>
 
-        <Col span={5}>
+        <Col
+          xl={5}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}>
           <WrapperTextHeader onClick={handleNavigateHome}>SRuy Shop</WrapperTextHeader>
         </Col>
 
         {!isHiddenSearch && (
-          <Col span={13} >
+          <Col xs={20} xl={14}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
             <ButtonInputSearch
               size='large'
               type='text'
@@ -124,24 +135,24 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
           </Col>
         )}
 
-        <Col span={6} style={{ display: 'flex', justifyContent: 'center', gap: ' 60px', alignItems: 'center' }}>
+        <Col xs={4} xl={5} style={{ display: 'flex', justifyContent: 'center', gap: ' 60px', alignItems: 'center' }}>
 
           {!isHiddenCart && (
             <LoadingComponent isLoading={loading}>
-              <WrapperBage style={{ fontSize: '15px', insetInlineEnd: '-7px' }} count={order?.orderItems?.length}
+              <WrapperBage style={{ fontSize: '15px', insetInlineEnd: '12px' }} count={order?.orderItems?.length}
               >
-                <WrapperHeaderAccout
-                  style={{ marginLeft: '30px', cursor: 'pointer' }}
+                <WrapperCart
+                  style={{ cursor: 'pointer' }}
                   onClick={() => navige('/order')}
                 >
                   <ShoppingCartOutlined style={{ fontSize: '40px' }} />
-                </WrapperHeaderAccout>
+                </WrapperCart>
               </WrapperBage>
             </LoadingComponent>
           )}
 
           <LoadingComponent isLoading={loading}>
-            <WrapperHeaderAccout style={{ cursor: 'pointer' }}>
+            <WrapperItemsMobile style={{ marginRight: '60px', marginLeft: '90px', cursor: 'pointer' }}>
 
               {/* ten dang nhap */}
               {user?.access_token ? (
@@ -163,7 +174,9 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
                           />}
                         />)
                       }
-                      <div style={{ cursor: 'pointer', marginLeft: '5px' }}>{userName?.length ? userName : user?.email}</div>
+                      <WrapperText style={{ cursor: 'pointer', marginLeft: '5px' }}>
+                        {/* {userName?.length ? userName : user?.email} */}
+                      </WrapperText>
 
                       <CaretDownOutlined />
                     </div>
@@ -179,19 +192,64 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
                         style={{ color: '#000', fontSize: '30px' }}
                       />}
                     />
-                    <span style={{ marginLeft: '5px' }}>
-                      Tài khoản
-                    </span>
                   </div>
                 </>
               )}
 
-            </WrapperHeaderAccout>
+            </WrapperItemsMobile>
           </LoadingComponent>
+          {/* laptop */}
+          <LoadingComponent isLoading={loading}>
+            <WrapperItems>
 
+              {/* ten dang nhap */}
+              {user?.access_token ? (
+                <>
+                  <Popover content={content} trigger='click' open={isOpenPopOver}>
+                    <div style={{ display: 'flex', alignItems: 'center' }} onClick={() => setIsOpenPopOver(!isOpenPopOver)}>
+                      {user?.avatar ? (
+                        <img src={user?.avatar} alt='avatar' style={{
+                          height: '40px',
+                          width: '40px',
+                          borderRadius: '50%',
+                          objectFit: 'cover'
+                        }} />
+                      ) : (
+                        <Avatar size={40}
+                          style={{ backgroundColor: '#fff' }}
+                          icon={<UserOutlined
+                            style={{ color: '#000', fontSize: '30px' }}
+                          />}
+                        />)
+                      }
+                      <WrapperText style={{ cursor: 'pointer', marginLeft: '5px' }}>
+                        {userName?.length ? userName : user?.email}
+                      </WrapperText>
+
+                      <CaretDownOutlined />
+                    </div>
+                  </Popover>
+                </>
+              ) : (
+                <>
+                  <div style={{ display: 'flex', alignItems: 'center' }} onClick={handleNavigateLogin}>
+
+                    <Avatar size={40}
+                      style={{ backgroundColor: '#fff' }}
+                      icon={<UserOutlined
+                        style={{ color: '#000', fontSize: '30px' }}
+                      />}
+                    />
+
+                  </div>
+                </>
+              )}
+
+            </WrapperItems>
+          </LoadingComponent>
         </Col>
       </WrapperHeader>
-    </div>
+    </Wrapper>
 
   )
 }
