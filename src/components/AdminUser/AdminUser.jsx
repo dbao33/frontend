@@ -57,7 +57,7 @@ const AdminUser = () => {
 
   // lien ket voi api get all user
   const fetchUserAll = async () => {
-    const res = await UserService.getAllUser(user?.access_token)
+    const res = await UserService.getAllUser('false', user?.access_token)
     return res
   }
   // update user

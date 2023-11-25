@@ -6,8 +6,14 @@ import slider_2 from '../../assets/images/slide_1.jpg'
 import slider_1 from '../../assets/images/slide_2.jpg'
 import slider_4 from '../../assets/images/slide_3.jpg'
 import slider_5 from '../../assets/images/slide_4.jpg'
+import MSI from '../../assets/images/MSI.png'
+import lenovo from '../../assets/images/lenovo.png'
+import asus from '../../assets/images/asus.png'
+import macbook from '../../assets/images/macbook.png'
+import dell from '../../assets/images/dell.png'
+
 import CardComponent from '../../components/CardComponent/CardComponent'
-import { Col } from 'antd'
+import { Col, Image, Row } from 'antd'
 import * as ProductService from '../../services/ProductService'
 import { useQuery } from '@tanstack/react-query'
 // import { useSelector } from 'react-redux'
@@ -57,7 +63,7 @@ const HomePage = () => {
         <>
             <LoadingComponent isLoading={isLoading || isLoadingSearch}>
                 <div style={{ padding: '0 120px', margin: '0 auto' }}>
-                    <WrapperTypeProduct >
+                    <WrapperTypeProduct style={{ marginBottom: '10px' }}>
                         {typeProduct.map((item) => {
                             return (
                                 <TypeProduct key={item} name={item} />
@@ -67,9 +73,76 @@ const HomePage = () => {
 
                 </div>
 
+
+
                 <div className='body' style={{ width: '100%', backgroundColor: '#fff' }}>
                     <div id='container' style={{ width: '100%', margin: '0 auto' }}>
                         <SliderComponent arrImages={[slider_1, slider_2, slider_4, slider_5]} />
+
+                        {/* display: flex;
+                        justify-content: center;
+                        gap: 15px;
+                        flex-wrap: wrap;
+                        margin-top: 20px; */}
+                        <Row
+                            gutter={{ xs: 12, sm: 16, md: 24, lg: 32 }}
+                            style={{
+                                marginTop: "26px",
+                                width: "100%",
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+
+                            }}
+                        >
+                            <Col className="gutter-row"
+                                style={{
+                                    border: '1px solid #e5e7eb',
+                                    borderRadius: '4px',
+                                    margin: '0 5px 10px 5px'
+                                }}>
+                                <Image height={25} src={lenovo} preview={false} />
+                            </Col>
+                            <Col className="gutter-row"
+                                style={{
+                                    border: '1px solid #e5e7eb',
+                                    borderRadius: '4px',
+                                    margin: '0 5px 10px 5px'
+
+                                }}>
+                                <Image height={25} src={macbook} preview={false} />
+                            </Col>
+                            <Col className="gutter-row"
+                                style={{
+                                    border: '1px solid #e5e7eb',
+                                    borderRadius: '4px',
+                                    margin: '0 5px 10px 5px'
+
+                                }}>
+                                <Image height={25} src={dell} preview={false} />
+                            </Col>
+                            <Col className="gutter-row"
+                                style={{
+                                    border: '1px solid #e5e7eb',
+                                    borderRadius: '4px',
+                                    margin: '0 5px 10px 5px'
+
+                                }}>
+                                <Image height={25} src={asus} preview={false} />
+                            </Col>
+                            <Col className="gutter-row"
+                                style={{
+                                    border: '1px solid #e5e7eb',
+                                    borderRadius: '4px',
+                                    margin: '0 5px 10px 5px'
+
+                                }}>
+                                <Image height={25} src={MSI} preview={false} />
+                            </Col>
+                        </Row>
+
+
                         <WrapperText>TẤT CẢ SẢN PHẨM</WrapperText>
                         <WrapperProducts>
 

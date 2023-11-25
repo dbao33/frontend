@@ -1,12 +1,16 @@
 import styled from 'styled-components'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
 export const WrapperTypeProduct = styled.div`
+    @media (max-width:1023px) {
+        padding: 10px;
+    }
     display: flex;
     align-items: center;
-    gap: 24px;
-    justify-content: flex-start;
-    height: 44px;
+    gap: 10px;
+    justify-content: space-around;
+    height: 36px;
     font-size: 18px;
+    padding: 19px 100px 5px 90px;
 `
 export const WrapperButtonMore = styled(ButtonComponent)`
     &:hover {
