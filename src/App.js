@@ -17,9 +17,9 @@ function App() {
 
   const handleDecoded = () => {
 
-    let storageData = localStorage.getItem('access_token')
+    let storageData = user?.access_token || localStorage.getItem('access_token')
     let decoded = {}
-    if (storageData && isJsonString(storageData)) {
+    if (storageData && isJsonString(storageData) && !user?.access_token) {
       storageData = JSON.parse(storageData)
       decoded = jwt_decode(storageData)
     }
@@ -32,9 +32,14 @@ function App() {
     // Do something before request is sent
     const currentTime = new Date()
     const { decoded } = handleDecoded()
+    const storage = localStorage.getItem('refresh_token')
+    const refreshToken = JSON.parse(storage)
+    const decodeRefreshToken = jwt_decode(refreshToken)
     if (decoded?.exp < currentTime.getTime() / 1000) {
-      const data = await UserService.refreshToken()
-      config.headers['token'] = `Bearer ${data?.access_token}`
+      if (decodeRefreshToken?.exp > currentTime.getTime() / 1000) {
+        const data = await UserService.refreshToken(refreshToken)
+        config.headers['token'] = `Bearer ${data?.access_token}`
+      }
       // console.log('response.data,a[pp', data)
     }
 
@@ -43,12 +48,14 @@ function App() {
     // Do something with request error
     return Promise.reject(error)
   })
+
   const handleGetDetailsUser = async (id, token) => {
+    const storage = localStorage.getItem('refresh_token')
+    const refreshToken = JSON.parse(storage)
     // lay duoc du lieu tu backend
     const response = await UserService.getDetailsUser(id, token)
-    dispatch(updateUser({ ...response?.data, access_token: token }))
+    dispatch(updateUser({ ...response?.data, access_token: token, refreshToken: refreshToken }))
   }
-
   const user = useSelector((state) => state.user)
 
   useEffect(() => {

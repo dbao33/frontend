@@ -32,10 +32,11 @@ export const getAllUser = async (admin, access_token) => {
 
 
 
-export const refreshToken = async () => {
-    const response = await axios.post(`http://localhost:3000/v1/api/user/refresh-token`, {
+export const refreshToken = async (refreshToken) => {
+    const response = await axios.post(`http://localhost:3000/v1/api/user/refresh-token`,
+        {}, {
         headers: {
-            withCredentials: true
+            token: `Bearer ${refreshToken}`,
         }
     })
     return response.data

@@ -36,9 +36,11 @@ const SignInPage = () => {
 
     const dispatch = useDispatch()
     const handleGetDetailsUser = async (id, token) => {
+        const storage = localStorage.getItem('refresh_token')
+        const refreshToken = JSON.stringify(storage)
         // lay duoc du lieu tu backend
         const response = await UserService.getDetailsUser(id, token)
-        dispatch(updateUser({ ...response?.data, access_token: token }))
+        dispatch(updateUser({ ...response?.data, access_token: token, refreshToken }))
     }
 
     useEffect(() => {
@@ -46,6 +48,7 @@ const SignInPage = () => {
 
             navige('/')
             localStorage.setItem('access_token', JSON.stringify(data?.access_token))
+            localStorage.setItem('refresh_token', JSON.stringify(data?.refresh_token))
             if (data?.access_token) {
                 const decoded = jwt_decode(data?.access_token)
                 if (decoded?.id) {
