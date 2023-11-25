@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import NavBarComponent from '../../components/NavBarComponent/NavBarComponent'
 import CardComponent from '../../components/CardComponent/CardComponent'
 import { Col, Pagination, Row } from 'antd'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import * as ProductService from '../../services/ProductService'
 import { WrapButton, WrapperProducts } from './style'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
@@ -11,6 +11,7 @@ import { useDebounce } from '../../hooks/valueDebounce'
 
 const TypeProductPage = () => {
 
+    const navige = useNavigate()
     const { state } = useLocation()
     const [isLoading, setIsLoading] = useState(false)
     const [product, setProduct] = useState([])
@@ -83,13 +84,27 @@ const TypeProductPage = () => {
     })
     return (
         <LoadingComponent isLoading={isLoading}>
-
+            <span
+                style={{
+                    cursor: 'pointer',
+                    fontWeight: 'bold',
+                    color: 'rgb(76,27,133)',
+                    marginRight: '5px',
+                }}
+                onClick={() => {
+                    navige('/');
+                }}
+            >
+                Trang chủ
+            </span>
+            - Loại sản phẩm
 
             <div style={{
-                padding: '0 120px',
-                backgroundColor: 'rgba(90, 30, 135, 0.05)',
-                height: '1000px',
-                paddingTop: '40px',
+                padding: '40px auto',
+                // backgroundColor: 'rgba(90, 30, 135, 0.05)',
+                height: '100vh',
+                alignItems: 'center',
+                margin: '0 auto',
             }}>
 
                 <Row
@@ -101,14 +116,17 @@ const TypeProductPage = () => {
                     }}
                 >
                     <Col
-                        span={7}
+                        xs={24} xl={7}
                         style={{
                             background: '#fff',
                             borderRadius: '4px 0 0 4px',
-                            width: '200px',
+                            width: 'fit-content',
                             height: 'fit-content',
                             paddingTop: '10px',
                             paddingBottom: '10px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            paddingLeft: '90px',
                         }}
                     >
                         {/* <NavBarComponent /> */}
@@ -122,10 +140,12 @@ const TypeProductPage = () => {
                                 Sản phẩm có lớn nhỏ hơn 20 triệu
                             </WrapButton>
                             {/* không lọc */}
-                            <WrapButton onClick={handleStateClick}>Tất cả</WrapButton>
+                            <WrapButton onClick={handleStateClick}>
+                                Tất cả
+                            </WrapButton>
                         </div>
                     </Col>
-                    <Col span={17}>
+                    <Col xs={24} xl={17}>
                         <div
                             style={{
                                 display: 'flex',

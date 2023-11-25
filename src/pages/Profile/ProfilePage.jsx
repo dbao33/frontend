@@ -10,9 +10,11 @@ import { updateUser } from '../../redux/slices/userSlice'
 import { Button } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
 import { getBase64 } from '../../untils'
+import { useNavigate } from 'react-router-dom'
 
 
 const ProfilePage = () => {
+    const navige = useNavigate()
     const user = useSelector((state) => state.user)
     const [email, setEmail] = useState('')
     const [name, setName] = useState('')
@@ -88,16 +90,30 @@ const ProfilePage = () => {
     }
     return (
         <div style={{ width: '1270px', margin: '0 auto', height: '500px' }}>
+            <span
+                style={{
+                    cursor: 'pointer',
+                    fontWeight: 'bold',
+                    color: 'rgb(76,27,133)',
+                    marginRight: '5px',
+                }}
+                onClick={() => {
+                    navige('/');
+                }}
+            >
+                Trang chủ
+            </span>
+            - Profile User
             <HeaderProfile>Thông tin người dùng</HeaderProfile>
             <WrapperContentProfile>
                 <WrapperInput>
                     <WrapperLabel htmlFor='name'>Name</WrapperLabel>
-                    <InputForm style={{ width: '300px' }}
+                    <InputForm style={{ width: '300px', padding: '8px' }}
                         id='name'
                         value={name}
                         onChange={handleOnChangeName}
                     />
-                    <ButtonComponent
+                    {/* <ButtonComponent
                         onClick={handleUpdate}
                         size={40}
                         styleButton={{
@@ -109,16 +125,16 @@ const ProfilePage = () => {
                         }}
                         textButton={'Cập nhập'}
                         styleTextButton={{ color: 'rgb(76,27,133)', fontSize: '15px', fontWeight: '700' }}
-                    ></ButtonComponent>
+                    ></ButtonComponent> */}
                 </WrapperInput>
                 <WrapperInput>
                     <WrapperLabel htmlFor='password'>Mật khẩu</WrapperLabel>
-                    <InputForm style={{ width: '300px' }}
+                    <InputForm style={{ width: '300px', padding: '8px' }}
                         id='password'
                         value={password}
                         onChange={handleOnChangePassword}
                     />
-                    <ButtonComponent
+                    {/* <ButtonComponent
                         onClick={handleUpdate}
                         size={40}
                         styleButton={{
@@ -130,16 +146,16 @@ const ProfilePage = () => {
                         }}
                         textButton={'Cập nhập'}
                         styleTextButton={{ color: 'rgb(76,27,133)', fontSize: '15px', fontWeight: '700' }}
-                    ></ButtonComponent>
+                    ></ButtonComponent> */}
                 </WrapperInput>
                 <WrapperInput>
                     <WrapperLabel htmlFor='email'>Email</WrapperLabel>
-                    <InputForm style={{ width: '300px' }}
+                    <InputForm style={{ width: '300px', padding: '8px' }}
                         id='email'
                         value={email}
                         onChange={handleOnChangeEmail}
                     />
-                    <ButtonComponent
+                    {/* <ButtonComponent
                         onClick={handleUpdate}
                         size={40}
                         styleButton={{
@@ -151,17 +167,17 @@ const ProfilePage = () => {
                         }}
                         textButton={'Cập nhập'}
                         styleTextButton={{ color: 'rgb(76,27,133)', fontSize: '15px', fontWeight: '700' }}
-                    ></ButtonComponent>
+                    ></ButtonComponent> */}
                 </WrapperInput>
 
                 <WrapperInput>
                     <WrapperLabel htmlFor='phone'>Phone</WrapperLabel>
-                    <InputForm style={{ width: '300px' }}
+                    <InputForm style={{ width: '300px', padding: '8px' }}
                         id='phone'
                         value={phone}
                         onChange={handleOnChangePhone}
                     />
-                    <ButtonComponent
+                    {/* <ButtonComponent
                         onClick={handleUpdate}
                         size={40}
                         styleButton={{
@@ -173,16 +189,16 @@ const ProfilePage = () => {
                         }}
                         textButton={'Cập nhập'}
                         styleTextButton={{ color: 'rgb(76,27,133)', fontSize: '15px', fontWeight: '700' }}
-                    ></ButtonComponent>
+                    ></ButtonComponent> */}
                 </WrapperInput>
                 <WrapperInput>
                     <WrapperLabel htmlFor='address'>Address</WrapperLabel>
-                    <InputForm style={{ width: '300px' }}
+                    <InputForm style={{ width: '300px', padding: '8px' }}
                         id='address'
                         value={address}
                         onChange={handleOnChangeAddress}
                     />
-                    <ButtonComponent
+                    {/* <ButtonComponent
                         onClick={handleUpdate}
                         size={40}
                         styleButton={{
@@ -194,7 +210,7 @@ const ProfilePage = () => {
                         }}
                         textButton={'Cập nhập'}
                         styleTextButton={{ color: 'rgb(76,27,133)', fontSize: '15px', fontWeight: '700' }}
-                    ></ButtonComponent>
+                    ></ButtonComponent> */}
                 </WrapperInput>
                 <WrapperInput>
                     <WrapperLabel htmlFor='avatar'>Avatar</WrapperLabel>
@@ -212,7 +228,7 @@ const ProfilePage = () => {
                             width: '60px',
                             borderRadius: '50%',
                             ObjectFit: 'cover',
-                        }} alt="avatar" />
+                        }} alt='avatar' />
                     )}
                     <ButtonComponent
                         onClick={handleUpdate}

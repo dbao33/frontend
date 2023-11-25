@@ -2,7 +2,7 @@ import Upload from 'antd/es/upload/Upload'
 import styled from 'styled-components'
 
 export const HeaderProfile = styled.h1`
-    padding: 10px 120px;
+    padding: 0 120px;
     color: #000;
     font-size: 25px;
     font-weight: bold;
@@ -20,7 +20,7 @@ export const WrapperContentProfile = styled.div`
     margin: 0 auto;
     padding: 30px;
     border-radius: 10px;
-    gap: 30px;
+    gap: 20px;
 `
 
 export const WrapperLabel = styled.label`
