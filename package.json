@@ -38,7 +38,9 @@
       "last 1 safari version"
     ]
   },
+  
   "proxy": "http://localhost:5000",
+
   "devDependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@tanstack/react-query": "^4.36.1",

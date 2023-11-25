@@ -32,7 +32,7 @@ const TypeProductPage = () => {
     }
     const fetchProductType = async (type, page, limit) => {
         const response = await ProductService.getProductAllTypes(type, page, limit)
-        if (response?.status == 'OK') {
+        if (response?.status === 'OK') {
             setIsLoading(false)
             setProduct(response?.data)
             setPanigate({ ...panigate, total: response?.totalPages })

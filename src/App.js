@@ -4,7 +4,7 @@ import { routes } from './routes/indexRoutes'
 import DefaultComponent from './components/DefaultComponent/DefaultComponent'
 import jwt_decode from 'jwt-decode'
 import { isJsonString } from './untils'
-import { updateUser } from './redux/slices/userSlice'
+import { resetUser, updateUser } from './redux/slices/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import * as UserService from './services/UserService'
 import LoadingComponent from './components/LoadingComponent/LoadingComponent'
@@ -12,7 +12,7 @@ import LoadingComponent from './components/LoadingComponent/LoadingComponent'
 function App() {
 
   const [isLoading, setLoading] = useState(false)
-
+  const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
   const handleDecoded = () => {
@@ -39,6 +39,8 @@ function App() {
       if (decodeRefreshToken?.exp > currentTime.getTime() / 1000) {
         const data = await UserService.refreshToken(refreshToken)
         config.headers['token'] = `Bearer ${data?.access_token}`
+      } else {
+        dispatch(resetUser())
       }
       // console.log('response.data,a[pp', data)
     }
@@ -56,7 +58,7 @@ function App() {
     const response = await UserService.getDetailsUser(id, token)
     dispatch(updateUser({ ...response?.data, access_token: token, refreshToken: refreshToken }))
   }
-  const user = useSelector((state) => state.user)
+
 
   useEffect(() => {
     setLoading(true)

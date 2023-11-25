@@ -50,6 +50,8 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
   const handleLogout = async () => {
     setLoading(true)
     await UserService.logOutUser()
+
+    localStorage.removeItem('access_token')
     dispatch(resetUser())
     setLoading(false)
   }
@@ -240,6 +242,9 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
                         style={{ color: '#000', fontSize: '30px' }}
                       />}
                     />
+                    <span style={{ marginLeft: '5px' }}>
+                      Tài khoản
+                    </span>
 
                   </div>
                 </>
