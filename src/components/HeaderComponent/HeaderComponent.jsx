@@ -53,6 +53,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
 
     localStorage.removeItem('access_token')
     dispatch(resetUser())
+    navige('/')
     setLoading(false)
   }
 

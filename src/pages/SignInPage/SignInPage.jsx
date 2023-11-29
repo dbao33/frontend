@@ -4,7 +4,7 @@ import { WrapperContainer, WrapperTextLight } from './style'
 import InputForm from '../../components/InputForm/InputForm'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
 import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import * as UserService from '../../services/UserService'
 import useMutationHooks from '../../hooks/UseMutationHook'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
@@ -28,7 +28,6 @@ const SignInPage = () => {
     const handleOnChangePassword = (value) => {
         setPassword(value)
     }
-    const location = useLocation()
 
     const mutation = useMutationHooks(data => UserService.UserLogin(data))
     // console.log('mutation', mutation)

@@ -1,5 +1,5 @@
 import { WrapperHeader } from './style'
-import React from 'react'
+import React, { useRef } from 'react'
 import { Space } from 'antd'
 import { Button } from 'antd'
 import TableComponent from '../TableComponent/TableComponent'
@@ -16,6 +16,7 @@ import PieChartComponent from './PieChart'
 const AdminOrder = () => {
 
   const user = useSelector((state) => state.user)
+  const searchInput = useRef(null)
 
   // lien ket voi api get all order
   const getAllOrder = async () => {
@@ -27,7 +28,15 @@ const AdminOrder = () => {
     queryKey: ['orders'],
     queryFn: getAllOrder,
   })
-
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm()
+    // setSearchText(selectedKeys[0])
+    // setSearchedColumn(dataIndex)
+  }
+  const handleReset = (clearFilters) => {
+    clearFilters()
+    // setSearchText('')
+  }
   const { isLoading: isLoadingOrder, data: orders } = queryOrder
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
@@ -43,13 +52,13 @@ const AdminOrder = () => {
         onKeyDown={(e) => e.stopPropagation()}
       >
         <InputComponent
-          //   ref={searchInput}
+          ref={searchInput}
           placeholder={`Search ${dataIndex}`}
           value={selectedKeys[0]}
           onChange={(e) =>
             setSelectedKeys(e.target.value ? [e.target.value] : [])
           }
-          //   onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
           style={{
             marginBottom: 8,
             display: 'block',
@@ -58,7 +67,7 @@ const AdminOrder = () => {
         <Space>
           <Button
             type='primary'
-            // onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
             icon={<SearchOutlined />}
             size='small'
             style={{
@@ -68,7 +77,7 @@ const AdminOrder = () => {
             Search
           </Button>
           <Button
-            // onClick={() => clearFilters && handleReset(clearFilters)}
+            onClick={() => clearFilters && handleReset(clearFilters)}
             size='small'
             style={{
               width: 90,
@@ -77,7 +86,7 @@ const AdminOrder = () => {
             Reset
           </Button>
         </Space>
-      </div>
+      </div >
     ),
     filterIcon: (filtered) => (
       <SearchOutlined
@@ -90,7 +99,7 @@ const AdminOrder = () => {
       record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
     onFilterDropdownOpenChange: (visible) => {
       if (visible) {
-        // setTimeout(() => searchInput.current?.select(), 100)
+        setTimeout(() => searchInput.current?.select(), 100)
       }
     },
   })
@@ -99,7 +108,7 @@ const AdminOrder = () => {
     {
       title: 'User Name',
       dataIndex: 'userName',
-      sorter: (a, b) => a.username.length - b.username.length,
+      sorter: (a, b) => a.userName.length - b.userName.length,
       ...getColumnSearchProps('userName')
     },
     {

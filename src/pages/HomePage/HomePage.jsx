@@ -31,6 +31,7 @@ const HomePage = () => {
 
     const [limit, setLimit] = useState(5)
     const fetchProductAll = async (context) => {
+
         const limit = context?.queryKey && context?.queryKey[1]
         // const search = context?.queryKey && context?.queryKey[2]
         const response = await ProductService.getAllProduct('', limit)
@@ -58,7 +59,28 @@ const HomePage = () => {
     useEffect(() => {
         fetchTypeProduct()
     }, [])
+    // nổi bậc
+    const [limit1, setLimit1] = useState(5)
+    const fetchProductNB = async (context) => {
+        const limit1 = context?.queryKey && context?.queryKey[1]
+        // const search = context?.queryKey && context?.queryKey[2]
+        const response = await ProductService.getAllProduct('', limit1)
+        // const filteredProducts = response?.data?.filter((product) => {
+        //     return product?.discount
+        // })
+        // console.log(filteredProducts)
+        return response
+    }
 
+    const { loading, data: productnb, isPreviousDataNB } = useQuery(
+        ['productnb', limit1],
+        fetchProductNB,
+        {
+            retry: 3,
+            retryDelay: 1000,
+            keepPreviousData: true,
+        }
+    )
     return (
         <>
             <LoadingComponent isLoading={isLoading || isLoadingSearch}>
@@ -79,11 +101,6 @@ const HomePage = () => {
                     <div id='container' style={{ width: '100%', margin: '0 auto' }}>
                         <SliderComponent arrImages={[slider_1, slider_2, slider_4, slider_5]} />
 
-                        {/* display: flex;
-                        justify-content: center;
-                        gap: 15px;
-                        flex-wrap: wrap;
-                        margin-top: 20px; */}
                         <Row
                             gutter={{ xs: 12, sm: 16, md: 24, lg: 32 }}
                             style={{
@@ -143,6 +160,69 @@ const HomePage = () => {
                         </Row>
 
 
+                        <WrapperText>SẢN PHẨM NỔI BẬC</WrapperText>
+                        <WrapperProducts>
+
+                            <WrapperProducts
+                                gutter={{
+                                    xs: 8,
+                                    sm: 8,
+                                    md: 8,
+                                    lg: 8,
+                                }} style={{ justifyContent: 'center' }}
+                            >
+
+                                {productnb?.data?.map((product) => {
+                                    return (
+                                        product?.discount && (
+                                            <Col key={product._id} className='gutter-row' span={2 / 4} >
+                                                <div >
+                                                    <CardComponent
+                                                        key={product._id}
+                                                        countInStock={product.countInStock}
+                                                        description={product.description}
+                                                        image={product.image}
+                                                        name={product.name}
+                                                        price={product.price}
+                                                        rating={product.rating}
+                                                        type={product.type}
+                                                        selled={product.selled}
+                                                        discount={product.discount}
+                                                        id={product._id}
+                                                    />
+                                                </div>
+                                            </Col>
+                                        )
+                                    )
+                                })}
+
+                            </WrapperProducts>
+
+                        </WrapperProducts>
+                        <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '10px', marginBottom: '20px' }}>
+                            <WrapperButtonMore
+                                textButton={isPreviousDataNB ? 'Xem Thêm' : 'Xem Thêm'}
+                                type='outline'
+                                styleButton={{
+                                    border: '1px solid rgb(76,27,133)',
+                                    width: '240px',
+                                    height: '38px', borderRadius: '4px',
+                                    color: `${productnb?.total === productnb?.data?.length
+                                        ? '#ccc'
+                                        : 'rgb(76,27,133)'
+                                        }`,
+                                }}
+                                styleTextButton={{
+                                    fontWeight: 500,
+                                    color: productnb?.total === productnb?.data?.length && '#fff'
+                                }}
+                                disabled={
+                                    productnb?.total === productnb?.data?.length || productnb?.totalPages === 1}
+                                onClick={() => setLimit1((prev) => prev + 5)}
+                            />
+
+                        </div>
+
                         <WrapperText>TẤT CẢ SẢN PHẨM</WrapperText>
                         <WrapperProducts>
 
@@ -201,7 +281,6 @@ const HomePage = () => {
                             />
 
                         </div>
-
 
                     </div>
                 </div>

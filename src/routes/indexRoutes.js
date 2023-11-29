@@ -12,7 +12,6 @@ import PaymentPage from '../pages/PaymentPage/PaymentPage'
 import OrderSuccess from '../pages/OrderSuccess/OrderSuccess'
 import MyOrderPage from '../pages/MyOrderPage/MyOrderPage'
 import DetailsOrderPage from '../pages/DetailsOrderPage/DetailsOrderPage'
-import Map from '../pages/Map/Map'
 import SearchPage from '../pages/SearchPage/SearchPage'
 
 export const routes = [
@@ -81,11 +80,6 @@ export const routes = [
         page: AdminPage,
         isShowHeader: false,
         isPrivate: true,
-    },
-    {
-        path: '/map',
-        page: Map,
-        isShowHeader: true,
     },
     {
         path: '/search',

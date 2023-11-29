@@ -15,6 +15,11 @@ const CardComponent = (props) => {
     const handleDetailProduct = (id) => {
         navigate(`/product-details-page/${id}`)
     }
+    const convertPriceCenter = (currentPrice, discountPercentage) => {
+        const percentage = discountPercentage / 100;
+        const discountAmount = currentPrice * percentage;
+        return currentPrice + discountAmount;
+    }
     return (
         <WrapperCardStyle
             hoverable
@@ -44,12 +49,18 @@ const CardComponent = (props) => {
                 </span>
                 <WrapperStyleTextSell> |  Đã bán {selled || 0}+ </WrapperStyleTextSell>
             </WrapperReportText>
-            <WrapperPriceText>{convertPrice(price)}
+            <WrapperPriceText>
+                <span style={{ marginRight: "5px" }}>{convertPrice(price)}</span>
                 {discount > 0 &&
                     <WrapperPriceDiscountText style={{ marginLeft: '6px' }}>
                         - {discount}%
                     </WrapperPriceDiscountText>
                 }
+                <p style={{ marginRight: "4px" }}>
+                    {discount && convertPrice(convertPriceCenter(price, discount))}
+
+
+                </p>
             </WrapperPriceText>
         </WrapperCardStyle>
     )

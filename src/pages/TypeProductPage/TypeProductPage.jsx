@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import NavBarComponent from '../../components/NavBarComponent/NavBarComponent'
 import CardComponent from '../../components/CardComponent/CardComponent'
 import { Col, Pagination, Row } from 'antd'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -15,7 +14,6 @@ const TypeProductPage = () => {
     const { state } = useLocation()
     const [isLoading, setIsLoading] = useState(false)
     const [product, setProduct] = useState([])
-
 
     // state search
     const SearchProduct = useSelector((state) => state?.product?.search)
@@ -89,7 +87,7 @@ const TypeProductPage = () => {
                     cursor: 'pointer',
                     fontWeight: 'bold',
                     color: 'rgb(76,27,133)',
-                    marginRight: '5px',
+                    marginLeft: '40px',
                 }}
                 onClick={() => {
                     navige('/');
