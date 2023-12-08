@@ -20,9 +20,11 @@ import { useQuery } from '@tanstack/react-query'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
 // import { useDebounce } from '../../hooks/valueDebounce'
 import FooterComponent from '../../components/FooterComponent/FooterComponent.jsx'
+import { useNavigate } from 'react-router-dom'
 
 const HomePage = () => {
 
+    const navigate = useNavigate()
     // fillter
     // const SearchProduct = useSelector((state) => state?.product?.search)
     const [isLoadingSearch, setIsLoadingSearch] = useState(false)
@@ -81,10 +83,16 @@ const HomePage = () => {
             keepPreviousData: true,
         }
     )
+
+    const handleNavigateType = (type) => {
+        navigate(`/product/${type.normalize('NFD').replace(/[\u0300-\u036f]/g, '')?.replace(/ /g, '_')}`,
+            { state: type }
+        )
+    }
     return (
         <>
             <LoadingComponent isLoading={isLoading || isLoadingSearch}>
-                <div style={{ padding: '0 120px', margin: '0 auto' }}>
+                {/* <div style={{ padding: '0 120px', margin: '0 auto' }}>
                     <WrapperTypeProduct style={{ marginBottom: '10px' }}>
                         {typeProduct.map((item) => {
                             return (
@@ -93,72 +101,86 @@ const HomePage = () => {
                         })}
                     </WrapperTypeProduct>
 
-                </div>
+                </div> */}
 
 
 
                 <div className='body' style={{ width: '100%', backgroundColor: '#fff' }}>
                     <div id='container' style={{ width: '100%', margin: '0 auto' }}>
-                        <SliderComponent arrImages={[slider_1, slider_2, slider_4, slider_5]} />
+
 
                         <Row
                             gutter={{ xs: 12, sm: 16, md: 24, lg: 32 }}
                             style={{
-                                marginTop: "26px",
+                                marginTop: "10px",
                                 width: "100%",
                                 display: 'flex',
                                 flexWrap: 'wrap',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-
                             }}
                         >
                             <Col className="gutter-row"
                                 style={{
                                     border: '1px solid #e5e7eb',
                                     borderRadius: '4px',
-                                    margin: '0 5px 10px 5px'
-                                }}>
-                                <Image height={25} src={lenovo} preview={false} />
+                                    margin: '0 5px 10px 5px',
+                                    padding: '4px 12px'
+                                }}
+                                onClick={() => handleNavigateType('Lenovo')}
+                            >
+                                <Image height={20} src={lenovo} preview={false} />
                             </Col>
                             <Col className="gutter-row"
                                 style={{
                                     border: '1px solid #e5e7eb',
                                     borderRadius: '4px',
-                                    margin: '0 5px 10px 5px'
+                                    margin: '0 5px 10px 5px',
+                                    padding: '2px 12px'
 
-                                }}>
+                                }}
+                                onClick={() => handleNavigateType('MacBook')}
+                            >
                                 <Image height={25} src={macbook} preview={false} />
                             </Col>
                             <Col className="gutter-row"
                                 style={{
                                     border: '1px solid #e5e7eb',
                                     borderRadius: '4px',
-                                    margin: '0 5px 10px 5px'
+                                    margin: '0 5px 10px 5px',
+                                    padding: '4px 12px'
 
-                                }}>
-                                <Image height={25} src={dell} preview={false} />
+                                }}
+                                onClick={() => handleNavigateType('Dell')}
+                            >
+                                <Image height={20} src={dell} preview={false} />
                             </Col>
                             <Col className="gutter-row"
                                 style={{
                                     border: '1px solid #e5e7eb',
                                     borderRadius: '4px',
-                                    margin: '0 5px 10px 5px'
+                                    margin: '0 5px 10px 5px',
+                                    padding: '4px 12px'
 
-                                }}>
-                                <Image height={25} src={asus} preview={false} />
+                                }}
+                                onClick={() => handleNavigateType('Asus')}
+                            >
+                                <Image height={20} src={asus} preview={false} />
                             </Col>
                             <Col className="gutter-row"
                                 style={{
                                     border: '1px solid #e5e7eb',
                                     borderRadius: '4px',
-                                    margin: '0 5px 10px 5px'
+                                    margin: '0 5px 10px 5px',
+                                    padding: '2px 12px'
 
-                                }}>
+                                }}
+                                onClick={() => handleNavigateType('MSI')}
+                            >
                                 <Image height={25} src={MSI} preview={false} />
                             </Col>
                         </Row>
-
+                        <SliderComponent arrImages={[slider_1, slider_2, slider_4, slider_5]} />
 
                         <WrapperText>SẢN PHẨM NỔI BẬC</WrapperText>
                         <WrapperProducts>

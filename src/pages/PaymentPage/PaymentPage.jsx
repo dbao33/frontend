@@ -116,7 +116,7 @@ const PaymentPage = () => {
 
   const discountMemo = useMemo(() => {
     const result = order?.orderItemsSelected?.reduce((total, cur) => {
-      return total - (cur.discount * cur.amount)
+      return total + (cur.price * cur.discount * cur.amount) / 100
     }, 0)
     if (Number(result)) {
       return result
@@ -184,13 +184,13 @@ const PaymentPage = () => {
     <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
       <LoadingComponent isLoading={isLoadingAddOrder}>
 
-        <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
+        <div style={{ height: '100%', width: '100%', margin: '4 auto' }}>
 
           <div style={{
             fontWeight: 'bold',
             fontSize: '16px',
             display: 'flex',
-            paddingLeft: '10px',
+            paddingLeft: '20px',
           }}>
 
             Thanh toán

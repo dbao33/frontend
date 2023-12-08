@@ -89,7 +89,7 @@ const ProfilePage = () => {
         }
     }
     return (
-        <div style={{ width: '1270px', margin: '0 auto', height: '500px' }}>
+        <div style={{ width: '100%', margin: '0 auto', height: '500px' }}>
             <span
                 style={{
                     cursor: 'pointer',

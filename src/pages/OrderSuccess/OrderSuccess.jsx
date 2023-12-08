@@ -14,13 +14,13 @@ const PaymentPage = () => {
     <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
       <LoadingComponent isLoading={false}>
 
-        <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
-          
+        <div style={{ height: '100%', width: '100%', margin: '0 auto' }}>
+
           <div style={{
             fontWeight: 'bold',
             fontSize: '16px',
             display: 'flex',
-            paddingLeft: '10px',
+            paddingLeft: '20px',
           }}>
 
             Đơn hàng đã đặt thành công
@@ -68,6 +68,9 @@ const PaymentPage = () => {
                         </span>
                         <span>
                           <span style={{ fontSize: '13px', color: '#242424' }}>Số lượng: {order?.amount}</span>
+                        </span>
+                        <span>
+                          <span style={{ fontSize: '13px', color: '#242424' }}>Giảm giá: {order?.discount} %</span>
                         </span>
                       </div>
                     </WrapperItemOrder>

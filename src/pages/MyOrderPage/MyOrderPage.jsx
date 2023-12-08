@@ -111,7 +111,7 @@ const MyOrderPage = () => {
   return (
     <Loading isLoading={isLoading || isLoadingCancel}>
       <WrapperContainer>
-        <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
+        <div style={{ height: '100%', width: '100%', margin: '0 auto' }}>
 
           <div style={{
             fontWeight: 'bold',

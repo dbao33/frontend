@@ -35,8 +35,8 @@ const DetailsOrderPage = () => {
   }, [data])
   return (
     <LoadingComponent isLoading={isLoading}>
-      <div style={{ width: '100%', height: '100vh', background: '#fff' }}>
-        <div style={{ width: '1270px', margin: '0 auto' }}>
+      <div style={{ width: '100%', height: '100vh', background: '#fff', marginLeft: '20px' }}>
+        <div style={{ width: '100%', margin: '0 auto' }}>
           <h4>Chi tiết đơn hàng</h4>
 
           <WrapperHeaderUser>
@@ -131,7 +131,8 @@ const DetailsOrderPage = () => {
                   <WrapperItem>{order?.amount}</WrapperItem>
                   <WrapperItem>
                     {/* {order?.discount ? convertPrice(order?.discount) : '0 VND'} */}
-                    {`${(order?.discount)} %`}
+                    {order?.discount ? `${(order?.discount)} %` : '0 %'}
+
                   </WrapperItem>
                 </WrapperProduct>
               )

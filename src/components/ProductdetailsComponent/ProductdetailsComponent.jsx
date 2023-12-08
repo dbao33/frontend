@@ -20,7 +20,7 @@ import * as Message from '../Message/Message'
 
 const ProductdetailsComponent = ({ idProduct }) => {
 
-    const [active, setActive] = useState(1)
+    const [active, setActive] = useState(2)
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
     const [quantity, setQuantity] = useState(1)
@@ -286,7 +286,7 @@ const ProductdetailsComponent = ({ idProduct }) => {
                 boxShadow: ' 0 0 6pt 1pt #D3D3D3',
             }}
             >
-                
+
                 <div
                     style={{
                         width: '100%',
