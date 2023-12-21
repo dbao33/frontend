@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import * as ProductService from '../../services/ProductService'
 import { WrapButton, WrapperProducts } from './style'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
-
+import './css.css'
 
 const TypeProductPage = () => {
 
@@ -74,21 +74,23 @@ const TypeProductPage = () => {
                 margin: '0 auto',
                 width: '100%',
             }}>
-                <span
-                    style={{
-                        cursor: 'pointer',
-                        fontWeight: 'bold',
-                        color: 'rgb(76,27,133)',
-                        marginLeft: '40px',
-                    }}
-                    onClick={() => {
-                        navige('/')
-                    }}
-                >
-                    Trang chủ
-                </span>
-                - Loại sản phẩm
+                <div className='mobile-only'>
+                    <span
 
+                        style={{
+                            cursor: 'pointer',
+                            fontWeight: 'bold',
+                            color: 'rgb(76,27,133)',
+                            marginLeft: '40px',
+                        }}
+                        onClick={() => {
+                            navige('/')
+                        }}
+                    >
+                        Trang chủ -
+                    </span>
+                    Loại sản phẩm
+                </div>
 
 
                 <Row

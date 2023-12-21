@@ -160,13 +160,15 @@ const ProductdetailsComponent = ({ idProduct }) => {
                         {productDetails?.name}
                     </WrapperStyleNameProduct>
                     {/* đánh giá của sp */}
-                    <div>
+                    <div style={{ marginTop: '5px' }}>
                         <Rate
                             allowHalf
                             value={productDetails?.rating}
                             defaultValue={productDetails?.rating} />
+                    </div>
+                    <div>
                         <WrapperStyleTextSell>
-                            || Đã bán {productDetails?.selled || 1000}+
+                            Đã bán {productDetails?.selled || 1000}+
                         </WrapperStyleTextSell>
                     </div>
                     {/* Giá của sp */}
@@ -175,14 +177,6 @@ const ProductdetailsComponent = ({ idProduct }) => {
                             {convertPrice(productDetails?.price)}
                         </WrapperPriceTextProduct>
                     </WrapperPriceProduct>
-                    {/* địa chỉ giao hàng */}
-                    <WrapperAddressProduct>
-                        <span>Giao đến </span>
-                        <span className='address'>
-                            {user?.address}
-                        </span>
-                    </WrapperAddressProduct>
-
 
                     <div style={{
                         margin: '10px 0 20px',

@@ -32,7 +32,7 @@ const SearchPage = () => {
     keepPreviousData: true,
   })
   return (
-    <div style={{ marginTop: '40px', width: '1270px', margin: '0px auto' }}>
+    <div style={{ marginTop: '40px', width: '100%', margin: '0px auto' }}>
       <div
         style={{
           fontSize: '30px',
@@ -46,9 +46,18 @@ const SearchPage = () => {
       >
         {`Kết quả tìm kiếm với từ khóa: ${keyword}`}
       </div>
+
+      {/* display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 10px; */}
       <div
         style={{
           marginTop: '20px',
+          display: 'flex',
+          justifyContent: 'center',
+          flexWrap: 'wrap',
         }}
       >
         <Row
@@ -61,24 +70,25 @@ const SearchPage = () => {
         >
           {products?.data?.map((product) => {
             return (
-              <Col className='gutter-row' span={2 / 4}>
-                <div style={{
-                  margin: '15px',
+              <Col className='gutter-row' span={2 / 4}
+                style={{
+                  margin: '8px',
+                  justifyContent: 'center',
                 }}>
-                  <CardComponent
-                    key={product._id}
-                    countInStock={product.countInStock}
-                    description={product.description}
-                    image={product.image}
-                    name={product.name}
-                    price={product.price}
-                    rating={product.rating}
-                    type={product.type}
-                    selled={product.selled}
-                    discount={product.discount}
-                    id={product._id}
-                  />
-                </div>
+                <CardComponent
+                  key={product._id}
+                  countInStock={product.countInStock}
+                  description={product.description}
+                  image={product.image}
+                  name={product.name}
+                  price={product.price}
+                  rating={product.rating}
+                  type={product.type}
+                  selled={product.selled}
+                  discount={product.discount}
+                  id={product._id}
+                />
+
               </Col>
             )
           })}
