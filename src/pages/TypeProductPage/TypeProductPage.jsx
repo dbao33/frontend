@@ -5,8 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import * as ProductService from '../../services/ProductService'
 import { WrapButton, WrapperProducts } from './style'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
-import { useSelector } from 'react-redux'
-import { useDebounce } from '../../hooks/valueDebounce'
+
 
 const TypeProductPage = () => {
 
@@ -15,10 +14,7 @@ const TypeProductPage = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [product, setProduct] = useState([])
 
-    // state search
-    const SearchProduct = useSelector((state) => state?.product?.search)
-    // thời gian chờ
-    const searchDebounce = useDebounce(SearchProduct, 500)
+
     // phân trang
     const [panigate, setPanigate] = useState({
         page: 0,
@@ -43,67 +39,57 @@ const TypeProductPage = () => {
             fetchProductType(state, panigate.page, panigate.limit)
         }
     }, [state, panigate.page, panigate.limit])
+
+    const [sortOption, setSortOption] = useState('') // Tùy chọn sắp xếp đã chọn
+    const [sortedProduct, setSortedProduct] = useState([]) // Danh sách sản phẩm đã được sắp xếp
+    // Sắp xếp sản phẩm theo giá từ thấp đến cao
+    const sortProductByPriceAsc = (products) => {
+        return products.sort((a, b) => a.price - b.price)
+    }
+
+    // Sắp xếp sản phẩm theo giá từ cao đến thấp
+    const sortProductByPriceDesc = (products) => {
+        return products.sort((a, b) => b.price - a.price)
+    }
+
     // lọc sản phẩm
-    const [filterRedProduct, setFilterRedProduct] = useState(product)
-    const [stateFilter, setstateFilter] = useState(false)
-    // hàm lọc sản phẩm nhỏ hơn 5 triệu
-    const handleStateClick = () => {
-        setstateFilter(false)
-    };
-    const filterProductMin = (product, value) => {
-        return product.filter((item) => {
-            return item.price <= value;
-        });
-    };
+
     const handleFilterMin = () => {
-        setstateFilter(true)
-        const value = 20000000;
-        const filtered = filterProductMin(product, value);
-        setFilterRedProduct(filtered);
-    };
-    // hàm lọc sản phẩm lớn hơn 5 triệu
-    const filterProductMax = (product, value) => {
-        return product.filter((item) => {
-            return item.price >= value;
-        });
-    };
+        setSortOption('asc')
+        const sorted = sortProductByPriceAsc(product) // Sắp xếp sản phẩm đã lọc theo giá từ thấp đến cao
+        setSortedProduct(sorted)
+    }
     const handleFilterMax = () => {
-        setstateFilter(true)
-        const value = 20000000;
-        const filtered = filterProductMax(product, value);
-        setFilterRedProduct(filtered);
-    };
-    useEffect(() => {
-        if (!stateFilter) {
-            setFilterRedProduct(product)
-        } else {
-            setFilterRedProduct(filterRedProduct)
-        }
-    })
+        setSortOption('desc')
+        const sorted = sortProductByPriceDesc(product) // Sắp xếp sản phẩm đã lọc theo giá từ thấp đến cao
+        setSortedProduct(sorted)
+    }
     return (
         <LoadingComponent isLoading={isLoading}>
-            <span
-                style={{
-                    cursor: 'pointer',
-                    fontWeight: 'bold',
-                    color: 'rgb(76,27,133)',
-                    marginLeft: '40px',
-                }}
-                onClick={() => {
-                    navige('/');
-                }}
-            >
-                Trang chủ
-            </span>
-            - Loại sản phẩm
-
             <div style={{
                 padding: '40px auto',
                 // backgroundColor: 'rgba(90, 30, 135, 0.05)',
                 height: '100vh',
                 alignItems: 'center',
                 margin: '0 auto',
+                width: '100%',
             }}>
+                <span
+                    style={{
+                        cursor: 'pointer',
+                        fontWeight: 'bold',
+                        color: 'rgb(76,27,133)',
+                        marginLeft: '40px',
+                    }}
+                    onClick={() => {
+                        navige('/')
+                    }}
+                >
+                    Trang chủ
+                </span>
+                - Loại sản phẩm
+
+
 
                 <Row
                     gutter={{
@@ -113,37 +99,34 @@ const TypeProductPage = () => {
                         lg: 32,
                     }}
                 >
-                    <Col
-                        xs={24} xl={7}
-                        style={{
-                            background: '#fff',
-                            borderRadius: '4px 0 0 4px',
-                            width: 'fit-content',
-                            height: 'fit-content',
-                            paddingTop: '10px',
-                            paddingBottom: '10px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            paddingLeft: '90px',
-                        }}
-                    >
-                        {/* <NavBarComponent /> */}
-                        <div>
+
+                    <Col xs={24} xl={24}>
+                        <div
+                            style={{
+                                background: '#fff',
+                                borderRadius: '4px 0 0 4px',
+                                width: 'fit-content',
+                                height: 'fit-content',
+                                paddingTop: '10px',
+                                paddingBottom: '10px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                paddingLeft: '90px',
+                                gap: '20px',
+                            }}
+                        >
+                            {/* <NavBarComponent /> */}
                             {/* min */}
                             <WrapButton onClick={handleFilterMin}>
-                                Sản phẩm có giá nhỏ hơn 20 triệu
+                                Giá thấp-cao
                             </WrapButton>
                             {/* max */}
                             <WrapButton onClick={handleFilterMax}>
-                                Sản phẩm có lớn nhỏ hơn 20 triệu
+                                Giá cao-thấp
                             </WrapButton>
                             {/* không lọc */}
-                            <WrapButton onClick={handleStateClick}>
-                                Tất cả
-                            </WrapButton>
                         </div>
-                    </Col>
-                    <Col xs={24} xl={17}>
+
                         <div
                             style={{
                                 display: 'flex',
@@ -153,33 +136,50 @@ const TypeProductPage = () => {
                             }}
                         >
                             <WrapperProducts gutter={[10, 10]}>
-                                {filterRedProduct?.filter((pro) => {
-                                    if (searchDebounce === '') {
-                                        return pro
-                                    } else if (pro?.name?.toLowerCase()?.includes(searchDebounce?.toLowerCase())) {
-                                        return pro
+                                {sortedProduct.length > 0
+                                    ? sortedProduct.map((data) => {
+                                        // Hiển thị các thành phần sản phẩm
+                                        return (
+                                            <Col className='gutter-row' span={2 / 4}>
+                                                <div>
+                                                    <CardComponent key={data._id}
+                                                        countInStock={data.countInStock}
+                                                        description={data.description}
+                                                        image={data.image}
+                                                        name={data.name}
+                                                        price={data.price}
+                                                        rating={data.rating}
+                                                        type={data.type}
+                                                        selled={data.selled}
+                                                        discount={data.discount}
+                                                        id={data._id}
+                                                    />
+                                                </div>
+                                            </Col>
+                                        )
+                                    })
+                                    :
+                                    product?.map((data) => {
+                                        return (
+                                            <Col className='gutter-row' span={2 / 4}>
+                                                <div>
+                                                    <CardComponent key={data._id}
+                                                        countInStock={data.countInStock}
+                                                        description={data.description}
+                                                        image={data.image}
+                                                        name={data.name}
+                                                        price={data.price}
+                                                        rating={data.rating}
+                                                        type={data.type}
+                                                        selled={data.selled}
+                                                        discount={data.discount}
+                                                        id={data._id}
+                                                    />
+                                                </div>
+                                            </Col>
+                                        )
                                     }
-                                }).map((data) => {
-                                    return (
-                                        <Col className='gutter-row' span={2 / 4}>
-                                            <div>
-                                                <CardComponent key={data._id}
-                                                    countInStock={data.countInStock}
-                                                    description={data.description}
-                                                    image={data.image}
-                                                    name={data.name}
-                                                    price={data.price}
-                                                    rating={data.rating}
-                                                    type={data.type}
-                                                    selled={data.selled}
-                                                    discount={data.discount}
-                                                    id={data._id}
-                                                />
-                                            </div>
-                                        </Col>
                                     )
-                                }
-                                )
                                 }
                             </WrapperProducts>
                         </div>
@@ -195,8 +195,8 @@ const TypeProductPage = () => {
                         </Row>
                     </Col>
                 </Row>
-            </div>
 
+            </div>
         </LoadingComponent>
     )
 }
