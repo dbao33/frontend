@@ -136,12 +136,12 @@ const HomePage = () => {
                                     border: '1px solid #e5e7eb',
                                     borderRadius: '4px',
                                     margin: '0 5px 10px 5px',
-                                    padding: '2px 12px'
+                                    padding: '1px 12px'
 
                                 }}
                                 onClick={() => handleNavigateType('MacBook')}
                             >
-                                <Image height={25} src={macbook} preview={false} />
+                                <Image height={26} src={macbook} preview={false} />
                             </Col>
                             <Col className="gutter-row"
                                 style={{
@@ -172,12 +172,12 @@ const HomePage = () => {
                                     border: '1px solid #e5e7eb',
                                     borderRadius: '4px',
                                     margin: '0 5px 10px 5px',
-                                    padding: '2px 12px'
+                                    padding: '1px 10px'
 
                                 }}
                                 onClick={() => handleNavigateType('MSI')}
                             >
-                                <Image height={25} src={MSI} preview={false} />
+                                <Image height={26} src={MSI} preview={false} />
                             </Col>
                         </Row>
                         <SliderComponent arrImages={[slider_1, slider_2, slider_4, slider_5]} />

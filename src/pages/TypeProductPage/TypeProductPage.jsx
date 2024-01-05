@@ -6,7 +6,7 @@ import * as ProductService from '../../services/ProductService'
 import { WrapButton, WrapperProducts } from './style'
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent'
 import './css.css'
-
+import { FallOutlined, RiseOutlined } from '@ant-design/icons'
 const TypeProductPage = () => {
 
     const navige = useNavigate()
@@ -120,22 +120,22 @@ const TypeProductPage = () => {
                             {/* <NavBarComponent /> */}
                             {/* min */}
                             <WrapButton onClick={handleFilterMin}>
-                                Giá thấp-cao
+                                Giá thấp-cao <RiseOutlined />
                             </WrapButton>
                             {/* max */}
                             <WrapButton onClick={handleFilterMax}>
-                                Giá cao-thấp
+                                Giá cao-thấp <FallOutlined />
                             </WrapButton>
                             {/* không lọc */}
                         </div>
 
                         <div
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '10px',
-                                marginTop: '20px',
-                            }}
+                        // style={{
+                        //     display: 'flex',
+                        //     alignItems: 'center',
+                        //     gap: '10px',
+                        //     marginTop: '20px',
+                        // }}
                         >
                             <WrapperProducts gutter={[10, 10]}>
                                 {sortedProduct.length > 0
@@ -186,7 +186,7 @@ const TypeProductPage = () => {
                             </WrapperProducts>
                         </div>
                         <Row>
-                            <Col span={20}>
+                            <Col xs={24} xl={24}>
                                 <Pagination
                                     defaultCurrent={panigate?.page + 1}
                                     total={panigate?.total}
